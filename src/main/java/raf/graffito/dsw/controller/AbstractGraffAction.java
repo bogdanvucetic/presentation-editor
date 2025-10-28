@@ -6,7 +6,7 @@ import java.net.URL;
 
 public abstract class AbstractGraffAction extends AbstractAction {
     // Metoda za učitavanje ikonice iz resursa
-    protected Icon loadIcon(String path) {
+    public Icon loadIcon(String path) {
         Icon icon = null;
         URL ImageURL = getClass().getResource(path); // URL služi za pronalaženje resursa unutar JAR fajla ili klase
         if (ImageURL != null) {

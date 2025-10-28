@@ -34,7 +34,7 @@ public class OnamaProzor extends JFrame {
             }
         };
 
-        ImageIcon s1 = ucitajIkonicu ("/images/andrea.jpg", 60, 60);
+        ImageIcon s1 = ucitajIkonicu("/images/andrea.jpg", 60, 60);
         ImageIcon s2 = ucitajIkonicu ("/images/bogdan.jpg", 60, 60);
 
         model.addRow(new Object[]{s1, "Andrea Ducic", "81/2025"});
