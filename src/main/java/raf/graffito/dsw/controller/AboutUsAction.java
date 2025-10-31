@@ -8,7 +8,7 @@ public class AboutUsAction extends AbstractGraffAction {
     public AboutUsAction() {
         putValue(SMALL_ICON, loadIcon("/images/aboutUs.png")); // Postavljanje ikonice
         putValue(NAME, "O nama"); // Ime akcije
-        putValue(SHORT_DESCRIPTION, "Prikazi informacije o timu"); // Tooltip
+        putValue(SHORT_DESCRIPTION, "Prikaži informacije o timu"); // Tooltip
     }
 
     @Override
