@@ -13,7 +13,7 @@ public class OnamaProzor extends JFrame {
 
         setTitle("O nama");
         setSize(600, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         String[] kolone = {"Fotografija", "Ime i prezime", "Broj indeksa"};
