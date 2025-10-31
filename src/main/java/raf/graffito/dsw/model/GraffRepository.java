@@ -1,4 +1,4 @@
-package raf.graffito.dsw.core.model;
+package raf.graffito.dsw.model;
 
 public class GraffRepository {
     private Workspace rootWorkspace;

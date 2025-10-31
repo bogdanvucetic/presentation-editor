@@ -1,4 +1,4 @@
-package raf.graffito.dsw.core.model;
+package raf.graffito.dsw.model;
 
 public class Presentation extends GraffNodeComposite{
     public Presentation(String ime, int x, int y) {
