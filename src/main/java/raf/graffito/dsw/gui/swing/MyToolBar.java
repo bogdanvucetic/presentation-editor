@@ -7,14 +7,14 @@ import raf.graffito.dsw.controller.ExitAction;
 import javax.swing.*;
 
 public class MyToolBar extends JToolBar {
-    public MyToolBar(ActionManager actionManager) {
+    public MyToolBar() {
         super(HORIZONTAL);
         setFloatable(false);
 
-        ExitAction exitAction = actionManager.getExitAction();
+        ExitAction exitAction = MainFrame.getInstance().getActionManager().getExitAction();
         add(exitAction);
 
-        AboutUsAction aboutUsAction = actionManager.getAboutUsAction();
+        AboutUsAction aboutUsAction = MainFrame.getInstance().getActionManager().getAboutUsAction();
         add(aboutUsAction);
     }
 }
