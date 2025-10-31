@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public class OnamaProzor extends JFrame {
 
@@ -34,11 +35,11 @@ public class OnamaProzor extends JFrame {
             }
         };
 
-        ImageIcon s1 = ucitajIkonicu("/images/andrea.jpg", 60, 60);
-        ImageIcon s2 = ucitajIkonicu ("/images/bogdan.jpg", 60, 60);
+        Icon s1 = ucitajIkonicu("/images/andrea.jpg", 60, 60);
+        Icon s2 = ucitajIkonicu ("/images/bogdan.jpg", 60, 60);
 
-        model.addRow(new Object[]{s1, "Andrea Ducic", "81/2025"});
-        model.addRow(new Object[]{s2, "Bogdan Vucetic", "81/2025"});
+        model.addRow(new Object[]{s1, "Andrea Dučić", "RN 81/2025"});
+        model.addRow(new Object[]{s2, "Bogdan Vučetić", "RN 78/2025"});
 
         JTable tabela = new JTable(model);
         tabela.setRowHeight(70);
@@ -54,14 +55,16 @@ public class OnamaProzor extends JFrame {
 
 
     }
-    private ImageIcon ucitajIkonicu(String putanja, int sirina, int visina) {
-        java.net.URL url = getClass().getResource(putanja);
-        if (url != null) {
-            Image slika = new ImageIcon(url).getImage().getScaledInstance(sirina, visina, Image.SCALE_SMOOTH);
-            return new ImageIcon(slika);
-        } else {
+    private Icon ucitajIkonicu(String putanja, int sirina, int visina) {
+        URL ImageURL = getClass().getResource(putanja); // URL služi za pronalaženje resursa unutar JAR fajla ili klase
+
+        if (ImageURL == null) {
+            System.err.println("File " + putanja + " not found");
             return null;
         }
+
+        Image img = new ImageIcon(ImageURL).getImage().getScaledInstance(sirina, visina, Image.SCALE_SMOOTH); // Napravimo Image iz ImageIcon
+        return new ImageIcon(img);
     }
 
 
