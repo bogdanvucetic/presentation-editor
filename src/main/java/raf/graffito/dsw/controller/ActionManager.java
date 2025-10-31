@@ -1,22 +1,20 @@
 package raf.graffito.dsw.controller;
 
-import javax.swing.*;
-
 public class ActionManager {
     private ExitAction exitAction;
-    private Action oNamaAkcija;
+    private AboutUsAction aboutUsAction;
 
     public ActionManager() {
         this.exitAction = new ExitAction();
-        this.oNamaAkcija = new ONamaAkcija();
+        this.aboutUsAction = new AboutUsAction();
     }
 
     public ExitAction getExitAction() {
         return exitAction;
     }
 
-    public Action getoNamaAkcija() {
-        return oNamaAkcija;
+    public AboutUsAction getAboutUsAction() {
+        return aboutUsAction;
     }
 
 }
