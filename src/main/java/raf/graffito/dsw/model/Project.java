@@ -1,77 +1,27 @@
 package raf.graffito.dsw.model;
 
 public class Project extends GraffNodeComposite{
-
-    private String title;
+    // title nije dodat jer već postoji jedinstven identifikator name
     private String author;
-    private int number;
+    private int numberOfSlides = 0;
 
-
-
-    public Project(String ime, int x, int y, String title, String author, int number) {
-        super(ime, x, y);
-        this.title = title;
+    public Project(GraffNode parent, String name, String author) {
+        super(parent, name);
         this.author = author;
-        this.number = number;
-
+        this.numberOfSlides = 0;
     }
 
     @Override
-    public void addChild(GraffNode node) {
-        if(node instanceof Presentation || node instanceof Slide) {
-            super.addChild(node);
-        }else {
-            System.err.println("Project '" + this.ime + "' može sadržati samo Presentation ili Slide objekte.");
+    public void addChild(GraffNode child) {
+        if (child instanceof Presentation) {
+            super.addChild(child);
+        } else if (child instanceof Slide) {
+            super.addChild(child);
+            incrementNumberOfSlides();
         }
     }
 
-
-    public boolean isValid(){
-        boolean imaPresentation = false;
-        boolean imaSlide = false;
-
-        for (GraffNode child : getChildren()) {
-            if(child instanceof Presentation){
-                imaPresentation = true;
-            }
-            if(child instanceof Slide) {
-                imaSlide = true;
-            }
-
-        }
-        return imaPresentation || imaSlide;
-    }
-
-    @Override
-    public void draw() {
-        System.out.println("  Project: " + getIme()
-                + " | title=" + title
-                + ", author=" + author
-                + ", slides=" + number);
-        super.draw();
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
+    public void incrementNumberOfSlides(){
+        numberOfSlides++;
     }
 }

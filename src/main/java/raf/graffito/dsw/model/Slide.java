@@ -1,14 +1,9 @@
 package raf.graffito.dsw.model;
 
 public class Slide extends GraffLeaf{
+    // profesor rekao da trenutno nema potrebe ni jedno polje da se doda
 
-
-    public Slide(String ime, int x, int y) {
-        super(ime, x, y);
-    }
-    @Override
-    public void draw() {
-        System.out.println("    Slide: " + getIme());
-        super.draw();
+    public Slide(GraffNode parent, String name) {
+        super(parent, name);
     }
 }

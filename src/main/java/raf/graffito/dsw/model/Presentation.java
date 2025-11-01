@@ -1,22 +1,17 @@
 package raf.graffito.dsw.model;
 
 public class Presentation extends GraffNodeComposite{
-    public Presentation(String ime, int x, int y) {
-        super(ime, x, y);
+    public Presentation(GraffNode parent, String name) {
+        super(parent, name);
     }
 
+    // TODO
+    //  pretpostavljada je parent Project što po trenutnom dodavanju i ne mora da bude
     @Override
-    public void addChild(GraffNode node) {
-        if(node instanceof Slide) {
-            super.addChild(node);
-        }else{
-            System.err.println("Presentation '" + this.ime + "' može sadržati samo Slide objekte.");
+    public void addChild(GraffNode child) {
+        if (child instanceof Slide) {
+            super.addChild(child);
+            ((Project) getParent()).incrementNumberOfSlides();
         }
-    }
-
-    @Override
-    public void draw() {
-        System.out.println("    Presentation: " + getIme());
-        super.draw();
     }
 }

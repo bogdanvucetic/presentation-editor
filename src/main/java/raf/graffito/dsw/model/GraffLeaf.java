@@ -1,21 +1,15 @@
 package raf.graffito.dsw.model;
 
-public class GraffLeaf extends GraffNode {
-
-    public GraffLeaf(String ime, int x, int y) {
-        super(ime, x, y);
+public abstract class GraffLeaf extends GraffNode {
+    public GraffLeaf(GraffNode parent, String name) {
+        super(parent, name);
     }
 
     @Override
-    public void draw() {
-        System.out.println("Crtam LEAF \"" + ime + "\" na (" + x + ", " + y + ")");
-
-    }
-
-    @Override
-    public void move(int dx, int dy) {
-        this.x += dx;
-        this.y += dy;
-
+    public GraffNode findByName(String name) {
+        if (getName() != null && getName().equals(name)) {
+            return this;
+        }
+        return null;
     }
 }
