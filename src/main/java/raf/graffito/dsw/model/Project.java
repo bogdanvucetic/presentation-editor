@@ -13,8 +13,15 @@ public class Project extends GraffNodeComposite{
 
     @Override
     public void addChild(GraffNode child) {
-        if (child instanceof Presentation || child instanceof Slide) {
+        if (child instanceof Presentation) {
             super.addChild(child);
+        } else if (child instanceof Slide) {
+            super.addChild(child);
+            incrementNumberOfSlides();
         }
+    }
+
+    public void incrementNumberOfSlides(){
+        numberOfSlides++;
     }
 }

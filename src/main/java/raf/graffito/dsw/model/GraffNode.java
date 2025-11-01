@@ -15,6 +15,10 @@ public abstract class GraffNode {
         return name;
     }
 
+    public GraffNode getParent() {
+        return parent;
+    }
+
     public void setParent(GraffNode parent) {
         this.parent = parent;
     }

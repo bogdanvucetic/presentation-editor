@@ -9,6 +9,7 @@ public class Presentation extends GraffNodeComposite{
     public void addChild(GraffNode child) {
         if (child instanceof Slide) {
             super.addChild(child);
+            ((Project) getParent()).incrementNumberOfSlides();
         }
     }
 }
