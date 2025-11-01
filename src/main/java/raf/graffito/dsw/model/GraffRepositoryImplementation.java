@@ -1,8 +1,9 @@
 package raf.graffito.dsw.model;
 
 public class GraffRepositoryImplementation implements GraffRepository {
+    // TODO
+    //  implementacija kreiranja workspace-a
     private Workspace workspace;
-
 
     @Override
     public Workspace getWorkspace() {

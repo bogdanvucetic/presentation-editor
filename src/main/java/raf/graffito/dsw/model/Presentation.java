@@ -5,6 +5,8 @@ public class Presentation extends GraffNodeComposite{
         super(parent, name);
     }
 
+    // TODO
+    //  pretpostavljada je parent Project što po trenutnom dodavanju i ne mora da bude
     @Override
     public void addChild(GraffNode child) {
         if (child instanceof Slide) {
