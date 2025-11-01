@@ -1,8 +1,10 @@
 package raf.graffito.dsw.model;
 
-public class ConsoleLogger extends AbstractLogger {
+import raf.graffito.dsw.utils.LogFormatter;
+
+public class ConsoleLogger implements Logger {
     @Override
     public void update(Message message) {
-        System.out.println(format(message));
+        System.out.println(LogFormatter.format(message));
     }
 }
