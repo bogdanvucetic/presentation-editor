@@ -5,4 +5,8 @@ public abstract class GraffNode {
     private String name;
 
     public abstract GraffNode findByName(String name);
+
+    public String getName() {
+        return name;
+    }
 }
