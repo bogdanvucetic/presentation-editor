@@ -8,8 +8,8 @@ import java.util.List;
 public class MessageGenerator implements Publisher {
     private List<Subscriber> subscribers;
 
-    public MessageGenerator(List<Subscriber> subscribers) {
-        this.subscribers = subscribers;
+    public MessageGenerator() {
+        this.subscribers = new ArrayList<>();
     }
 
     @Override
