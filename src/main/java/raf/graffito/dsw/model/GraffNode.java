@@ -14,4 +14,8 @@ public abstract class GraffNode {
     public String getName() {
         return name;
     }
+
+    public void setParent(GraffNode parent) {
+        this.parent = parent;
+    }
 }

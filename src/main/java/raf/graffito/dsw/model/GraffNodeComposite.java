@@ -29,9 +29,11 @@ public abstract class GraffNodeComposite extends GraffNode {
 
     public void addChild(GraffNode child) {
         children.add(child);
+        child.setParent(this);
     }
 
     public void removeChild(GraffNode child) {
         children.remove(child);
+        child.setParent(null);
     }
 }
