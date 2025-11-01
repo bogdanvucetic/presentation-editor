@@ -6,12 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class Message {
     private String content;
     private MessageType type;
-    private String timestamp;
+    private LocalDateTime timestamp;
 
     public Message(String content, MessageType type) {
         this.content = content;
         this.type = type;
-        this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
+        this.timestamp = LocalDateTime.now();
     }
 
     public String getContent() {
@@ -22,7 +22,7 @@ public class Message {
         return type;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 }
