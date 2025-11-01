@@ -6,6 +6,11 @@ import java.util.List;
 public abstract class GraffNodeComposite extends GraffNode {
     private List<GraffNode> children;
 
+    public GraffNodeComposite(GraffNode parent, String name) {
+        super(parent, name);
+        children = new ArrayList<>();
+    }
+
     @Override
     public GraffNode findByName(String name) {
         if (getName() != null && getName().equals(name)) {
