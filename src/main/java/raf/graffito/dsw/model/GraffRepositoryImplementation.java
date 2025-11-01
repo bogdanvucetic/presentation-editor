@@ -21,6 +21,12 @@ public class GraffRepositoryImplementation implements GraffRepository {
 
     @Override
     public void removeChild(GraffNode parent, GraffNode child) {
-
+        if (parent instanceof Workspace) {
+            workspace.removeChild(child);
+        } else if (parent instanceof Project) {
+            ((Project) parent).removeChild(child);
+        } else if (parent instanceof Presentation) {
+            ((Presentation) parent).removeChild(child);
+        }
     }
 }
