@@ -13,4 +13,9 @@ public class Message {
         this.type = type;
         this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"));
     }
+
+    @Override
+    public String toString() {
+        return "[" + type + "][" + timestamp + "] " + content;
+    }
 }
