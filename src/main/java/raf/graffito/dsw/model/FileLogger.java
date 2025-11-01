@@ -1,6 +1,9 @@
 package raf.graffito.dsw.model;
 
-public class FileLogger implements Logger {
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileLogger extends AbstractLogger {
     @Override
     public void update(Message message) {
 
