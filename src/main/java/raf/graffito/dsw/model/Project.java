@@ -10,4 +10,11 @@ public class Project extends GraffNodeComposite{
         this.author = author;
         this.numberOfSlides = 0;
     }
+
+    @Override
+    public void addChild(GraffNode child) {
+        if (child instanceof Presentation || child instanceof Slide) {
+            super.addChild(child);
+        }
+    }
 }
