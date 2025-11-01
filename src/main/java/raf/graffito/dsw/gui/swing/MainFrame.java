@@ -14,7 +14,6 @@ public class MainFrame extends JFrame {
 
     private MainFrame() {
         actionManager = new ActionManager();
-        initialize();
     }
 
     private void initialize() {
@@ -27,16 +26,17 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Zatvaranje aplikacije pri zatvaranju prozora
         setTitle("Graffito"); // Naslov prozora
 
-        MyMenuBar menu = new MyMenuBar(actionManager); // Kreiranje menija
+        MyMenuBar menu = new MyMenuBar(); // Kreiranje menija
         setJMenuBar(menu); // Postavljanje menija na prozor
 
-        MyToolBar toolBar = new MyToolBar(actionManager); // Kreiranje toolbar-a
+        MyToolBar toolBar = new MyToolBar(); // Kreiranje toolbar-a
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
     }
 
     public static MainFrame getInstance() {
         if (instance == null) {
             instance = new MainFrame();
+            instance.initialize();
         }
 
         return instance;

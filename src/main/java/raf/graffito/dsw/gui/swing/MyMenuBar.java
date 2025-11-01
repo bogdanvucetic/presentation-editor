@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class MyMenuBar extends JMenuBar {
-    public MyMenuBar(ActionManager actionManager) {
+    public MyMenuBar() {
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
-        ExitAction exitAction = actionManager.getExitAction();
+        ExitAction exitAction = MainFrame.getInstance().getActionManager().getExitAction();
         fileMenu.add(exitAction);
         add(fileMenu);
     }
