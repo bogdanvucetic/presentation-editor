@@ -1,11 +1,14 @@
 package raf.graffito.dsw.gui.swing;
 
 import raf.graffito.dsw.controller.ActionManager;
+import raf.graffito.dsw.model.Message;
+import raf.graffito.dsw.model.MessageType;
+import raf.graffito.dsw.model.Subscriber;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Subscriber {
 
     // Buduća polja za sve komponente view-a na glavnom prozoru
 
@@ -44,5 +47,14 @@ public class MainFrame extends JFrame {
 
     public ActionManager getActionManager() {
         return actionManager;
+    }
+
+    @Override
+    public void update(Message message) {
+        if (message.getType().equals(MessageType.ERROR)) {
+            JOptionPane.showMessageDialog(null, message.getContent(), "Greška", JOptionPane.ERROR_MESSAGE);
+        } else if (message.getType().equals(MessageType.WARNING)) {
+            JOptionPane.showMessageDialog(null, message.getContent(), "Upozorenje", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }

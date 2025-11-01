@@ -1,5 +1,9 @@
 package raf.graffito.dsw.core;
 import raf.graffito.dsw.gui.swing.MainFrame;
+import raf.graffito.dsw.model.LoggerFactory;
+import raf.graffito.dsw.model.Message;
+import raf.graffito.dsw.model.MessageGenerator;
+import raf.graffito.dsw.model.MessageType;
 
 public class ApplicationFramework {
     // Buduća polja za model celog projekta
@@ -13,6 +17,13 @@ public class ApplicationFramework {
     public void initialize(){
         MainFrame mainFrame = MainFrame.getInstance();
         mainFrame.setVisible(true);
+
+        MessageGenerator messageGenerator = new MessageGenerator();
+        LoggerFactory loggerFactory = new LoggerFactory();
+
+        messageGenerator.addSubscriber(mainFrame);
+        messageGenerator.addSubscriber(loggerFactory.createLogger("file"));
+        messageGenerator.addSubscriber(loggerFactory.createLogger("console"));
     }
 
     public static ApplicationFramework getInstance(){
