@@ -9,6 +9,7 @@ public abstract class GraffNode {
         this.name = name;
     }
 
+    // profesor rekao da ovde bude apstraktna i potklase da implementiraju
     public abstract GraffNode findByName(String name);
 
     public String getName() {
