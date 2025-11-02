@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class FileLogger implements Logger {
     @Override
-    public void update(Message message) {
+    public void update(MessageGenerator message) {
         try {
             FileWriter fw = new FileWriter("src/main/resources/log.txt", true);
             fw.write(LogFormatter.format(message));

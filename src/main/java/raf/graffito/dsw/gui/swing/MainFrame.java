@@ -1,7 +1,7 @@
 package raf.graffito.dsw.gui.swing;
 
 import raf.graffito.dsw.controller.ActionManager;
-import raf.graffito.dsw.model.Message;
+import raf.graffito.dsw.model.MessageGenerator;
 import raf.graffito.dsw.model.MessageType;
 import raf.graffito.dsw.model.Subscriber;
 
@@ -50,7 +50,7 @@ public class MainFrame extends JFrame implements Subscriber {
     }
 
     @Override
-    public void update(Message message) {
+    public void update(MessageGenerator message) {
         if (message.getType().equals(MessageType.ERROR)) {
             JOptionPane.showMessageDialog(null, message.getContent(), "Greška", JOptionPane.ERROR_MESSAGE);
         } else if (message.getType().equals(MessageType.WARNING)) {

@@ -1,9 +1,7 @@
 package raf.graffito.dsw.core;
 import raf.graffito.dsw.gui.swing.MainFrame;
 import raf.graffito.dsw.model.LoggerFactory;
-import raf.graffito.dsw.model.Message;
 import raf.graffito.dsw.model.MessageGenerator;
-import raf.graffito.dsw.model.MessageType;
 
 public class ApplicationFramework {
     // Buduća polja za model celog projekta
