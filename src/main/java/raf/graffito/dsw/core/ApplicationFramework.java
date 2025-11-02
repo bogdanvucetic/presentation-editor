@@ -7,6 +7,7 @@ public class ApplicationFramework {
     // Buduća polja za model celog projekta
 
     private static ApplicationFramework instance;
+    private MessageGenerator messageGenerator;
 
     private ApplicationFramework(){
         initialize();
@@ -16,7 +17,7 @@ public class ApplicationFramework {
         MainFrame mainFrame = MainFrame.getInstance();
         mainFrame.setVisible(true);
 
-        MessageGenerator messageGenerator = new MessageGenerator();
+        messageGenerator = new MessageGenerator();
         LoggerFactory loggerFactory = new LoggerFactory();
 
         messageGenerator.addSubscriber(mainFrame);
