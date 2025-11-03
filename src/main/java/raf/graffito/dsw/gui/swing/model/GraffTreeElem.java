@@ -4,10 +4,10 @@ import raf.graffito.dsw.model.composite.GraffNode;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class GraffTreeNode extends DefaultMutableTreeNode {
+public class GraffTreeElem extends DefaultMutableTreeNode {
     private GraffNode graffNode;
 
-    public GraffTreeNode(GraffNode graffNode) {
+    public GraffTreeElem(GraffNode graffNode) {
         this.graffNode = graffNode;
     }
 
