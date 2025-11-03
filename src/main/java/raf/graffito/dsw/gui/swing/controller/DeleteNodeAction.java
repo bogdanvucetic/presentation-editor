@@ -1,5 +1,8 @@
 package raf.graffito.dsw.gui.swing.controller;
 
+import raf.graffito.dsw.gui.swing.model.GraffTreeElem;
+import raf.graffito.dsw.gui.swing.view.MainFrame;
+
 import java.awt.event.ActionEvent;
 
 public class DeleteNodeAction extends AbstractGraffAction {
@@ -11,6 +14,7 @@ public class DeleteNodeAction extends AbstractGraffAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        GraffTreeElem selected = MainFrame.getInstance().getGraffTree().getSelectedNode();
+        MainFrame.getInstance().getGraffTree().deleteNode(selected);
     }
 }

@@ -40,7 +40,22 @@ public class GraffTreeImplementation implements GraffTree {
 
     @Override
     public void deleteNode(GraffTreeElem node) {
+        if (node == null || node.getParent() == null){
+            return;
+        }
 
+        GraffTreeElem parentElem = (GraffTreeElem)node.getParent();
+
+        GraffNode child = node.getGraffNode();
+        GraffNode parent = parentElem.getGraffNode();
+
+        if (parent instanceof GraffNodeComposite) {
+            ((GraffNodeComposite)parent).removeChild(child);
+        }
+
+        treeModel.removeNodeFromParent(node);
+
+        SwingUtilities.updateComponentTreeUI(treeView);
     }
 
     @Override
