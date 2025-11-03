@@ -2,12 +2,10 @@ package raf.graffito.dsw.model.composite;
 
 public class Project extends GraffNodeComposite {
     // title nije dodat jer već postoji jedinstven identifikator name
-    private String author;
     private int numberOfSlides;
 
-    public Project(GraffNode parent, String name, String author) {
+    public Project(GraffNode parent, String name) {
         super(parent, name);
-        this.author = author;
         this.numberOfSlides = 0;
     }
 
