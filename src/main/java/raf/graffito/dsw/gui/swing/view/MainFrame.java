@@ -44,10 +44,21 @@ public class MainFrame extends JFrame implements Subscriber {
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
         JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
+        JScrollPane scrollPane =new JScrollPane(tree);
+
         JPanel mainView = new JPanel();
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tree, mainView);
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, mainView);
         splitPane.setDividerLocation(200);
         add(splitPane, BorderLayout.CENTER);
+    }
+
+    @Override
+    public void update(MessageGenerator message) {
+        if (message.getType().equals(MessageType.ERROR)) {
+            JOptionPane.showMessageDialog(null, message.getContent(), "Greška", JOptionPane.ERROR_MESSAGE);
+        } else if (message.getType().equals(MessageType.WARNING)) {
+            JOptionPane.showMessageDialog(null, message.getContent(), "Upozorenje", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     public static MainFrame getInstance() {
@@ -63,12 +74,7 @@ public class MainFrame extends JFrame implements Subscriber {
         return actionManager;
     }
 
-    @Override
-    public void update(MessageGenerator message) {
-        if (message.getType().equals(MessageType.ERROR)) {
-            JOptionPane.showMessageDialog(null, message.getContent(), "Greška", JOptionPane.ERROR_MESSAGE);
-        } else if (message.getType().equals(MessageType.WARNING)) {
-            JOptionPane.showMessageDialog(null, message.getContent(), "Upozorenje", JOptionPane.WARNING_MESSAGE);
-        }
+    public GraffTree getGraffTree() {
+        return graffTree;
     }
 }

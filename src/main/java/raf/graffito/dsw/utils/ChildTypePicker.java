@@ -1,0 +1,32 @@
+package raf.graffito.dsw.utils;
+
+import javax.swing.*;
+
+public class ChildTypePicker {
+    public static String pickProjectChild(){
+        JRadioButton presentationButton = new JRadioButton("Prezentacija");
+        JRadioButton slideButton = new JRadioButton("Slajd");
+        presentationButton.setSelected(true);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(presentationButton);
+        group.add(slideButton);
+
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Izaberi tip čvora koji želiš da dodaš:"));
+        panel.add(presentationButton);
+        panel.add(slideButton);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "Izaberi tip čvora", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            if (presentationButton.isSelected()) {
+                return "Presentation";
+            } else if (slideButton.isSelected()) {
+                return "Slide";
+            }
+        }
+
+        return null;
+    }
+}
