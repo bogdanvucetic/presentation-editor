@@ -95,6 +95,31 @@ public class GraffTreeImplementation implements GraffTree {
     }
 
     @Override
+    public void changeProjectTitle(GraffTreeElem node, String newTitle) {
+        if (node == null){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan čvor nije izabran.", MessageType.WARNING);
+            return;
+        }
+
+        if (!(node.getGraffNode() instanceof Project)) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Izabrani čvor nije projekat.", MessageType.ERROR);
+            return;
+        }
+
+        if (newTitle == null || newTitle.isEmpty()){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naslov ne može biti prazan.", MessageType.ERROR);
+            return;
+        }
+
+        newTitle = newTitle.trim();
+
+        GraffNode projectToChangeTitle = node.getGraffNode();
+        ((Project)projectToChangeTitle).setTitle(newTitle);
+
+        SwingUtilities.updateComponentTreeUI(treeView);
+    }
+
+    @Override
     public GraffTreeElem getSelectedNode(){
         return (GraffTreeElem) treeView.getLastSelectedPathComponent();
     }

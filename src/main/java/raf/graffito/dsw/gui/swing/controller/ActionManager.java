@@ -6,6 +6,7 @@ public class ActionManager {
     private CreateNodeAction createNodeAction;
     private RenameNodeAction renameNodeAction;
     private DeleteNodeAction deleteNodeAction;
+    private ChangeProjectTitleAction changeProjectTitleAction;
 
     public ActionManager() {
         this.exitAction = new ExitAction();
@@ -13,6 +14,7 @@ public class ActionManager {
         this.createNodeAction = new CreateNodeAction();
         this.renameNodeAction = new RenameNodeAction();
         this.deleteNodeAction = new DeleteNodeAction();
+        this.changeProjectTitleAction = new ChangeProjectTitleAction();
     }
 
     public ExitAction getExitAction() {
@@ -33,5 +35,9 @@ public class ActionManager {
 
     public DeleteNodeAction getDeleteNodeAction() {
         return deleteNodeAction;
+    }
+
+    public ChangeProjectTitleAction getChangeProjectTitleAction() {
+        return changeProjectTitleAction;
     }
 }

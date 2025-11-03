@@ -2,10 +2,7 @@ package raf.graffito.dsw.gui.swing.view;
 
 
 
-import raf.graffito.dsw.gui.swing.controller.CreateNodeAction;
-import raf.graffito.dsw.gui.swing.controller.DeleteNodeAction;
-import raf.graffito.dsw.gui.swing.controller.ExitAction;
-import raf.graffito.dsw.gui.swing.controller.RenameNodeAction;
+import raf.graffito.dsw.gui.swing.controller.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -26,6 +23,9 @@ public class MyMenuBar extends JMenuBar {
 
         DeleteNodeAction deleteNodeAction = MainFrame.getInstance().getActionManager().getDeleteNodeAction();
         fileMenu.add(deleteNodeAction);
+
+        ChangeProjectTitleAction changeProjectTitleAction = MainFrame.getInstance().getActionManager().getChangeProjectTitleAction();
+        fileMenu.add(changeProjectTitleAction);
 
         add(fileMenu);
     }

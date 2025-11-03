@@ -23,5 +23,8 @@ public class MyToolBar extends JToolBar {
 
         DeleteNodeAction deleteNodeAction = MainFrame.getInstance().getActionManager().getDeleteNodeAction();
         add(deleteNodeAction);
+
+        ChangeProjectTitleAction changeProjectTitleAction = MainFrame.getInstance().getActionManager().getChangeProjectTitleAction();
+        add(changeProjectTitleAction);
     }
 }
