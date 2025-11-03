@@ -14,6 +14,8 @@ public class MainFrame extends JFrame implements Subscriber {
 
     private static MainFrame instance;
     private ActionManager actionManager;
+    // todo u konkretnu klasu?
+    private JTree graffTree;
 
     private MainFrame() {
         actionManager = new ActionManager();
@@ -34,6 +36,13 @@ public class MainFrame extends JFrame implements Subscriber {
 
         MyToolBar toolBar = new MyToolBar(); // Kreiranje toolbar-a
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
+
+        // todo - temp implementacija
+        graffTree = new JTree();
+        JPanel panel = new JPanel();
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, graffTree, panel);
+        splitPane.setDividerLocation(200);
+        add(splitPane, BorderLayout.CENTER);
     }
 
     public static MainFrame getInstance() {
