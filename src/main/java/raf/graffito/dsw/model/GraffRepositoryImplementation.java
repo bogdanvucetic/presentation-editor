@@ -11,20 +11,6 @@ public class GraffRepositoryImplementation implements GraffRepository {
     private Workspace workspace = new Workspace("Radni prostor");
 
     @Override
-    public void addChild(GraffNode parent, GraffNode child) {
-        if (parent instanceof GraffNodeComposite) {
-            ((GraffNodeComposite) parent).addChild(child);
-        }
-    }
-
-    @Override
-    public void removeChild(GraffNode parent, GraffNode child) {
-        if (parent instanceof GraffNodeComposite) {
-            ((GraffNodeComposite) parent).removeChild(child);
-        }
-    }
-
-    @Override
     public Workspace getWorkspace() {
         return workspace;
     }
