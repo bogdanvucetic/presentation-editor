@@ -13,7 +13,7 @@ public class ChildTypePicker {
         group.add(slideButton);
 
         JPanel panel = new JPanel();
-        panel.add(new JLabel("Izaberi tip čvora koji želiš da dodaš:"));
+        panel.add(new JLabel("Izaberi tip čvora projekta koji želiš da dodaš:"));
         panel.add(presentationButton);
         panel.add(slideButton);
 

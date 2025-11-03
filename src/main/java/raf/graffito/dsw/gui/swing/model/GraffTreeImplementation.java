@@ -23,8 +23,15 @@ public class GraffTreeImplementation implements GraffTree {
 
     @Override
     public void addChild(GraffTreeElem parent) {
-        if (!(parent.getGraffNode() instanceof GraffNodeComposite))
+        if (parent == null){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan čvor nije izabran.", MessageType.WARNING);
             return;
+        }
+
+        if (!(parent.getGraffNode() instanceof GraffNodeComposite)) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Izabrani čvor ne može da sadrži podčvorove.", MessageType.ERROR);
+            return;
+        }
 
         GraffNode child = createChild(parent.getGraffNode());
         GraffTreeElem childElem = new GraffTreeElem(child);
@@ -44,6 +51,7 @@ public class GraffTreeImplementation implements GraffTree {
     @Override
     public void deleteNode(GraffTreeElem node) {
         if (node == null){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan čvor nije izabran.", MessageType.WARNING);
             return;
         }
 
