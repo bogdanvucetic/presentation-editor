@@ -1,8 +1,10 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.model.GraffTree;
 import raf.graffito.dsw.gui.swing.model.GraffTreeElem;
+import raf.graffito.dsw.gui.swing.model.GraffTreeImplementation;
 import raf.graffito.dsw.model.composite.Workspace;
 import raf.graffito.dsw.model.observer.MessageGenerator;
 import raf.graffito.dsw.model.observer.MessageType;
@@ -22,6 +24,7 @@ public class MainFrame extends JFrame implements Subscriber {
 
     private MainFrame() {
         actionManager = new ActionManager();
+        graffTree = new GraffTreeImplementation();
     }
 
     private void initialize() {
@@ -40,11 +43,11 @@ public class MainFrame extends JFrame implements Subscriber {
         MyToolBar toolBar = new MyToolBar(); // Kreiranje toolbar-a
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
-        // graffTree = new GraffTree(new GraffTreeElem(new Workspace("Workspace")));
-        // JPanel panel = new JPanel();
-        // JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, graffTree, panel);
-        // splitPane.setDividerLocation(200);
-        // add(splitPane, BorderLayout.CENTER);
+        JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
+        JPanel mainView = new JPanel();
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tree, mainView);
+        splitPane.setDividerLocation(200);
+        add(splitPane, BorderLayout.CENTER);
     }
 
     public static MainFrame getInstance() {

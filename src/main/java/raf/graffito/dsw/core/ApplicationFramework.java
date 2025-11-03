@@ -1,5 +1,6 @@
 package raf.graffito.dsw.core;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
+import raf.graffito.dsw.model.GraffRepositoryImplementation;
 import raf.graffito.dsw.model.observer.LoggerFactory;
 import raf.graffito.dsw.model.observer.MessageGenerator;
 
@@ -8,6 +9,7 @@ public class ApplicationFramework {
 
     private static ApplicationFramework instance;
     private MessageGenerator messageGenerator;
+    private GraffRepository graffRepository;
 
     private ApplicationFramework(){
         initialize();
@@ -18,6 +20,8 @@ public class ApplicationFramework {
         mainFrame.setVisible(true);
 
         messageGenerator = new MessageGenerator();
+        graffRepository = new GraffRepositoryImplementation();
+
         LoggerFactory loggerFactory = new LoggerFactory();
 
         messageGenerator.addSubscriber(mainFrame);
@@ -30,5 +34,9 @@ public class ApplicationFramework {
             instance = new ApplicationFramework();
         }
         return instance;
+    }
+
+    public GraffRepository getGraffRepository() {
+        return graffRepository;
     }
 }
