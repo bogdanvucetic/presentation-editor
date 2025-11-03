@@ -39,4 +39,8 @@ public class ApplicationFramework {
     public GraffRepository getGraffRepository() {
         return graffRepository;
     }
+
+    public MessageGenerator getMessageGenerator() {
+        return messageGenerator;
+    }
 }

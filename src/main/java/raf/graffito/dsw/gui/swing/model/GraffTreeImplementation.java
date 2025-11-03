@@ -1,6 +1,8 @@
 package raf.graffito.dsw.gui.swing.model;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.*;
+import raf.graffito.dsw.model.observer.MessageType;
 import raf.graffito.dsw.utils.ChildTypePicker;
 
 import javax.swing.*;
@@ -41,7 +43,12 @@ public class GraffTreeImplementation implements GraffTree {
 
     @Override
     public void deleteNode(GraffTreeElem node) {
-        if (node == null || node.getParent() == null){
+        if (node == null){
+            return;
+        }
+
+        if (node.getParent() == null){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Workspace ne može da se obriše.", MessageType.ERROR);
             return;
         }
 
