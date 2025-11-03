@@ -5,6 +5,7 @@ import raf.graffito.dsw.utils.ChildTypePicker;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
+import java.util.Random;
 
 public class GraffTreeImplementation implements GraffTree {
     private GraffTreeView treeView;
@@ -70,10 +71,8 @@ public class GraffTreeImplementation implements GraffTree {
 
     // todo: imam utisak da cela ova metoda može mnogo lepše da se napiše
     public GraffNode createChild(GraffNode parent) {
-        int index = ((GraffNodeComposite) parent).getNumberOfChildren() + 1;
-
         if (parent instanceof Workspace) {
-            return new Project(parent, "Project " + index);
+            return new Project(parent, "Project " + new Random().nextInt(100));
         } else if (parent instanceof Project) {
             String type = ChildTypePicker.pickProjectChild();
 
@@ -82,31 +81,13 @@ public class GraffTreeImplementation implements GraffTree {
             }
 
             if (type.equals("Presentation")) {
-                index = 1;
-
-                for (GraffNode child : ((Project) parent).getChildren()){
-                    if (child instanceof Presentation) {
-                        index++;
-                    }
-                }
-
-                return new Presentation(parent, "Presentation " + index);
-            }
-
-            else if (type.equals("Slide")) {
-                index = 1;
-
-                for (GraffNode child : ((Project) parent).getChildren()){
-                    if (child instanceof Slide) {
-                        index++;
-                    }
-                }
-
-                return new Slide(parent, "Slide " + index);
+                return new Presentation(parent, "Presentation " + new Random().nextInt(100));
+            } else if (type.equals("Slide")) {
+                return new Slide(parent, "Slide " + new Random().nextInt(100));
             }
 
         } else if (parent instanceof Presentation) {
-            return new Slide(parent, "Slide " + index);
+            return new Slide(parent, "Slide " + new Random().nextInt(100));
         }
 
         return null;
