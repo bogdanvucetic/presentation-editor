@@ -76,7 +76,22 @@ public class GraffTreeImplementation implements GraffTree {
 
     @Override
     public void renameNode(GraffTreeElem node, String newName) {
+        if (node == null){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan čvor nije izabran.", MessageType.WARNING);
+            return;
+        }
 
+        if (newName == null || newName.isEmpty()){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naziv ne može biti prazan.", MessageType.ERROR);
+            return;
+        }
+
+        newName = newName.trim();
+
+        GraffNode nodeToRename = node.getGraffNode();
+        nodeToRename.setName(newName);
+
+        SwingUtilities.updateComponentTreeUI(treeView);
     }
 
     @Override
