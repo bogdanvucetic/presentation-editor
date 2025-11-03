@@ -1,6 +1,6 @@
-package raf.graffito.dsw.model;
+package raf.graffito.dsw.model.composite;
 
-public class Project extends GraffNodeComposite{
+public class Project extends GraffNodeComposite {
     // title nije dodat jer već postoji jedinstven identifikator name
     private String author;
     private int numberOfSlides;

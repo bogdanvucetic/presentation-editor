@@ -1,6 +1,6 @@
-package raf.graffito.dsw.model;
+package raf.graffito.dsw.model.composite;
 
-public class Presentation extends GraffNodeComposite{
+public class Presentation extends GraffNodeComposite {
     public Presentation(GraffNode parent, String name) {
         super(parent, name);
     }

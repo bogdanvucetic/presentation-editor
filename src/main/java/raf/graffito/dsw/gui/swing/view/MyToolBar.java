@@ -1,8 +1,7 @@
-package raf.graffito.dsw.gui.swing;
+package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.controller.AboutUsAction;
-import raf.graffito.dsw.controller.ActionManager;
-import raf.graffito.dsw.controller.ExitAction;
+import raf.graffito.dsw.gui.swing.controller.AboutUsAction;
+import raf.graffito.dsw.gui.swing.controller.ExitAction;
 
 import javax.swing.*;
 

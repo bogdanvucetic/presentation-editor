@@ -1,4 +1,4 @@
-package raf.graffito.dsw.model;
+package raf.graffito.dsw.model.composite;
 
 public abstract class GraffNode {
     private GraffNode parent;

@@ -1,6 +1,4 @@
-package raf.graffito.dsw.model;
-
-import raf.graffito.dsw.gui.swing.MainFrame;
+package raf.graffito.dsw.model.observer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

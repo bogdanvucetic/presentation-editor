@@ -1,6 +1,6 @@
-package raf.graffito.dsw.model;
+package raf.graffito.dsw.model.composite;
 
-public class Workspace extends GraffNodeComposite{
+public class Workspace extends GraffNodeComposite {
     public Workspace(String name) {
         super(null, name);
     }

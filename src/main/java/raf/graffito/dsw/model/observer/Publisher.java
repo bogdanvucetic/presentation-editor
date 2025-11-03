@@ -1,4 +1,4 @@
-package raf.graffito.dsw.model;
+package raf.graffito.dsw.model.observer;
 
 public interface Publisher {
     void addSubscriber(Subscriber subscriber);

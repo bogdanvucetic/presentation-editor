@@ -1,6 +1,6 @@
-package raf.graffito.dsw.controller;
+package raf.graffito.dsw.gui.swing.controller;
 
-import raf.graffito.dsw.gui.swing.AboutUs;
+import raf.graffito.dsw.gui.swing.view.AboutUs;
 
 import java.awt.event.ActionEvent;
 

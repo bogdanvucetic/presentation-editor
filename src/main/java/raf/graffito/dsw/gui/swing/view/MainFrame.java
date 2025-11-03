@@ -1,9 +1,9 @@
-package raf.graffito.dsw.gui.swing;
+package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.controller.ActionManager;
-import raf.graffito.dsw.model.MessageGenerator;
-import raf.graffito.dsw.model.MessageType;
-import raf.graffito.dsw.model.Subscriber;
+import raf.graffito.dsw.gui.swing.controller.ActionManager;
+import raf.graffito.dsw.model.observer.MessageGenerator;
+import raf.graffito.dsw.model.observer.MessageType;
+import raf.graffito.dsw.model.observer.Subscriber;
 
 import javax.swing.*;
 import java.awt.*;
