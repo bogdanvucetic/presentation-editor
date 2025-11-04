@@ -1,8 +1,8 @@
-package raf.graffito.dsw.gui.swing.model;
+package raf.graffito.dsw.gui.swing.tree;
 
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.*;
-import raf.graffito.dsw.model.observer.MessageType;
+import raf.graffito.dsw.observer.MessageType;
 import raf.graffito.dsw.utils.ChildTypePicker;
 
 import javax.swing.*;

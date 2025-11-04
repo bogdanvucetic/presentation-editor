@@ -1,4 +1,4 @@
-package raf.graffito.dsw.gui.swing.model;
+package raf.graffito.dsw.gui.swing.tree;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;

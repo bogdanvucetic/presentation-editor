@@ -2,13 +2,11 @@ package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.controller.ActionManager;
-import raf.graffito.dsw.gui.swing.model.GraffTree;
-import raf.graffito.dsw.gui.swing.model.GraffTreeElem;
-import raf.graffito.dsw.gui.swing.model.GraffTreeImplementation;
-import raf.graffito.dsw.model.composite.Workspace;
-import raf.graffito.dsw.model.observer.MessageGenerator;
-import raf.graffito.dsw.model.observer.MessageType;
-import raf.graffito.dsw.model.observer.Subscriber;
+import raf.graffito.dsw.gui.swing.tree.GraffTree;
+import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
+import raf.graffito.dsw.observer.MessageGenerator;
+import raf.graffito.dsw.observer.MessageType;
+import raf.graffito.dsw.observer.Subscriber;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package raf.graffito.dsw.model.observer;
+package raf.graffito.dsw.observer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

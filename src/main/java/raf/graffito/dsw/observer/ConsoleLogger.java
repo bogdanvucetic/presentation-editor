@@ -1,4 +1,4 @@
-package raf.graffito.dsw.model.observer;
+package raf.graffito.dsw.observer;
 
 import raf.graffito.dsw.utils.LogFormatter;
 

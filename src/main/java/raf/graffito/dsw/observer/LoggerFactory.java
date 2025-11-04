@@ -1,4 +1,4 @@
-package raf.graffito.dsw.model.observer;
+package raf.graffito.dsw.observer;
 
 public class LoggerFactory {
     public Logger createLogger(String name) {

@@ -1,4 +1,4 @@
-package raf.graffito.dsw.gui.swing.model;
+package raf.graffito.dsw.gui.swing.tree;
 
 import raf.graffito.dsw.model.composite.GraffNode;
 
