@@ -6,6 +6,6 @@ import javax.swing.tree.DefaultTreeModel;
 public class GraffTreeView extends JTree {
     public GraffTreeView(DefaultTreeModel treeModel) {
         setModel(treeModel);
-        setEditable(true);
+        setDragEnabled(true);
     }
 }
