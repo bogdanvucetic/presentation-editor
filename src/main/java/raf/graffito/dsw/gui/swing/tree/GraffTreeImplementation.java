@@ -9,16 +9,21 @@ import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
 import java.util.Random;
 
-public class GraffTreeImplementation implements GraffTree {
-    private GraffTreeView treeView;
+public class GraffTreeImplementation extends JTree implements GraffTree {
     private DefaultTreeModel treeModel;
 
     @Override
-    public GraffTreeView generateTree(Workspace workspace) {
+    public JTree generateTree(Workspace workspace) {
         GraffTreeElem root = new GraffTreeElem(workspace);
         treeModel = new DefaultTreeModel(root);
-        treeView = new GraffTreeView(treeModel);
-        return treeView;
+
+        setModel(treeModel);
+
+//        setDragEnabled(true);
+//        setDropMode(DropMode.INSERT);
+//        setTransferHandler(new GraffTransferHandler());
+
+        return this;
     }
 
     @Override
@@ -44,8 +49,8 @@ public class GraffTreeImplementation implements GraffTree {
             addChild(childElem);
         }
 
-        treeView.expandPath(treeView.getSelectionPath());
-        SwingUtilities.updateComponentTreeUI(treeView);
+        expandPath(getSelectionPath());
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     @Override
@@ -71,7 +76,7 @@ public class GraffTreeImplementation implements GraffTree {
 
         treeModel.removeNodeFromParent(node);
 
-        SwingUtilities.updateComponentTreeUI(treeView);
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     @Override
@@ -91,7 +96,7 @@ public class GraffTreeImplementation implements GraffTree {
         GraffNode nodeToRename = node.getGraffNode();
         nodeToRename.setName(newName);
 
-        SwingUtilities.updateComponentTreeUI(treeView);
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     @Override
@@ -116,12 +121,12 @@ public class GraffTreeImplementation implements GraffTree {
         GraffNode projectToChangeTitle = node.getGraffNode();
         ((Project)projectToChangeTitle).setTitle(newTitle);
 
-        SwingUtilities.updateComponentTreeUI(treeView);
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     @Override
     public GraffTreeElem getSelectedNode(){
-        return (GraffTreeElem) treeView.getLastSelectedPathComponent();
+        return (GraffTreeElem)getLastSelectedPathComponent();
     }
 
     // todo: imam utisak da cela ova metoda može mnogo lepše da se napiše
