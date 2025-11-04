@@ -42,7 +42,7 @@ public class MainFrame extends JFrame implements Subscriber {
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
         JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
-        JScrollPane scrollPane =new JScrollPane(tree);
+        JScrollPane scrollPane = new JScrollPane(tree);
 
         JPanel mainView = new JPanel();
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, mainView);
