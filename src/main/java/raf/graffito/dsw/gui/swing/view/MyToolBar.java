@@ -15,8 +15,8 @@ public class MyToolBar extends JToolBar {
         AboutUsAction aboutUsAction = MainFrame.getInstance().getActionManager().getAboutUsAction();
         add(aboutUsAction);
 
-        CreateNodeAction createNodeAction = MainFrame.getInstance().getActionManager().getCreateNodeAction();
-        add(createNodeAction);
+        CreateChildAction createChildAction = MainFrame.getInstance().getActionManager().getCreateNodeAction();
+        add(createChildAction);
 
         RenameNodeAction renameNodeAction = MainFrame.getInstance().getActionManager().getRenameNodeAction();
         add(renameNodeAction);

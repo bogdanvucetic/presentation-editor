@@ -30,6 +30,11 @@ public class RenameNodeAction extends AbstractGraffAction {
         if (input == null)
             return;
 
+        if (input.isEmpty()){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naziv ne može biti prazan.", MessageType.ERROR);
+            return;
+        }
+
         MainFrame.getInstance().getGraffTree().renameNode(selected, input);
     }
 }

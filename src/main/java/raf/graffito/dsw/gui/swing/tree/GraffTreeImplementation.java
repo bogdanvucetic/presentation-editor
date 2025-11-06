@@ -20,35 +20,20 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
         setModel(treeModel);
 
-//        setDragEnabled(true);
-//        setDropMode(DropMode.INSERT);
-//        setTransferHandler(new GraffTransferHandler());
-
         return this;
     }
 
     @Override
-    public void addChild(GraffTreeElem parent) {
-        if (parent == null){
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan čvor nije izabran.", MessageType.WARNING);
-            return;
-        }
+    public void createChild(GraffTreeElem parentElem) {
+        GraffNodeComposite parent = (GraffNodeComposite) parentElem.getGraffNode();
 
-        if (!(parent.getGraffNode() instanceof GraffNodeComposite)) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Izabrani čvor ne može da sadrži podčvorove.", MessageType.ERROR);
-            return;
-        }
-
-        GraffNodeComposite parentModel = (GraffNodeComposite) parent.getGraffNode();
-
-        ApplicationFramework.getInstance().getGraffRepository().createFactory(parentModel);
+        ApplicationFramework.getInstance().getGraffRepository().createFactory(parent);
         GraffNodeFactory factory = ApplicationFramework.getInstance().getGraffRepository().getFactory();
 
-        GraffNode child = factory.createGraffNode(parentModel);
+        GraffNode child = factory.createGraffNode(parent);
 
-        GraffTreeElem childElem = new GraffTreeElem(child);
-        parent.add(childElem);
-        parentModel.addChild(child);
+        parent.addChild(child);
+        parentElem.add(new GraffTreeElem(child));
 
         expandPath(getSelectionPath());
         SwingUtilities.updateComponentTreeUI(this);
@@ -56,25 +41,9 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
     @Override
     public void deleteNode(GraffTreeElem node) {
-        if (node == null){
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan čvor nije izabran.", MessageType.WARNING);
-            return;
-        }
+        GraffNodeComposite parent = (GraffNodeComposite) node.getGraffNode().getParent();
 
-        if (node.getParent() == null){
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Workspace ne može da se obriše.", MessageType.ERROR);
-            return;
-        }
-
-        GraffTreeElem parentElem = (GraffTreeElem)node.getParent();
-
-        GraffNode child = node.getGraffNode();
-        GraffNode parent = parentElem.getGraffNode();
-
-        if (parent instanceof GraffNodeComposite) {
-            ((GraffNodeComposite)parent).removeChild(child);
-        }
-
+        parent.removeChild(node.getGraffNode());
         treeModel.removeNodeFromParent(node);
 
         SwingUtilities.updateComponentTreeUI(this);
@@ -82,19 +51,9 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
     @Override
     public void renameNode(GraffTreeElem node, String newName) {
-        if (node == null){
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan čvor nije izabran.", MessageType.WARNING);
-            return;
-        }
-
-        if (newName == null || newName.isEmpty()){
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naziv ne može biti prazan.", MessageType.ERROR);
-            return;
-        }
-
         newName = newName.trim();
-
         GraffNode nodeToRename = node.getGraffNode();
+
         nodeToRename.setName(newName);
 
         SwingUtilities.updateComponentTreeUI(this);
@@ -102,25 +61,10 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
     @Override
     public void changeProjectTitle(GraffTreeElem node, String newTitle) {
-        if (node == null){
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan čvor nije izabran.", MessageType.WARNING);
-            return;
-        }
-
-        if (!(node.getGraffNode() instanceof Project)) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Izabrani čvor nije projekat.", MessageType.ERROR);
-            return;
-        }
-
-        if (newTitle == null || newTitle.isEmpty()){
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naslov ne može biti prazan.", MessageType.ERROR);
-            return;
-        }
-
         newTitle = newTitle.trim();
+        GraffNode project = node.getGraffNode();
 
-        GraffNode projectToChangeTitle = node.getGraffNode();
-        ((Project)projectToChangeTitle).setTitle(newTitle);
+        ((Project)project).setTitle(newTitle);
 
         SwingUtilities.updateComponentTreeUI(this);
     }

@@ -3,7 +3,7 @@ package raf.graffito.dsw.controller;
 public class ActionManager {
     private ExitAction exitAction;
     private AboutUsAction aboutUsAction;
-    private CreateNodeAction createNodeAction;
+    private CreateChildAction createChildAction;
     private RenameNodeAction renameNodeAction;
     private DeleteNodeAction deleteNodeAction;
     private ChangeProjectTitleAction changeProjectTitleAction;
@@ -11,7 +11,7 @@ public class ActionManager {
     public ActionManager() {
         this.exitAction = new ExitAction();
         this.aboutUsAction = new AboutUsAction();
-        this.createNodeAction = new CreateNodeAction();
+        this.createChildAction = new CreateChildAction();
         this.renameNodeAction = new RenameNodeAction();
         this.deleteNodeAction = new DeleteNodeAction();
         this.changeProjectTitleAction = new ChangeProjectTitleAction();
@@ -25,8 +25,8 @@ public class ActionManager {
         return aboutUsAction;
     }
 
-    public CreateNodeAction getCreateNodeAction() {
-        return createNodeAction;
+    public CreateChildAction getCreateNodeAction() {
+        return createChildAction;
     }
 
     public RenameNodeAction getRenameNodeAction() {

@@ -33,8 +33,14 @@ public class ChangeProjectTitleAction extends AbstractGraffAction {
         String input = JOptionPane.showInputDialog("Unesi novi naslov:", ((Project)selected.getGraffNode()).getTitle());
 
         // kada korisnik klikne "cancel"
-        if (input == null)
+        if (input == null) {
             return;
+        }
+
+        if (input.isEmpty()){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naslov ne može biti prazan.", MessageType.ERROR);
+            return;
+        }
 
         MainFrame.getInstance().getGraffTree().changeProjectTitle(selected, input);
     }
