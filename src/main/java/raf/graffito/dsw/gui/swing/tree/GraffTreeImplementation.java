@@ -3,12 +3,9 @@ package raf.graffito.dsw.gui.swing.tree;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.*;
 import raf.graffito.dsw.model.factory.GraffNodeFactory;
-import raf.graffito.dsw.observer.MessageType;
-import raf.graffito.dsw.utils.ChildTypePicker;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
-import java.util.Random;
 
 public class GraffTreeImplementation extends JTree implements GraffTree {
     private DefaultTreeModel treeModel;
@@ -27,8 +24,7 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     public void createChild(GraffTreeElem parentElem) {
         GraffNodeComposite parent = (GraffNodeComposite) parentElem.getGraffNode();
 
-        ApplicationFramework.getInstance().getGraffRepository().createFactory(parent);
-        GraffNodeFactory factory = ApplicationFramework.getInstance().getGraffRepository().getFactory();
+        GraffNodeFactory factory = ApplicationFramework.getInstance().getGraffRepository().getFactoryFor(parent);
 
         GraffNode child = factory.createGraffNode(parent);
 

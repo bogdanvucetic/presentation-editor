@@ -5,7 +5,6 @@ import raf.graffito.dsw.model.composite.Workspace;
 import raf.graffito.dsw.model.factory.GraffNodeFactory;
 
 public interface GraffRepository {
-    void createFactory(GraffNode parent);
+    GraffNodeFactory getFactoryFor(GraffNode parent);
     Workspace getWorkspace();
-    GraffNodeFactory getFactory();
 }

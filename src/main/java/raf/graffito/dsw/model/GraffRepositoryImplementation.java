@@ -13,25 +13,25 @@ import raf.graffito.dsw.utils.ChildTypePicker;
 
 public class GraffRepositoryImplementation implements GraffRepository {
     private Workspace workspace;
-    private GraffNodeFactory factory;
 
     @Override
-    public void createFactory(GraffNode parent) {
+    public GraffNodeFactory getFactoryFor(GraffNode parent) {
         if (parent instanceof Workspace) {
-            factory = new ProjectFactory();
+            return new ProjectFactory();
         } else if (parent instanceof Project) {
             String type = ChildTypePicker.pickProjectChild();
 
             if (type == null)
-                return;
+                return null;
 
             if (type.equals("Presentation"))
-                factory = new PresentationFactory();
+                return new PresentationFactory();
             else if (type.equals("Slide"))
-                factory = new SlideFactory();
+                return new SlideFactory();
         } else if (parent instanceof Presentation) {
-            factory = new SlideFactory();
+            return new SlideFactory();
         }
+        return null;
     }
 
     @Override
@@ -41,10 +41,5 @@ public class GraffRepositoryImplementation implements GraffRepository {
         }
 
         return workspace;
-    }
-
-    @Override
-    public GraffNodeFactory getFactory() {
-        return factory;
     }
 }
