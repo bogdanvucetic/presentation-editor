@@ -1,6 +1,9 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.gui.swing.Tabovi.DecoratorRegistry;
+import raf.graffito.dsw.gui.swing.Tabovi.InfoPanel;
+import raf.graffito.dsw.gui.swing.Tabovi.TabsPanel;
 import raf.graffito.dsw.gui.swing.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
@@ -44,10 +47,28 @@ public class MainFrame extends JFrame implements Subscriber {
         JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
         JScrollPane scrollPane =new JScrollPane(tree);
 
+
+        DecoratorRegistry registry = ApplicationFramework.getInstance().getDecoratorRegistry();
+        InfoPanel infoPanel = new InfoPanel();
+        TabsPanel tabsPanel = new TabsPanel(tree, registry, infoPanel);//dodala
+
+
         JPanel mainView = new JPanel();
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, mainView);
-        splitPane.setDividerLocation(200);
-        add(splitPane, BorderLayout.CENTER);
+//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, tabsPanel);
+//        //dodala
+//        splitPane.setDividerLocation(200);
+//        add(splitPane, BorderLayout.CENTER);
+//        splitPane.setRightComponent(tabsPanel);
+
+
+        JSplitPane left = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, tabsPanel);
+        left.setResizeWeight(0.25);
+        JSplitPane all = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, left, infoPanel);
+        all.setResizeWeight(0.80);
+        add(all, BorderLayout.CENTER);
+
+
+
     }
 
     @Override
@@ -67,6 +88,8 @@ public class MainFrame extends JFrame implements Subscriber {
 
         return instance;
     }
+
+
 
     public ActionManager getActionManager() {
         return actionManager;
