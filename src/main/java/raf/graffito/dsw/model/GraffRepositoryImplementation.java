@@ -1,5 +1,6 @@
 package raf.graffito.dsw.model;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
@@ -18,15 +19,7 @@ public class GraffRepositoryImplementation implements GraffRepository {
         if (parent instanceof Workspace) {
             return new ProjectFactory();
         } else if (parent instanceof Project) {
-            String type = ChildTypePicker.pickProjectChild();
-
-            if (type == null)
-                return null;
-
-            if (type.equals("Presentation"))
-                return new PresentationFactory();
-            else if (type.equals("Slide"))
-                return new SlideFactory();
+            return ChildTypePicker.pickProjectChild();
         } else if (parent instanceof Presentation) {
             return new SlideFactory();
         }
