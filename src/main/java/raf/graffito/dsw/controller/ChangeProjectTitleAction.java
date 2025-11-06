@@ -1,4 +1,4 @@
-package raf.graffito.dsw.gui.swing.controller;
+package raf.graffito.dsw.controller;
 
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
@@ -33,9 +33,17 @@ public class ChangeProjectTitleAction extends AbstractGraffAction {
         String input = JOptionPane.showInputDialog("Unesi novi naslov:", ((Project)selected.getGraffNode()).getTitle());
 
         // kada korisnik klikne "cancel"
-        if (input == null)
+        if (input == null) {
             return;
+        }
 
-        MainFrame.getInstance().getGraffTree().changeProjectTitle(selected, input);
+        input = input.trim();
+
+        if (input.isEmpty()){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naslov ne može biti prazan.", MessageType.ERROR);
+            return;
+        }
+
+        ((Project) selected.getGraffNode()).setTitle(input);
     }
 }

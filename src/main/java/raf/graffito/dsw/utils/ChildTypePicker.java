@@ -1,9 +1,13 @@
 package raf.graffito.dsw.utils;
 
+import raf.graffito.dsw.model.factory.GraffNodeFactory;
+import raf.graffito.dsw.model.factory.PresentationFactory;
+import raf.graffito.dsw.model.factory.SlideFactory;
+
 import javax.swing.*;
 
 public class ChildTypePicker {
-    public static String pickProjectChild(){
+    public static GraffNodeFactory pickProjectChild(){
         JRadioButton presentationButton = new JRadioButton("Prezentacija");
         JRadioButton slideButton = new JRadioButton("Slajd");
         presentationButton.setSelected(true);
@@ -17,13 +21,14 @@ public class ChildTypePicker {
         panel.add(presentationButton);
         panel.add(slideButton);
 
+        // neophodno jer bi se inače pravio čvor čak i kada korisnik odustane
         int result = JOptionPane.showConfirmDialog(null, panel, "Izaberi tip čvora", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
             if (presentationButton.isSelected()) {
-                return "Presentation";
+                return new PresentationFactory();
             } else if (slideButton.isSelected()) {
-                return "Slide";
+                return new SlideFactory();
             }
         }
 
