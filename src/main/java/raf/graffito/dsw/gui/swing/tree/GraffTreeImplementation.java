@@ -6,6 +6,7 @@ import raf.graffito.dsw.model.factory.GraffNodeFactory;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 public class GraffTreeImplementation extends JTree implements GraffTree {
     private DefaultTreeModel treeModel;
@@ -21,15 +22,9 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     }
 
     @Override
-    public void createChild(GraffTreeElem parentElem) {
-        GraffNodeComposite parent = (GraffNodeComposite) parentElem.getGraffNode();
-
-        GraffNodeFactory factory = ApplicationFramework.getInstance().getGraffRepository().getFactoryFor(parent);
-
-        GraffNode child = factory.createGraffNode(parent);
-
-        parent.addChild(child);
-        parentElem.add(new GraffTreeElem(child));
+    public void createChild(GraffTreeElem parentElem, GraffNode child) {
+        GraffTreeElem childElem = new GraffTreeElem(child);
+        parentElem.add(childElem);
 
         expandPath(getSelectionPath());
         SwingUtilities.updateComponentTreeUI(this);
