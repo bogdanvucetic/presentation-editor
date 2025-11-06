@@ -47,7 +47,6 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
     @Override
     public void renameNode(GraffTreeElem node, String newName) {
-        newName = newName.trim();
         GraffNode nodeToRename = node.getGraffNode();
 
         nodeToRename.setName(newName);
@@ -57,7 +56,6 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
     @Override
     public void changeProjectTitle(GraffTreeElem node, String newTitle) {
-        newTitle = newTitle.trim();
         GraffNode project = node.getGraffNode();
 
         ((Project)project).setTitle(newTitle);

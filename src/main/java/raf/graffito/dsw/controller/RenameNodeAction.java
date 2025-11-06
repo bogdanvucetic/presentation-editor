@@ -30,6 +30,8 @@ public class RenameNodeAction extends AbstractGraffAction {
         if (input == null)
             return;
 
+        input = input.trim();
+
         if (input.isEmpty()){
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naziv ne može biti prazan.", MessageType.ERROR);
             return;

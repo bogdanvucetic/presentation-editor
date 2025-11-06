@@ -37,6 +37,8 @@ public class ChangeProjectTitleAction extends AbstractGraffAction {
             return;
         }
 
+        input = input.trim();
+
         if (input.isEmpty()){
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naslov ne može biti prazan.", MessageType.ERROR);
             return;
