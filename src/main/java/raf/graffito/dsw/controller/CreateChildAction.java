@@ -38,6 +38,12 @@ public class CreateChildAction extends AbstractGraffAction {
         }
 
         GraffNode child = factory.createGraffNode(parent);
+
+        if (parent.findByName(child.getName()) != null) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ime je zauzeto.", MessageType.ERROR);
+            return;
+        }
+
         parent.addChild(child);
         MainFrame.getInstance().getGraffTree().addChildToView(selected, child);
     }
