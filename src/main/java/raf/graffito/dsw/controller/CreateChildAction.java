@@ -39,6 +39,6 @@ public class CreateChildAction extends AbstractGraffAction {
 
         GraffNode child = factory.createGraffNode(parent);
         parent.addChild(child);
-        MainFrame.getInstance().getGraffTree().createChild(selected, child);
+        MainFrame.getInstance().getGraffTree().addChildToView(selected, child);
     }
 }

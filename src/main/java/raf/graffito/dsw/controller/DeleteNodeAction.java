@@ -32,6 +32,6 @@ public class DeleteNodeAction extends AbstractGraffAction {
         GraffNodeComposite parent = (GraffNodeComposite) selected.getGraffNode().getParent();
         parent.removeChild(selected.getGraffNode());
 
-        MainFrame.getInstance().getGraffTree().deleteNode(selected);
+        MainFrame.getInstance().getGraffTree().removeNodeFromView(selected);
     }
 }

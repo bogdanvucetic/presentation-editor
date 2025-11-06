@@ -22,7 +22,7 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     }
 
     @Override
-    public void createChild(GraffTreeElem parentElem, GraffNode child) {
+    public void addChildToView(GraffTreeElem parentElem, GraffNode child) {
         GraffTreeElem childElem = new GraffTreeElem(child);
         parentElem.add(childElem);
 
@@ -31,9 +31,10 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     }
 
     @Override
-    public void deleteNode(GraffTreeElem nodeElem) {
+    public void removeNodeFromView(GraffTreeElem nodeElem) {
         treeModel.removeNodeFromParent(nodeElem);
     }
+
     public void refresh() {
         SwingUtilities.updateComponentTreeUI(this);
     }
