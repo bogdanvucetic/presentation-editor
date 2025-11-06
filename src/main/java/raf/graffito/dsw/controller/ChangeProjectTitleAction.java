@@ -44,6 +44,6 @@ public class ChangeProjectTitleAction extends AbstractGraffAction {
             return;
         }
 
-        MainFrame.getInstance().getGraffTree().changeProjectTitle(selected, input);
+        ((Project) selected.getGraffNode()).setTitle(input);
     }
 }
