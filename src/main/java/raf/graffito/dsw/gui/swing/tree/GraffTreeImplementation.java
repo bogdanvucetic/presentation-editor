@@ -2,6 +2,7 @@ package raf.graffito.dsw.gui.swing.tree;
 
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.*;
+import raf.graffito.dsw.model.factory.GraffNodeFactory;
 import raf.graffito.dsw.observer.MessageType;
 import raf.graffito.dsw.utils.ChildTypePicker;
 
@@ -38,16 +39,15 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
             return;
         }
 
-        GraffNode child = createChild(parent.getGraffNode());
+        GraffNodeComposite parentModel = (GraffNodeComposite) parent.getGraffNode();
+        ApplicationFramework.getInstance().getGraffRepository().createFactory(parentModel);
+        GraffNodeFactory factory = ApplicationFramework.getInstance().getGraffRepository().getFactory();
+
+        GraffNode child = factory.createGraffNode(parentModel);
+
         GraffTreeElem childElem = new GraffTreeElem(child);
         parent.add(childElem);
-        ((GraffNodeComposite)parent.getGraffNode()).addChild(child);
-
-        // todo: vrv. bi moglo da se doda neko objašnjenje korisniku zašto
-        //  odmah biva promptovan i da izabere kada napravi projekat
-        if (child instanceof Project) {
-            addChild(childElem);
-        }
+        parentModel.addChild(child);
 
         expandPath(getSelectionPath());
         SwingUtilities.updateComponentTreeUI(this);
@@ -127,29 +127,5 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     @Override
     public GraffTreeElem getSelectedNode(){
         return (GraffTreeElem)getLastSelectedPathComponent();
-    }
-
-    // todo: imam utisak da cela ova metoda može mnogo lepše da se napiše
-    public GraffNode createChild(GraffNode parent) {
-        if (parent instanceof Workspace) {
-            return new Project(parent, "Project " + new Random().nextInt(100));
-        } else if (parent instanceof Project) {
-            String type = ChildTypePicker.pickProjectChild();
-
-            if (type == null){
-                return null;
-            }
-
-            if (type.equals("Presentation")) {
-                return new Presentation(parent, "Presentation " + new Random().nextInt(100));
-            } else if (type.equals("Slide")) {
-                return new Slide(parent, "Slide " + new Random().nextInt(100));
-            }
-
-        } else if (parent instanceof Presentation) {
-            return new Slide(parent, "Slide " + new Random().nextInt(100));
-        }
-
-        return null;
     }
 }
