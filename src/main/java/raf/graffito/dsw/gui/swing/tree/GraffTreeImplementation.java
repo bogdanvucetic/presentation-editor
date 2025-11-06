@@ -31,13 +31,8 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     }
 
     @Override
-    public void deleteNode(GraffTreeElem node) {
-        GraffNodeComposite parent = (GraffNodeComposite) node.getGraffNode().getParent();
-
-        parent.removeChild(node.getGraffNode());
-        treeModel.removeNodeFromParent(node);
-
-        SwingUtilities.updateComponentTreeUI(this);
+    public void deleteNode(GraffTreeElem nodeElem) {
+        treeModel.removeNodeFromParent(nodeElem);
     }
 
     @Override
