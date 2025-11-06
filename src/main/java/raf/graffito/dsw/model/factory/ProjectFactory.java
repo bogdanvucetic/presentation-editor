@@ -6,11 +6,11 @@ import raf.graffito.dsw.model.composite.Project;
 public class ProjectFactory extends GraffNodeFactory {
     @Override
     public GraffNode createGraffNode(GraffNode parent) {
-        return new Project(parent, getDefaultName());
+        return new Project(parent, getDefaultName(parent));
     }
 
     @Override
-    public String getDefaultName() {
+    public String getDefaultName(GraffNode parent) {
         return "New Project";
     }
 }
