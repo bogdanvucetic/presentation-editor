@@ -1,4 +1,4 @@
-package raf.graffito.dsw.gui.swing.controller;
+package raf.graffito.dsw.controller;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

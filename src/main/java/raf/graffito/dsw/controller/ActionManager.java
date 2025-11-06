@@ -1,4 +1,4 @@
-package raf.graffito.dsw.gui.swing.controller;
+package raf.graffito.dsw.controller;
 
 public class ActionManager {
     private ExitAction exitAction;

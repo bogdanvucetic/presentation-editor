@@ -40,6 +40,7 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
         }
 
         GraffNodeComposite parentModel = (GraffNodeComposite) parent.getGraffNode();
+
         ApplicationFramework.getInstance().getGraffRepository().createFactory(parentModel);
         GraffNodeFactory factory = ApplicationFramework.getInstance().getGraffRepository().getFactory();
 
