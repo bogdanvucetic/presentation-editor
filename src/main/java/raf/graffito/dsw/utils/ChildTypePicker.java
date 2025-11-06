@@ -5,6 +5,7 @@ import raf.graffito.dsw.model.factory.PresentationFactory;
 import raf.graffito.dsw.model.factory.SlideFactory;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class ChildTypePicker {
     public static GraffNodeFactory pickProjectChild(){
@@ -34,4 +35,5 @@ public class ChildTypePicker {
 
         return null;
     }
+
 }
