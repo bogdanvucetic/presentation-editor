@@ -13,7 +13,7 @@ public abstract class AbstractGraffAction extends AbstractAction {
         URL ImageURL = getClass().getResource(path); // URL služi za pronalaženje resursa unutar JAR fajla ili klase
 
         if (ImageURL == null) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ikonica nije pronađena: " + path, MessageType.WARNING);
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ikonica nije pronađena: " + path, MessageType.INFO);
             return null;
         }
 
