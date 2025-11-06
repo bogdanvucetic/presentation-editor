@@ -14,7 +14,7 @@ public class ProjectFactory extends GraffNodeFactory {
     public String getDefaultName(GraffNode parent) {
         int index = 0;
         for (GraffNode child : ((GraffNodeComposite) parent).getChildren()) {
-            if (child.getName().matches("Project \\d*")){
+            if (child.getName().matches("Projekat \\d*")){
                 String[] parts = child.getName().split(" ");
                 if (Integer.parseInt(parts[1]) > index){
                     index = Integer.parseInt(parts[1]);
@@ -22,6 +22,6 @@ public class ProjectFactory extends GraffNodeFactory {
             }
         }
 
-        return "Project " + (index + 1);
+        return "Projekat " + (index + 1);
     }
 }

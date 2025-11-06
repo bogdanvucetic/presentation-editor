@@ -15,7 +15,7 @@ public class SlideFactory extends GraffNodeFactory {
     public String getDefaultName(GraffNode parent) {
         int index = 0;
         for (GraffNode child : ((GraffNodeComposite) parent).getChildren()) {
-            if (child.getName().matches("Slide \\d*")){
+            if (child.getName().matches("Slajd \\d*")){
                 String[] parts = child.getName().split(" ");
                 if (Integer.parseInt(parts[1]) > index){
                     index = Integer.parseInt(parts[1]);
@@ -23,6 +23,6 @@ public class SlideFactory extends GraffNodeFactory {
             }
         }
 
-        return "Slide " + (index + 1);
+        return "Slajd " + (index + 1);
     }
 }

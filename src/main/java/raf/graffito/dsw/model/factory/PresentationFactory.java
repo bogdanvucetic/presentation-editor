@@ -14,7 +14,7 @@ public class PresentationFactory extends GraffNodeFactory {
     public String getDefaultName(GraffNode parent) {
         int index = 0;
         for (GraffNode child : ((GraffNodeComposite) parent).getChildren()) {
-            if (child.getName().matches("Presentation \\d*")){
+            if (child.getName().matches("Prezentacija \\d*")){
                 String[] parts = child.getName().split(" ");
                 if (Integer.parseInt(parts[1]) > index){
                     index = Integer.parseInt(parts[1]);
@@ -22,6 +22,6 @@ public class PresentationFactory extends GraffNodeFactory {
             }
         }
 
-        return "Presentation " + (index + 1);
+        return "Prezentacija " + (index + 1);
     }
 }
