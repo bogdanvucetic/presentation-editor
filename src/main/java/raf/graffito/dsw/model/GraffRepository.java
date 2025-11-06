@@ -1,4 +1,4 @@
-package raf.graffito.dsw.core;
+package raf.graffito.dsw.model;
 
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Workspace;
