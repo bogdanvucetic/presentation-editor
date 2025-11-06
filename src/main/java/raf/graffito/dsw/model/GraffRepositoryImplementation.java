@@ -4,12 +4,14 @@ import raf.graffito.dsw.core.GraffRepository;
 import raf.graffito.dsw.model.composite.Workspace;
 
 public class GraffRepositoryImplementation implements GraffRepository {
-    // TODO
-    //  implementacija kreiranja workspace-a
-    private Workspace workspace = new Workspace("Radni prostor");
+    private Workspace workspace;
 
     @Override
     public Workspace getWorkspace() {
+        if (workspace == null) {
+            workspace = new Workspace("Radni prostor");
+        }
+
         return workspace;
     }
 }
