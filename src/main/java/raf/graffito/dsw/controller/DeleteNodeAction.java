@@ -4,6 +4,7 @@ import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.composite.GraffNodeComposite;
+import raf.graffito.dsw.model.composite.Project;
 import raf.graffito.dsw.observer.MessageType;
 
 import java.awt.event.ActionEvent;
@@ -26,6 +27,11 @@ public class DeleteNodeAction extends AbstractGraffAction {
 
         if (selected.getParent() == null){
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Workspace ne može da se obriše.", MessageType.ERROR);
+            return;
+        }
+
+        if (selected.getGraffNode().getParent() instanceof Project && ((Project) selected.getGraffNode().getParent()).getChildren().size() <= 1) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Projekat ne može biti prazan.", MessageType.ERROR);
             return;
         }
 
