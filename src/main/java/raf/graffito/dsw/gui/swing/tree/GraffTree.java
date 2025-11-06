@@ -9,7 +9,7 @@ public interface GraffTree {
     JTree generateTree(Workspace workspace);
     void createChild(GraffTreeElem parent, GraffNode child);
     void deleteNode(GraffTreeElem nodeElem);
-    void renameNode(GraffTreeElem node, String newName);
     void changeProjectTitle(GraffTreeElem node, String newTitle);
+    void refresh();
     GraffTreeElem getSelectedNode();
 }

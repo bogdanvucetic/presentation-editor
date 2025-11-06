@@ -27,7 +27,7 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
         parentElem.add(childElem);
 
         expandPath(getSelectionPath());
-        SwingUtilities.updateComponentTreeUI(this);
+        refresh();
     }
 
     @Override
@@ -36,20 +36,15 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     }
 
     @Override
-    public void renameNode(GraffTreeElem node, String newName) {
-        GraffNode nodeToRename = node.getGraffNode();
-
-        nodeToRename.setName(newName);
-
-        SwingUtilities.updateComponentTreeUI(this);
-    }
-
-    @Override
     public void changeProjectTitle(GraffTreeElem node, String newTitle) {
         GraffNode project = node.getGraffNode();
 
         ((Project)project).setTitle(newTitle);
 
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+
+    public void refresh() {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
