@@ -1,5 +1,6 @@
 package raf.graffito.dsw.observer;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.utils.LogFormatter;
 
 import java.io.FileWriter;
@@ -12,7 +13,7 @@ public class FileLogger implements Logger {
             fw.write(LogFormatter.format(message));
             fw.write("\n");
         } catch (IOException e) {
-            System.err.println("Neuspešno upisivanje u log.txt: " + e.getMessage());
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno upisivanje u log.txt", MessageType.INFO);
         }
     }
 }
