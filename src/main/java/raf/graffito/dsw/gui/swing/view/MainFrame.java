@@ -4,7 +4,7 @@ import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.Tabovi.DecoratorRegistry;
 import raf.graffito.dsw.gui.swing.Tabovi.InfoPanel;
 import raf.graffito.dsw.gui.swing.Tabovi.TabsPanel;
-import raf.graffito.dsw.gui.swing.controller.ActionManager;
+import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
 import raf.graffito.dsw.observer.MessageGenerator;
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame implements Subscriber {
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
         JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
-        JScrollPane scrollPane =new JScrollPane(tree);
+        JScrollPane scrollPane = new JScrollPane(tree);
 
 
         DecoratorRegistry registry = ApplicationFramework.getInstance().getDecoratorRegistry();

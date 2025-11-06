@@ -1,5 +1,8 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.observer.MessageType;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -59,7 +62,7 @@ public class AboutUs extends JFrame {
         URL ImageURL = getClass().getResource(path);
 
         if (ImageURL == null) {
-            System.err.println("File " + path + " not found");
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ikonica nije pronađena: " + path, MessageType.INFO);
             return null;
         }
 

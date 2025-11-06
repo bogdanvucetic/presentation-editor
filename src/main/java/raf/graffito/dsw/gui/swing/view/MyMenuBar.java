@@ -2,7 +2,7 @@ package raf.graffito.dsw.gui.swing.view;
 
 
 
-import raf.graffito.dsw.gui.swing.controller.*;
+import raf.graffito.dsw.controller.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -15,8 +15,8 @@ public class MyMenuBar extends JMenuBar {
         ExitAction exitAction = MainFrame.getInstance().getActionManager().getExitAction();
         fileMenu.add(exitAction);
 
-        CreateNodeAction createNodeAction = MainFrame.getInstance().getActionManager().getCreateNodeAction();
-        fileMenu.add(createNodeAction);
+        CreateChildAction createChildAction = MainFrame.getInstance().getActionManager().getCreateNodeAction();
+        fileMenu.add(createChildAction);
 
         RenameNodeAction renameNodeAction = MainFrame.getInstance().getActionManager().getRenameNodeAction();
         fileMenu.add(renameNodeAction);
