@@ -12,7 +12,7 @@ public class DeleteNodeAction extends AbstractGraffAction {
     public DeleteNodeAction() {
         putValue(SMALL_ICON, loadIcon("/images/delete.png")); // Postavljanje ikonice
         putValue(NAME, "Obriši čvor"); // Ime akcije
-        putValue(SHORT_DESCRIPTION, "Obriši ime izabranog čvora"); // Tooltip
+        putValue(SHORT_DESCRIPTION, "Obriši izabrani čvor"); // Tooltip
     }
 
     @Override
