@@ -4,6 +4,7 @@ import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.composite.GraffNode;
+import raf.graffito.dsw.model.composite.GraffNodeComposite;
 import raf.graffito.dsw.observer.MessageType;
 
 import javax.swing.*;
@@ -38,12 +39,12 @@ public class RenameNodeAction extends AbstractGraffAction {
             return;
         }
 
-        if (selected.getGraffNode().getParent() != null && selected.getGraffNode().getParent().findByName(input) != null && selected.getGraffNode().getParent().findByName(input) != selected.getGraffNode()) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ime je zauzeto.", MessageType.ERROR);
-            return;
+        try {
+            selected.getGraffNode().setName(input);
+            MainFrame.getInstance().getGraffTree().refresh();
+        } catch (Exception ex){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }
 
-        selected.getGraffNode().setName(input);
-        MainFrame.getInstance().getGraffTree().refresh();
     }
 }
