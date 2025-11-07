@@ -1,4 +1,4 @@
-package raf.graffito.dsw.gui.swing.Tabovi;
+package raf.graffito.dsw.gui.swing.tabs;
 
 import java.util.HashMap;
 import java.util.Map;

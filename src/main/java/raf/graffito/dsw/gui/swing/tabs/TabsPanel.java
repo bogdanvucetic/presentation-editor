@@ -1,8 +1,7 @@
-package raf.graffito.dsw.gui.swing.Tabovi;
+package raf.graffito.dsw.gui.swing.tabs;
 
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.observer.MessageGenerator;
-import raf.graffito.dsw.observer.MessageType;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;

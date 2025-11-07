@@ -1,9 +1,7 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.gui.swing.Tabovi.DecoratorRegistry;
-import raf.graffito.dsw.gui.swing.Tabovi.InfoPanel;
-import raf.graffito.dsw.gui.swing.Tabovi.TabsPanel;
+import raf.graffito.dsw.gui.swing.tabs.InfoPanel;
 import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;

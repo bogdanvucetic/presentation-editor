@@ -1,5 +1,5 @@
 package raf.graffito.dsw.core;
-import raf.graffito.dsw.gui.swing.Tabovi.DecoratorRegistry;
+import raf.graffito.dsw.gui.swing.tabs.DecoratorRegistry;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.GraffRepository;
 import raf.graffito.dsw.model.GraffRepositoryImplementation;

@@ -1,4 +1,4 @@
-package raf.graffito.dsw.gui.swing.Tabovi;
+package raf.graffito.dsw.gui.swing.tabs;
 
 import javax.swing.*;
 import java.awt.*;
