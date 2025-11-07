@@ -1,5 +1,4 @@
 package raf.graffito.dsw.core;
-import raf.graffito.dsw.gui.swing.tabs.DecoratorRegistry;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.GraffRepository;
 import raf.graffito.dsw.model.GraffRepositoryImplementation;
@@ -37,8 +36,6 @@ public class ApplicationFramework {
         }
         return instance;
     }
-    private DecoratorRegistry decoratorRegistry = new DecoratorRegistry();
-
 
     public GraffRepository getGraffRepository() {
         return graffRepository;
@@ -46,9 +43,5 @@ public class ApplicationFramework {
 
     public MessageGenerator getMessageGenerator() {
         return messageGenerator;
-    }
-
-    public DecoratorRegistry getDecoratorRegistry() {
-        return decoratorRegistry;
     }
 }
