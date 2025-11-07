@@ -3,6 +3,7 @@ package raf.graffito.dsw.controller;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
+import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.observer.MessageType;
 
 import javax.swing.*;
@@ -34,6 +35,11 @@ public class RenameNodeAction extends AbstractGraffAction {
 
         if (input.isEmpty()){
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Naziv ne može biti prazan.", MessageType.ERROR);
+            return;
+        }
+
+        if (selected.getGraffNode().getParent() != null && selected.getGraffNode().getParent().findByName(input) != null && selected.getGraffNode().getParent().findByName(input) != selected.getGraffNode()) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ime je zauzeto.", MessageType.ERROR);
             return;
         }
 

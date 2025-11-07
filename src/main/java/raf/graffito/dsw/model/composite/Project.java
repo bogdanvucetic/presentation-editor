@@ -1,5 +1,9 @@
 package raf.graffito.dsw.model.composite;
 
+import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.model.factory.GraffNodeFactory;
+import raf.graffito.dsw.observer.MessageType;
+
 public class Project extends GraffNodeComposite {
     private String title;
     private int totalNumberOfSlides;
@@ -18,6 +22,15 @@ public class Project extends GraffNodeComposite {
             super.addChild(child);
             incrementNumberOfSlides();
         }
+    }
+
+    @Override
+    public void removeChild(GraffNode child) {
+        if (getChildren().size() <= 1) {
+            return;
+        }
+
+        super.removeChild(child);
     }
 
     public void incrementNumberOfSlides(){
