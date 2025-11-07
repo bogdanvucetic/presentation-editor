@@ -27,7 +27,7 @@ public class Project extends GraffNodeComposite {
     @Override
     public void removeChild(GraffNode child) {
         if (getChildren().size() <= 1) {
-            return;
+            throw new IllegalArgumentException("Projekat ne može biti prazan.");
         }
 
         super.removeChild(child);
