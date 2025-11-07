@@ -25,7 +25,7 @@ public class ActionManager {
         return aboutUsAction;
     }
 
-    public CreateChildAction getCreateNodeAction() {
+    public CreateChildAction getCreateChildAction() {
         return createChildAction;
     }
 

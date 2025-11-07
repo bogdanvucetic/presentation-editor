@@ -30,14 +30,13 @@ public class DeleteNodeAction extends AbstractGraffAction {
             return;
         }
 
-        if (selected.getGraffNode().getParent() instanceof Project && ((Project) selected.getGraffNode().getParent()).getChildren().size() <= 1) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Projekat ne može biti prazan.", MessageType.ERROR);
-            return;
-        }
-
         GraffNodeComposite parent = (GraffNodeComposite) selected.getGraffNode().getParent();
-        parent.removeChild(selected.getGraffNode());
-
-        MainFrame.getInstance().getGraffTree().removeNodeFromView(selected);
+        
+        try {
+            parent.removeChild(selected.getGraffNode());
+            MainFrame.getInstance().getGraffTree().removeNodeFromView(selected);
+        } catch (Exception ex) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
+        }
     }
 }
