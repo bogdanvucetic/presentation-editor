@@ -1,21 +1,15 @@
 package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.controller.DoubleClickAction;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
-import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
-import raf.graffito.dsw.model.composite.Project;
 import raf.graffito.dsw.observer.MessageGenerator;
 import raf.graffito.dsw.observer.MessageType;
 import raf.graffito.dsw.observer.Subscriber;
 
 import javax.swing.*;
-import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame implements Subscriber {
 
@@ -25,7 +19,7 @@ public class MainFrame extends JFrame implements Subscriber {
     private ActionManager actionManager;
     private GraffTree graffTree;
     private JTree tree;
-    private JPanel mainPane;
+    private JPanel mainPanel;
     private JSplitPane splitPane;
 
     private MainFrame() {
@@ -53,8 +47,8 @@ public class MainFrame extends JFrame implements Subscriber {
         tree.addMouseListener(getActionManager().getDoubleClickAction());
 
         JScrollPane treePane = new JScrollPane(tree);
-        mainPane = new JPanel();
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, mainPane);
+        mainPanel = new JPanel();
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, mainPanel);
         splitPane.setResizeWeight(0.1);
         add(splitPane, BorderLayout.CENTER);
     }
@@ -89,9 +83,9 @@ public class MainFrame extends JFrame implements Subscriber {
         return tree;
     }
 
-    public void updateMainPane(JPanel newPane) {
+    public void updateMainPanel(JPanel newPane) {
         splitPane.setRightComponent(newPane);
-        this.mainPane = newPane;
+        this.mainPanel = newPane;
         splitPane.revalidate();
         splitPane.repaint();
     }

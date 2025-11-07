@@ -1,11 +1,13 @@
 package raf.graffito.dsw.controller;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
-import raf.graffito.dsw.gui.swing.view.MainPane;
+import raf.graffito.dsw.gui.swing.view.MainPanel;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
+import raf.graffito.dsw.observer.MessageType;
 
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseAdapter;
@@ -29,13 +31,10 @@ public class DoubleClickAction extends MouseAdapter {
         GraffTreeElem elem = (GraffTreeElem) path.getLastPathComponent();
 
         if (!(elem.getGraffNode() instanceof Project project)){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Otvaranje tabova je moguće samo za projekte.", MessageType.INFO);
             return;
         }
 
-        executeAction(project);
-    }
-
-    public void executeAction(Project project) {
         List<Presentation> presentations = new ArrayList<>();
 
         for (GraffNode child : project.getChildren()){
@@ -44,6 +43,6 @@ public class DoubleClickAction extends MouseAdapter {
             }
         }
 
-        MainFrame.getInstance().updateMainPane(new MainPane(presentations));
+        MainFrame.getInstance().updateMainPanel(new MainPanel(presentations));
     }
 }
