@@ -38,7 +38,7 @@ public class RenameNodeAction extends AbstractGraffAction {
             return;
         }
 
-        if (selected.getGraffNode().getParent() != null && selected.getGraffNode().getParent().findByName(input) != null) {
+        if (selected.getGraffNode().getParent() != null && selected.getGraffNode().getParent().findByName(input) != null && selected.getGraffNode().getParent().findByName(input) != selected.getGraffNode()) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ime je zauzeto.", MessageType.ERROR);
             return;
         }
