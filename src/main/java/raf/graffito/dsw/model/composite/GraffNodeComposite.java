@@ -27,7 +27,20 @@ public abstract class GraffNodeComposite extends GraffNode {
         return null;
     }
 
+    public boolean isChildNameTaken(String name) {
+        for (GraffNode child : children) {
+            if (child.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addChild(GraffNode child) {
+        if (isChildNameTaken(child.getName())) {
+            throw new IllegalArgumentException("Ime je zauzeto.");
+        }
+
         children.add(child);
         child.setParent(this);
     }

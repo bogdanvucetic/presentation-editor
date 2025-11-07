@@ -17,6 +17,12 @@ public abstract class GraffNode {
     }
 
     public void setName(String name) {
+        if (parent != null) {
+            if (((GraffNodeComposite)parent).isChildNameTaken(name)) {
+                throw new IllegalArgumentException("Ime je zauzeto.");
+            }
+        }
+
         this.name = name;
     }
 

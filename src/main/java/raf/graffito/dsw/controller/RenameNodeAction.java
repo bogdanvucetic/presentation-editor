@@ -39,22 +39,12 @@ public class RenameNodeAction extends AbstractGraffAction {
             return;
         }
 
-        if (selected.getGraffNode().getParent() != null){
-            GraffNodeComposite parent = (GraffNodeComposite) selected.getGraffNode().getParent();
-
-            for (GraffNode c : parent.getChildren()) {
-                if (c.equals(selected.getGraffNode())){
-                    continue;
-                }
-
-                if (c.getName().equals(input)){
-                    ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ime je zauzeto.", MessageType.ERROR);
-                    return;
-                }
-            }
+        try {
+            selected.getGraffNode().setName(input);
+            MainFrame.getInstance().getGraffTree().refresh();
+        } catch (Exception ex){
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }
 
-        selected.getGraffNode().setName(input);
-        MainFrame.getInstance().getGraffTree().refresh();
     }
 }
