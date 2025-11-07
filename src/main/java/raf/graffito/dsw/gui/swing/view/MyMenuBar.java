@@ -15,7 +15,7 @@ public class MyMenuBar extends JMenuBar {
         ExitAction exitAction = MainFrame.getInstance().getActionManager().getExitAction();
         fileMenu.add(exitAction);
 
-        CreateChildAction createChildAction = MainFrame.getInstance().getActionManager().getCreateNodeAction();
+        CreateChildAction createChildAction = MainFrame.getInstance().getActionManager().getCreateChildAction();
         fileMenu.add(createChildAction);
 
         RenameNodeAction renameNodeAction = MainFrame.getInstance().getActionManager().getRenameNodeAction();
