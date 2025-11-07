@@ -1,18 +1,21 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.controller.DoubleClickAction;
 import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.gui.swing.tabs.DecoratorRegistry;
-import raf.graffito.dsw.gui.swing.tabs.InfoPanel;
 import raf.graffito.dsw.controller.ActionManager;
-import raf.graffito.dsw.gui.swing.tabs.TabsPanel;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
+import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
+import raf.graffito.dsw.model.composite.Project;
 import raf.graffito.dsw.observer.MessageGenerator;
 import raf.graffito.dsw.observer.MessageType;
 import raf.graffito.dsw.observer.Subscriber;
 
 import javax.swing.*;
+import javax.swing.tree.TreePath;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame implements Subscriber {
 
@@ -20,8 +23,10 @@ public class MainFrame extends JFrame implements Subscriber {
 
     private static MainFrame instance;
     private ActionManager actionManager;
-    // todo u konkretnu klasu?
     private GraffTree graffTree;
+    private JTree tree;
+    private JPanel mainPane;
+    private JSplitPane splitPane;
 
     private MainFrame() {
         actionManager = new ActionManager();
@@ -44,34 +49,14 @@ public class MainFrame extends JFrame implements Subscriber {
         MyToolBar toolBar = new MyToolBar(); // Kreiranje toolbar-a
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
-        JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
+        tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
+        tree.addMouseListener(getActionManager().getDoubleClickAction());
+
         JScrollPane treePane = new JScrollPane(tree);
-        JTabbedPane mainPane = new JTabbedPane();
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, mainPane);
+        mainPane = new JPanel();
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, mainPane);
         splitPane.setResizeWeight(0.1);
         add(splitPane, BorderLayout.CENTER);
-
-
-//        DecoratorRegistry registry = ApplicationFramework.getInstance().getDecoratorRegistry();
-//        InfoPanel infoPanel = new InfoPanel();
-//        TabsPanel centerPanel = new TabsPanel(tree, registry, infoPanel);
-
-//        JTabbedPane centerPanel = new JTabbedPane();
-////        centerPanel.add("Ide gas", new InfoPanel());
-////        centerPanel.add("2", new Panel());
-//
-////        JPanel p1 = new JPanel();
-////        p1.add(new JLabel("Dobrodošli na prvi tab"));
-////        centerPanel.addTab("Početak", p1);
-//
-////        JPanel centerPanel = new JPanel();
-//        InfoPanel infoPanel = new InfoPanel();
-//        JSplitPane right = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPanel, infoPanel);
-//        right.setResizeWeight(1);
-//
-//        JSplitPane all = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, right);
-//        all.setResizeWeight(0.1);
-//        add(all, BorderLayout.CENTER);
     }
 
     @Override
@@ -92,13 +77,22 @@ public class MainFrame extends JFrame implements Subscriber {
         return instance;
     }
 
-
-
     public ActionManager getActionManager() {
         return actionManager;
     }
 
     public GraffTree getGraffTree() {
         return graffTree;
+    }
+
+    public JTree getTree() {
+        return tree;
+    }
+
+    public void updateMainPane(JPanel newPane) {
+        splitPane.setRightComponent(newPane);
+        this.mainPane = newPane;
+        splitPane.revalidate();
+        splitPane.repaint();
     }
 }
