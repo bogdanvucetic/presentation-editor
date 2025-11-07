@@ -45,30 +45,20 @@ public class MainFrame extends JFrame implements Subscriber {
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
         JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
-        JScrollPane scrollPane = new JScrollPane(tree);
+        JScrollPane treePane = new JScrollPane(tree);
 
+//        DecoratorRegistry registry = ApplicationFramework.getInstance().getDecoratorRegistry();
+//        InfoPanel infoPanel = new InfoPanel();
+//        TabsPanel tabsPanel = new TabsPanel(tree, registry, infoPanel);
 
-        DecoratorRegistry registry = ApplicationFramework.getInstance().getDecoratorRegistry();
+        JPanel centerPanel = new JPanel();
         InfoPanel infoPanel = new InfoPanel();
-        TabsPanel tabsPanel = new TabsPanel(tree, registry, infoPanel);//dodala
+        JSplitPane right = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPanel, infoPanel);
+        right.setResizeWeight(1);
 
-
-        JPanel mainView = new JPanel();
-//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, tabsPanel);
-//        //dodala
-//        splitPane.setDividerLocation(200);
-//        add(splitPane, BorderLayout.CENTER);
-//        splitPane.setRightComponent(tabsPanel);
-
-
-        JSplitPane left = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, tabsPanel);
-        left.setResizeWeight(0.25);
-        JSplitPane all = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, left, infoPanel);
-        all.setResizeWeight(0.80);
+        JSplitPane all = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, right);
+        all.setResizeWeight(0.1);
         add(all, BorderLayout.CENTER);
-
-
-
     }
 
     @Override
