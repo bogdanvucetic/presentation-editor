@@ -1,9 +1,6 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.gui.swing.Tabovi.DecoratorRegistry;
-import raf.graffito.dsw.gui.swing.Tabovi.InfoPanel;
-import raf.graffito.dsw.gui.swing.Tabovi.TabsPanel;
 import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
@@ -20,8 +17,10 @@ public class MainFrame extends JFrame implements Subscriber {
 
     private static MainFrame instance;
     private ActionManager actionManager;
-    // todo u konkretnu klasu?
     private GraffTree graffTree;
+    private JTree tree;
+    private JPanel mainPanel;
+    private JSplitPane splitPane;
 
     private MainFrame() {
         actionManager = new ActionManager();
@@ -44,31 +43,14 @@ public class MainFrame extends JFrame implements Subscriber {
         MyToolBar toolBar = new MyToolBar(); // Kreiranje toolbar-a
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
-        JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
-        JScrollPane scrollPane = new JScrollPane(tree);
+        tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
+        tree.addMouseListener(getActionManager().getDoubleClickAction());
 
-
-        DecoratorRegistry registry = ApplicationFramework.getInstance().getDecoratorRegistry();
-        InfoPanel infoPanel = new InfoPanel();
-        TabsPanel tabsPanel = new TabsPanel(tree, registry, infoPanel);//dodala
-
-
-        JPanel mainView = new JPanel();
-//        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, tabsPanel);
-//        //dodala
-//        splitPane.setDividerLocation(200);
-//        add(splitPane, BorderLayout.CENTER);
-//        splitPane.setRightComponent(tabsPanel);
-
-
-        JSplitPane left = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, tabsPanel);
-        left.setResizeWeight(0.25);
-        JSplitPane all = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, left, infoPanel);
-        all.setResizeWeight(0.80);
-        add(all, BorderLayout.CENTER);
-
-
-
+        JScrollPane treePane = new JScrollPane(tree);
+        mainPanel = new JPanel();
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, mainPanel);
+        splitPane.setResizeWeight(0.1);
+        add(splitPane, BorderLayout.CENTER);
     }
 
     @Override
@@ -89,13 +71,22 @@ public class MainFrame extends JFrame implements Subscriber {
         return instance;
     }
 
-
-
     public ActionManager getActionManager() {
         return actionManager;
     }
 
     public GraffTree getGraffTree() {
         return graffTree;
+    }
+
+    public JTree getTree() {
+        return tree;
+    }
+
+    public void updateMainPanel(JPanel newPane) {
+        splitPane.setRightComponent(newPane);
+        this.mainPanel = newPane;
+        splitPane.revalidate();
+        splitPane.repaint();
     }
 }
