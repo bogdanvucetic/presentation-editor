@@ -1,8 +1,10 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.gui.swing.tabs.DecoratorRegistry;
 import raf.graffito.dsw.gui.swing.tabs.InfoPanel;
 import raf.graffito.dsw.controller.ActionManager;
+import raf.graffito.dsw.gui.swing.tabs.TabsPanel;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
 import raf.graffito.dsw.observer.MessageGenerator;
@@ -44,19 +46,32 @@ public class MainFrame extends JFrame implements Subscriber {
 
         JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
         JScrollPane treePane = new JScrollPane(tree);
+        JTabbedPane mainPane = new JTabbedPane();
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, mainPane);
+        splitPane.setResizeWeight(0.1);
+        add(splitPane, BorderLayout.CENTER);
+
 
 //        DecoratorRegistry registry = ApplicationFramework.getInstance().getDecoratorRegistry();
 //        InfoPanel infoPanel = new InfoPanel();
-//        TabsPanel tabsPanel = new TabsPanel(tree, registry, infoPanel);
+//        TabsPanel centerPanel = new TabsPanel(tree, registry, infoPanel);
 
-        JPanel centerPanel = new JPanel();
-        InfoPanel infoPanel = new InfoPanel();
-        JSplitPane right = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPanel, infoPanel);
-        right.setResizeWeight(1);
-
-        JSplitPane all = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, right);
-        all.setResizeWeight(0.1);
-        add(all, BorderLayout.CENTER);
+//        JTabbedPane centerPanel = new JTabbedPane();
+////        centerPanel.add("Ide gas", new InfoPanel());
+////        centerPanel.add("2", new Panel());
+//
+////        JPanel p1 = new JPanel();
+////        p1.add(new JLabel("Dobrodošli na prvi tab"));
+////        centerPanel.addTab("Početak", p1);
+//
+////        JPanel centerPanel = new JPanel();
+//        InfoPanel infoPanel = new InfoPanel();
+//        JSplitPane right = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centerPanel, infoPanel);
+//        right.setResizeWeight(1);
+//
+//        JSplitPane all = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, right);
+//        all.setResizeWeight(0.1);
+//        add(all, BorderLayout.CENTER);
     }
 
     @Override
