@@ -1,6 +1,5 @@
 package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.gui.swing.tabs.InfoPanel;
 import raf.graffito.dsw.model.composite.Presentation;
 
 import javax.swing.*;
