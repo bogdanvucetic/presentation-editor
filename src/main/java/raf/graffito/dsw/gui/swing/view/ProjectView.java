@@ -1,9 +1,12 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.GraffNodeComposite;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
+import raf.graffito.dsw.model.decorator.ColorDecorator;
+import raf.graffito.dsw.model.decorator.DecoratorRepository;
 import raf.graffito.dsw.observer.model.ModelEventType;
 import raf.graffito.dsw.observer.model.ModelSubscriber;
 import raf.graffito.dsw.observer.model.ModelEvent;
@@ -104,6 +107,8 @@ public class ProjectView extends JPanel implements ModelSubscriber {
                 tabs.removeAll();
                 infoPanel.setProject(null);
                 infoPanel.setCurrentPresentation(null);
+
+                ApplicationFramework.getInstance().getGraffRepository().getDecoratorRepository().removeColorDecoratorFor(project);
             } else if (node instanceof Presentation p) {
                 removePresentationTab(p);
             }

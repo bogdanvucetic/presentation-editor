@@ -34,13 +34,17 @@ public class DecoratorRepository {
         return null;
     }
 
-    public boolean isColorUsedForDifferentProject(ColorDecorator decorator, Color color) {
-        for (GraffNodeDecorator d : decorators) {
-            if (decorator == d) {
-                continue;
+    public void removeColorDecoratorFor(GraffNode node) {
+        for (GraffNodeDecorator decorator : decorators) {
+            if (decorator instanceof ColorDecorator cd && cd.getNode() == node) {
+                decorators.remove(cd);
             }
+        }
+    }
 
-            if (d instanceof ColorDecorator && color == ((ColorDecorator)d).getColor()){
+    public boolean isColorUsed(Color color) {
+        for (GraffNodeDecorator d : decorators) {
+            if (d instanceof ColorDecorator cd && color.equals(cd.getColor())){
                 return true;
             }
         }
