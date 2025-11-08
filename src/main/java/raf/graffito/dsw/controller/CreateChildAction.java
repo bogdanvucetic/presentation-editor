@@ -6,7 +6,7 @@ import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.GraffNodeComposite;
 import raf.graffito.dsw.model.factory.GraffNodeFactory;
-import raf.graffito.dsw.observer.MessageType;
+import raf.graffito.dsw.observer.message.MessageType;
 
 import java.awt.event.ActionEvent;
 

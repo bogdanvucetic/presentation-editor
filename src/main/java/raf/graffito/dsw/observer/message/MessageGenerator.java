@@ -1,11 +1,11 @@
-package raf.graffito.dsw.observer;
+package raf.graffito.dsw.observer.message;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageGenerator implements Publisher {
-    private List<Subscriber> subscribers;
+public class MessageGenerator implements MessagePublisher {
+    private List<MessageSubscriber> subscribers;
 
     private String content;
     private MessageType type;
@@ -23,18 +23,18 @@ public class MessageGenerator implements Publisher {
     }
 
     @Override
-    public void addSubscriber(Subscriber subscriber) {
-        subscribers.add(subscriber);
+    public void addSubscriber(MessageSubscriber messageSubscriber) {
+        subscribers.add(messageSubscriber);
     }
 
     @Override
-    public void removeSubscriber(Subscriber subscriber) {
-        subscribers.remove(subscriber);
+    public void removeSubscriber(MessageSubscriber messageSubscriber) {
+        subscribers.remove(messageSubscriber);
     }
 
     @Override
     public void notifySubscribers() {
-        for (Subscriber s : subscribers) {
+        for (MessageSubscriber s : subscribers) {
             s.update(this);
         }
     }

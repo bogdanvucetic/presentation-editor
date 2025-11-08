@@ -1,5 +1,0 @@
-package raf.graffito.dsw.observer;
-
-public interface Subscriber {
-    void update(MessageGenerator message);
-}

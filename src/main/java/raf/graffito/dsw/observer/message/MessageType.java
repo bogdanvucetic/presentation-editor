@@ -1,4 +1,4 @@
-package raf.graffito.dsw.observer;
+package raf.graffito.dsw.observer.message;
 
 public enum MessageType {
     ERROR,

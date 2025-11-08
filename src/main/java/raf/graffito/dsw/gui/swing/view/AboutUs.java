@@ -1,7 +1,7 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.observer.MessageType;
+import raf.graffito.dsw.observer.message.MessageType;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

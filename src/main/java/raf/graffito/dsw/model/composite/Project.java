@@ -1,26 +1,30 @@
 package raf.graffito.dsw.model.composite;
 
-import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.model.factory.GraffNodeFactory;
-import raf.graffito.dsw.observer.MessageType;
+import raf.graffito.dsw.observer.model.ModelSubscriber;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Project extends GraffNodeComposite {
     private String title;
     private int totalNumberOfSlides;
+    private List<ModelSubscriber> subscribers;
 
     public Project(GraffNode parent, String name) {
         super(parent, name);
         this.title = name;
         this.totalNumberOfSlides = 0;
+        this.subscribers = new ArrayList<>();
     }
 
     @Override
     public void addChild(GraffNode child) {
-        if (child instanceof Presentation) {
+        if (child instanceof Presentation || child instanceof Slide) {
             super.addChild(child);
-        } else if (child instanceof Slide) {
-            super.addChild(child);
-            incrementNumberOfSlides();
+
+            if (child instanceof Slide) {
+                incrementNumberOfSlides();
+            }
         }
     }
 
