@@ -1,7 +1,7 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.GraffNode;
-import raf.graffito.dsw.model.composite.GraffNodeComposite;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
 import raf.graffito.dsw.observer.model.ModelEventType;
@@ -10,7 +10,6 @@ import raf.graffito.dsw.observer.model.ModelEvent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectView extends JPanel implements ModelSubscriber {
@@ -46,42 +45,34 @@ public class ProjectView extends JPanel implements ModelSubscriber {
         });
 
         if (project != null) {
-            ((GraffNodeComposite) this.project.getParent()).addSubscriber(this);
-            this.project.addSubscriber(this);
-            builtTabs();
+            project.getParent().addSubscriber(this);
+            project.addSubscriber(this);
+
+            List<Presentation> presentations = project.getPresentations();
+
+            if (!presentations.isEmpty()) {
+                infoPanel.setCurrentPresentation(presentations.getFirst());
+            }
+
+            createTabsFor(presentations);
+        }
+
+        if (tabColor != null) {
+            tabs.setBackground(tabColor);
         }
 
         add(tabs, BorderLayout.CENTER);
         add(infoPanel, BorderLayout.EAST);
     }
 
-    private void builtTabs() {
+    private void createTabsFor(List<Presentation> presentations) {
         tabs.removeAll();
 
-        List<Presentation> presentations = new ArrayList<>();
-        for (GraffNode child : project.getChildren()) {
-            if (child instanceof Presentation) {
-                presentations.add((Presentation) child);
-            }
-        }
-
-        Presentation firstPresentation = null;
-
         for (Presentation p : presentations) {
-            if (firstPresentation == null){
-                firstPresentation = p;
-            }
-
             p.addSubscriber(this);
-            PresentationView pView = new PresentationView(p);
-            tabs.add(p.getName(), pView);
-
-            if (tabColor != null) {
-                tabs.setBackground(tabColor);
-            }
+            PresentationView view = new PresentationView(p);
+            tabs.add(p.getName(), view);
         }
-
-        infoPanel.setCurrentPresentation(firstPresentation);
     }
 
     @Override
@@ -92,8 +83,8 @@ public class ProjectView extends JPanel implements ModelSubscriber {
         if (type == ModelEventType.ADD_CHILD) {
             if (node instanceof Presentation p) {
                 p.addSubscriber(this);
-                PresentationView pView = new PresentationView(p);
-                tabs.add(p.getName(), pView);
+                PresentationView view = new PresentationView(p);
+                tabs.add(p.getName(), view);
 
                 if (tabColor != null) {
                     tabs.setBackground(tabColor);
@@ -109,7 +100,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
             }
         } else if (type == ModelEventType.RENAME) {
             if (node == project) {
-                infoPanel.setProject(project);
+                infoPanel.setProjectLabel(project.getName());
             } else if (node instanceof Presentation p) {
                 renamePresentationTab(p);
             }

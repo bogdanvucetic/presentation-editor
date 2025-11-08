@@ -22,9 +22,13 @@ public class OpenTabsAction extends AbstractGraffAction {
             return;
         }
 
-        Color color = JColorChooser.showDialog(null, "Izaberi boju za tabove za: " + project.getName(), Color.WHITE);
+        Color color = JColorChooser.showDialog(MainFrame.getInstance(), "Izaberi boju tabova projekta", Color.WHITE);
 
-        if (decoratorRepository.isColorUsedForDifferentProject(decorator, color)) {
+        if (color == null) {
+            return;
+        }
+
+        if (decoratorRepository.isUsed(color)) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Izabrana boja je iskorišćena.", MessageType.ERROR);
             return;
         }

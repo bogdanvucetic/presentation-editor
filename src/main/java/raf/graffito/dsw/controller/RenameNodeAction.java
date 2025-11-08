@@ -24,7 +24,7 @@ public class RenameNodeAction extends AbstractGraffAction {
             return;
         }
 
-        String input = JOptionPane.showInputDialog("Unesi novo ime:", selected.getGraffNode().getName());
+        String input = JOptionPane.showInputDialog(MainFrame.getInstance(), "Unesi novo ime:", selected.getGraffNode().getName());
 
         // kada korisnik klikne "cancel"
         if (input == null)
@@ -37,12 +37,15 @@ public class RenameNodeAction extends AbstractGraffAction {
             return;
         }
 
+        if (input.equals(selected.getGraffNode().getName())){
+            return;
+        }
+
         try {
             selected.getGraffNode().setName(input);
             MainFrame.getInstance().getGraffTree().refresh();
-        } catch (Exception ex){
+        } catch (IllegalArgumentException ex) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }
-
     }
 }

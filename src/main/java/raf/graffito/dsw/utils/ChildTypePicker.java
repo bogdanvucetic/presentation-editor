@@ -1,5 +1,6 @@
 package raf.graffito.dsw.utils;
 
+import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.factory.GraffNodeFactory;
 import raf.graffito.dsw.model.factory.PresentationFactory;
 import raf.graffito.dsw.model.factory.SlideFactory;
@@ -23,7 +24,7 @@ public class ChildTypePicker {
         panel.add(slideButton);
 
         // neophodno jer bi se inače pravio čvor čak i kada korisnik odustane
-        int result = JOptionPane.showConfirmDialog(null, panel, "Izaberi tip čvora", JOptionPane.OK_CANCEL_OPTION);
+        int result = JOptionPane.showConfirmDialog(MainFrame.getInstance(), panel, "Izaberi tip čvora", JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
             if (presentationButton.isSelected()) {

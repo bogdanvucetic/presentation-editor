@@ -13,10 +13,6 @@ public class DecoratorRepository {
         decorators = new LinkedList<>();
     }
 
-    public List<GraffNodeDecorator> getDecorators() {
-        return decorators;
-    }
-
     public void addDecorator(GraffNodeDecorator decorator) {
         decorators.add(decorator);
     }
@@ -27,23 +23,31 @@ public class DecoratorRepository {
 
     public ColorDecorator getColorDecoratorFor(GraffNode node) {
         for (GraffNodeDecorator decorator : decorators) {
-            if (decorator instanceof ColorDecorator cd && cd.getNode() == node) {
-                return cd;
+            if (decorator instanceof ColorDecorator colorDecorator && colorDecorator.getNode() == node) {
+                return colorDecorator;
             }
         }
         return null;
     }
 
-    public boolean isColorUsedForDifferentProject(ColorDecorator decorator, Color color) {
-        for (GraffNodeDecorator d : decorators) {
-            if (decorator == d) {
-                continue;
+    public void removeColorDecoratorFor(GraffNode node) {
+        for (GraffNodeDecorator decorator : decorators) {
+            if (decorator instanceof ColorDecorator colorDecorator && colorDecorator.getNode() == node) {
+                decorators.remove(colorDecorator);
             }
+        }
+    }
 
-            if (d instanceof ColorDecorator && color == ((ColorDecorator)d).getColor()){
+    public boolean isUsed(Color color) {
+        for (GraffNodeDecorator d : decorators) {
+            if (d instanceof ColorDecorator cd && color.equals(cd.getColor())){
                 return true;
             }
         }
         return false;
+    }
+
+    public List<GraffNodeDecorator> getDecorators() {
+        return decorators;
     }
 }

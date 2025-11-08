@@ -62,6 +62,10 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
         }
     }
 
+    public void setProjectLabel(String label) {
+        projectLabel.setText(label);
+    }
+
     @Override
     public void update(ModelEvent event) {
         GraffNode node = event.getNode();

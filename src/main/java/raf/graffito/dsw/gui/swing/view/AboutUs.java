@@ -16,7 +16,7 @@ public class AboutUs extends JFrame {
         setTitle("O nama");
         setSize(600, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(MainFrame.getInstance());
 
         String[] kolone = {"Fotografija", "Ime i prezime", "Broj indeksa"};
 

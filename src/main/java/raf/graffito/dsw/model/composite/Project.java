@@ -41,6 +41,16 @@ public class Project extends GraffNodeComposite {
         totalNumberOfSlides++;
     }
 
+    public List<Presentation> getPresentations() {
+        List<Presentation> presentations = new ArrayList<>();
+        for (GraffNode child : getChildren()) {
+            if (child instanceof Presentation) {
+                presentations.add((Presentation) child);
+            }
+        }
+        return presentations;
+    }
+
     public String getTitle() {
         return title;
     }
