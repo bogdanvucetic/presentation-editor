@@ -4,7 +4,7 @@ import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.composite.Project;
-import raf.graffito.dsw.observer.MessageType;
+import raf.graffito.dsw.observer.message.MessageType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

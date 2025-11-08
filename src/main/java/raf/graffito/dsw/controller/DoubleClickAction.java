@@ -3,11 +3,11 @@ package raf.graffito.dsw.controller;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
-import raf.graffito.dsw.gui.swing.view.MainPanel;
+import raf.graffito.dsw.gui.swing.view.ProjectView;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
-import raf.graffito.dsw.observer.MessageType;
+import raf.graffito.dsw.observer.message.MessageType;
 
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseAdapter;
@@ -43,6 +43,6 @@ public class DoubleClickAction extends MouseAdapter {
             }
         }
 
-        MainFrame.getInstance().updateMainPanel(new MainPanel(presentations, project));
+        MainFrame.getInstance().updateMainPanel(new ProjectView(presentations, project));
     }
 }

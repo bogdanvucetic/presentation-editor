@@ -4,14 +4,14 @@ import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
-import raf.graffito.dsw.observer.MessageGenerator;
-import raf.graffito.dsw.observer.MessageType;
-import raf.graffito.dsw.observer.Subscriber;
+import raf.graffito.dsw.observer.message.MessageGenerator;
+import raf.graffito.dsw.observer.message.MessageType;
+import raf.graffito.dsw.observer.message.MessageSubscriber;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame implements Subscriber {
+public class MainFrame extends JFrame implements MessageSubscriber {
 
     // Buduća polja za sve komponente view-a na glavnom prozoru
 

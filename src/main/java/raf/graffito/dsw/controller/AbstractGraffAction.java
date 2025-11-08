@@ -1,7 +1,7 @@
 package raf.graffito.dsw.controller;
 
 import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.observer.MessageType;
+import raf.graffito.dsw.observer.message.MessageType;
 
 import javax.swing.*;
 import java.awt.*;

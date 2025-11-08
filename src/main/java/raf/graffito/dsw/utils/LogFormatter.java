@@ -1,6 +1,6 @@
 package raf.graffito.dsw.utils;
 
-import raf.graffito.dsw.observer.MessageGenerator;
+import raf.graffito.dsw.observer.message.MessageGenerator;
 
 import java.time.format.DateTimeFormatter;
 
