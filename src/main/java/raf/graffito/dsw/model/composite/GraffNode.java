@@ -19,8 +19,12 @@ public abstract class GraffNode implements ModelPublisher {
         subscribers = new LinkedList<>();
     }
 
-    // profesor rekao da ovde bude apstraktna i potklase da implementiraju
-    public abstract GraffNode findByName(String name);
+    public GraffNode findByName(String name) {
+        if (getName() != null && getName().equals(name)) {
+            return this;
+        }
+        return null;
+    }
 
     @Override
     public void addSubscriber(ModelSubscriber subscriber) {
