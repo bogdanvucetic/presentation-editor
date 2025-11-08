@@ -70,8 +70,8 @@ public class ProjectView extends JPanel implements ModelSubscriber {
 
         for (Presentation p : presentations) {
             p.addSubscriber(this);
-            PresentationView pView = new PresentationView(p);
-            tabs.add(p.getName(), pView);
+            PresentationView view = new PresentationView(p);
+            tabs.add(p.getName(), view);
         }
     }
 
@@ -83,8 +83,8 @@ public class ProjectView extends JPanel implements ModelSubscriber {
         if (type == ModelEventType.ADD_CHILD) {
             if (node instanceof Presentation p) {
                 p.addSubscriber(this);
-                PresentationView pView = new PresentationView(p);
-                tabs.add(p.getName(), pView);
+                PresentationView view = new PresentationView(p);
+                tabs.add(p.getName(), view);
 
                 if (tabColor != null) {
                     tabs.setBackground(tabColor);
