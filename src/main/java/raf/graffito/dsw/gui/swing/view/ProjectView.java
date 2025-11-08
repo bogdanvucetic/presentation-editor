@@ -16,10 +16,20 @@ import java.util.List;
 public class ProjectView extends JPanel implements ModelSubscriber {
     private Project project;
     private JTabbedPane tabs;
+    private Color tabColor;
     private InfoPanel infoPanel;
 
     public ProjectView(Project project) {
+        this(project, null);
+    }
+
+    public ProjectView(Project project, Color tabColor) {
         this.project = project;
+        this.tabColor = tabColor;
+        initialize();
+    }
+
+    private void initialize() {
         setLayout(new BorderLayout());
 
         infoPanel = new InfoPanel();
@@ -65,6 +75,10 @@ public class ProjectView extends JPanel implements ModelSubscriber {
             p.addSubscriber(this);
             PresentationView pView = new PresentationView(p);
             tabs.add(p.getName(), pView);
+
+            if (tabColor != null) {
+                tabs.setBackground(tabColor);
+            }
         }
 
         infoPanel.setCurrentPresentation(firstPresentation);
@@ -80,6 +94,10 @@ public class ProjectView extends JPanel implements ModelSubscriber {
                 p.addSubscriber(this);
                 PresentationView pView = new PresentationView(p);
                 tabs.add(p.getName(), pView);
+
+                if (tabColor != null) {
+                    tabs.setBackground(tabColor);
+                }
             }
         } else if (type == ModelEventType.REMOVE_CHILD) {
             if (node == project) {

@@ -66,7 +66,7 @@ public class MainFrame extends JFrame implements MessageSubscriber {
                     return;
                 }
 
-                openProject(new ProjectView(project));
+                getActionManager().getOpenTabsAction().actionPerformed(project);
             }
         });
 
