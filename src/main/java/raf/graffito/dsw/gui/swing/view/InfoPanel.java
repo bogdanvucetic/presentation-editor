@@ -1,15 +1,29 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.model.composite.Presentation;
+import raf.graffito.dsw.model.composite.Project;
+import raf.graffito.dsw.observer.MessageGenerator;
+import raf.graffito.dsw.observer.MessageType;
+import raf.graffito.dsw.observer.Subscriber;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class InfoPanel extends JPanel {
-    private JLabel currentPresentation = new JLabel("-");
     private JLabel currentProject = new JLabel("-");
+    private JLabel currentPresentation = new JLabel("-");
 
-    public InfoPanel() {
+    public InfoPanel(Project project, Presentation presentation) {
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createTitledBorder("Informacije"));
+
+        currentProject.setText(project.getName());
+        try {
+            currentPresentation.setText(presentation.getName());
+        } catch (Exception e) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Projekat nema prezentacija", MessageType.INFO);
+        }
 
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(4, 8, 4, 8);

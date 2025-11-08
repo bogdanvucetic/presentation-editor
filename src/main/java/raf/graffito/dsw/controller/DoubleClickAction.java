@@ -43,6 +43,6 @@ public class DoubleClickAction extends MouseAdapter {
             }
         }
 
-        MainFrame.getInstance().updateMainPanel(new MainPanel(presentations));
+        MainFrame.getInstance().updateMainPanel(new MainPanel(presentations, project));
     }
 }
