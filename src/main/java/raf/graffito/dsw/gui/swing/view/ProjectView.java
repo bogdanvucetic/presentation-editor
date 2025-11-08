@@ -114,7 +114,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
             }
         } else if (type == ModelEventType.RENAME) {
             if (node == project) {
-                infoPanel.setProject(project);
+                infoPanel.setProjectLabel(project.getName());
             } else if (node instanceof Presentation p) {
                 renamePresentationTab(p);
             }
