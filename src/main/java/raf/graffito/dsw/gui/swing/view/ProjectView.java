@@ -2,18 +2,14 @@ package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.GraffNode;
-import raf.graffito.dsw.model.composite.GraffNodeComposite;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
-import raf.graffito.dsw.model.decorator.ColorDecorator;
-import raf.graffito.dsw.model.decorator.DecoratorRepository;
 import raf.graffito.dsw.observer.model.ModelEventType;
 import raf.graffito.dsw.observer.model.ModelSubscriber;
 import raf.graffito.dsw.observer.model.ModelEvent;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectView extends JPanel implements ModelSubscriber {
@@ -49,36 +45,34 @@ public class ProjectView extends JPanel implements ModelSubscriber {
         });
 
         if (project != null) {
-            ((GraffNodeComposite) this.project.getParent()).addSubscriber(this);
-            this.project.addSubscriber(this);
-            builtTabs();
+            project.getParent().addSubscriber(this);
+            project.addSubscriber(this);
+
+            List<Presentation> presentations = project.getPresentations();
+
+            if (!presentations.isEmpty()) {
+                infoPanel.setCurrentPresentation(presentations.getFirst());
+            }
+
+            createTabsFor(presentations);
+        }
+
+        if (tabColor != null) {
+            tabs.setBackground(tabColor);
         }
 
         add(tabs, BorderLayout.CENTER);
         add(infoPanel, BorderLayout.EAST);
     }
 
-    private void builtTabs() {
+    private void createTabsFor(List<Presentation> presentations) {
         tabs.removeAll();
 
-        List<Presentation> presentations = project.getPresentations();
-        Presentation firstPresentation = null;
-
         for (Presentation p : presentations) {
-            if (firstPresentation == null){
-                firstPresentation = p;
-            }
-
             p.addSubscriber(this);
             PresentationView pView = new PresentationView(p);
             tabs.add(p.getName(), pView);
-
-            if (tabColor != null) {
-                tabs.setBackground(tabColor);
-            }
         }
-
-        infoPanel.setCurrentPresentation(firstPresentation);
     }
 
     @Override
@@ -101,8 +95,6 @@ public class ProjectView extends JPanel implements ModelSubscriber {
                 tabs.removeAll();
                 infoPanel.setProject(null);
                 infoPanel.setCurrentPresentation(null);
-
-                ApplicationFramework.getInstance().getGraffRepository().getDecoratorRepository().removeColorDecoratorFor(project);
             } else if (node instanceof Presentation p) {
                 removePresentationTab(p);
             }

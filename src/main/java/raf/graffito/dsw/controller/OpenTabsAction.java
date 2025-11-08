@@ -24,7 +24,11 @@ public class OpenTabsAction extends AbstractGraffAction {
 
         Color color = JColorChooser.showDialog(null, "Izaberi boju tabova projekta", Color.WHITE);
 
-        if (decoratorRepository.isColorUsed(color)) {
+        if (color == null) {
+            return;
+        }
+
+        if (decoratorRepository.isUsed(color)) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Izabrana boja je iskorišćena.", MessageType.ERROR);
             return;
         }
