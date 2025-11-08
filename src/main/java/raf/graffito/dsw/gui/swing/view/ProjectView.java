@@ -61,13 +61,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
     private void builtTabs() {
         tabs.removeAll();
 
-        List<Presentation> presentations = new ArrayList<>();
-        for (GraffNode child : project.getChildren()) {
-            if (child instanceof Presentation) {
-                presentations.add((Presentation) child);
-            }
-        }
-
+        List<Presentation> presentations = project.getPresentations();
         Presentation firstPresentation = null;
 
         for (Presentation p : presentations) {
