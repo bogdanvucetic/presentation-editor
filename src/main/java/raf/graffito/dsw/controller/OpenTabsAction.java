@@ -22,7 +22,7 @@ public class OpenTabsAction extends AbstractGraffAction {
             return;
         }
 
-        Color color = JColorChooser.showDialog(null, "Izaberi boju tabova projekta", Color.WHITE);
+        Color color = JColorChooser.showDialog(MainFrame.getInstance(), "Izaberi boju tabova projekta", Color.WHITE);
 
         if (color == null) {
             return;

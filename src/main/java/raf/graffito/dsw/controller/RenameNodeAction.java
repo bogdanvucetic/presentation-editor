@@ -24,7 +24,7 @@ public class RenameNodeAction extends AbstractGraffAction {
             return;
         }
 
-        String input = JOptionPane.showInputDialog("Unesi novo ime:", selected.getGraffNode().getName());
+        String input = JOptionPane.showInputDialog(MainFrame.getInstance(), "Unesi novo ime:", selected.getGraffNode().getName());
 
         // kada korisnik klikne "cancel"
         if (input == null)

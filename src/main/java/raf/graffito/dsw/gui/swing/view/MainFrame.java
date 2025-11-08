@@ -1,10 +1,12 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import com.sun.source.tree.ParenthesizedTree;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
+import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Project;
 import raf.graffito.dsw.observer.message.MessageGenerator;
 import raf.graffito.dsw.observer.message.MessageType;
@@ -59,10 +61,10 @@ public class MainFrame extends JFrame implements MessageSubscriber {
                     return;
                 }
 
-                GraffTreeElem elem = (GraffTreeElem) path.getLastPathComponent();
+                Project project = getProjectFromPath(path);
 
-                if (!(elem.getGraffNode() instanceof Project project)){
-                    ApplicationFramework.getInstance().getMessageGenerator().createMessage("Otvaranje tabova je moguće samo za projekte.", MessageType.INFO);
+                if (project == null) {
+                    ApplicationFramework.getInstance().getMessageGenerator().createMessage("Izabrana putanja nema projekat.", MessageType.INFO);
                     return;
                 }
 
@@ -86,9 +88,9 @@ public class MainFrame extends JFrame implements MessageSubscriber {
     @Override
     public void update(MessageGenerator message) {
         if (message.getType().equals(MessageType.ERROR)) {
-            JOptionPane.showMessageDialog(null, message.getContent(), "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(MainFrame.getInstance(), message.getContent(), "Greška", JOptionPane.ERROR_MESSAGE);
         } else if (message.getType().equals(MessageType.WARNING)) {
-            JOptionPane.showMessageDialog(null, message.getContent(), "Upozorenje", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(MainFrame.getInstance(), message.getContent(), "Upozorenje", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -99,6 +101,17 @@ public class MainFrame extends JFrame implements MessageSubscriber {
         }
 
         return instance;
+    }
+
+    public Project getProjectFromPath(TreePath path) {
+        for (int i = 0; i < path.getPathCount(); i++) {
+            GraffNode node = ((GraffTreeElem) path.getPathComponent(i)).getGraffNode();
+
+            if (node instanceof Project project) {
+                return project;
+            }
+        }
+        return null;
     }
 
     public ActionManager getActionManager() {
