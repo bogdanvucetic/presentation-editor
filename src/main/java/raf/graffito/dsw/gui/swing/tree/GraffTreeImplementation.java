@@ -17,6 +17,7 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
         treeModel = new DefaultTreeModel(root);
 
         setModel(treeModel);
+        setToggleClickCount(0);
 
         return this;
     }
