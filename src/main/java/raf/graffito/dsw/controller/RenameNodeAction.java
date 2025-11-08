@@ -37,6 +37,10 @@ public class RenameNodeAction extends AbstractGraffAction {
             return;
         }
 
+        if (input.equals(selected.getGraffNode().getName())){
+            return;
+        }
+
         try {
             selected.getGraffNode().setName(input);
             MainFrame.getInstance().getGraffTree().refresh();
