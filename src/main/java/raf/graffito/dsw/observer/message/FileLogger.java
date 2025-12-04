@@ -13,7 +13,7 @@ public class FileLogger implements Logger {
             fw.write(LogFormatter.format(message));
             fw.write("\n");
         } catch (IOException e) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno upisivanje u log.txt", MessageType.INFO);
+            System.err.println("Neuspešno upisivanje u log.txt.");
         }
     }
 }
