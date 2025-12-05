@@ -24,12 +24,12 @@ public class DeleteNodeAction extends AbstractGraffAction {
             return;
         }
 
-        if (selected.getParent() == null){
+        GraffNodeComposite parent = (GraffNodeComposite) selected.getGraffNode().getParent();
+
+        if (parent == null){
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Workspace ne može da se obriše.", MessageType.ERROR);
             return;
         }
-
-        GraffNodeComposite parent = (GraffNodeComposite) selected.getGraffNode().getParent();
         
         try {
             parent.removeChild(selected.getGraffNode());
