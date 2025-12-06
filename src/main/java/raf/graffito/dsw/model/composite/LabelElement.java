@@ -1,7 +1,19 @@
 package raf.graffito.dsw.model.composite;
 
-public class LabelElement extends SlideElement {
+import raf.graffito.dsw.model.Prototype;
+
+public class LabelElement extends SlideElement implements Prototype {
     public LabelElement(GraffNode parent, String name, int x, int y, int width, int height) {
         super(parent, name, x, y, width, height);
+    }
+
+    @Override
+    public Prototype clone() {
+        return new LabelElement(getParent(),
+                getName() + " KOPIRANO",
+                getX() + 2,
+                getY() + 2,
+                getWidth(),
+                getHeight());
     }
 }
