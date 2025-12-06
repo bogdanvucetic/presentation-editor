@@ -9,7 +9,7 @@ public class LogoElement extends SlideElement implements Prototype {
 
     @Override
     public Prototype clone() {
-        return new LabelElement(getParent(),
+        return new LogoElement(getParent(),
                 getCloneName(),
                 getX() + 2,
                 getY() + 2,
