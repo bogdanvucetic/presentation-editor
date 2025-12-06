@@ -1,6 +1,6 @@
 package raf.graffito.dsw.model.composite;
 
-public class SlideElement extends GraffLeaf {
+public abstract class SlideElement extends GraffLeaf {
     private int x;
     private int y;
     private int width;
