@@ -10,10 +10,23 @@ public class LabelElement extends SlideElement implements Prototype {
     @Override
     public Prototype clone() {
         return new LabelElement(getParent(),
-                getName() + " KOPIRANO",
+                getCloneName(),
                 getX() + 2,
                 getY() + 2,
                 getWidth(),
                 getHeight());
+    }
+
+    private String getCloneName() {
+        String name = getName();
+        int counter = 0;
+
+        for (GraffNode node : ((GraffNodeComposite)getParent()).getChildren()){
+            if (node.getName().equals(name)){
+                counter++;
+            }
+        }
+
+        return name + counter;
     }
 }
