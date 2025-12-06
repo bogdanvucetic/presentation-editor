@@ -11,14 +11,11 @@ import java.awt.*;
 
 public class PresentationView extends JPanel implements ModelSubscriber {
     private Presentation presentation;
-    private JLabel label;
 
     public PresentationView(Presentation presentation) {
         this.presentation = presentation;
         presentation.addSubscriber(this);
-        label = new JLabel("Editovanje: " + presentation.getName());
         setLayout(new BorderLayout());
-        add(label, BorderLayout.CENTER);
     }
 
     public Presentation getPresentation() {
@@ -29,9 +26,5 @@ public class PresentationView extends JPanel implements ModelSubscriber {
     public void update(ModelEvent event) {
         GraffNode node = event.getNode();
         ModelEventType type = event.getType();
-
-        if (type == ModelEventType.RENAME && node == presentation) {
-            label.setText("Editovanje: " + node.getName());
-        }
     }
 }
