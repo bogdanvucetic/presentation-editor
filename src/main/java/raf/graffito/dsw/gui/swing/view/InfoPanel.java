@@ -1,5 +1,7 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.controller.AbstractGraffAction;
+import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
@@ -12,24 +14,109 @@ import java.awt.*;
 
 public class InfoPanel extends JPanel implements ModelSubscriber {
     private Project project;
-    private Presentation currentPresentation;
-
+    private Presentation presentation;
     private JLabel projectLabel = new JLabel("-");
-    private JLabel currentPresentationLabel = new JLabel("-");
+    private JLabel presentationLabel = new JLabel("-");
+
+    private JPanel imagesPanel;
+    private JPanel actionsPanel;
 
     public InfoPanel() {
-        setLayout(new GridBagLayout());
-        setBorder(BorderFactory.createTitledBorder("Informacije"));
+        setLayout(new BorderLayout(0, 8));
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.insets = new Insets(4, 8, 4, 8);
-        c.anchor = GridBagConstraints.WEST;
+        JPanel top = new JPanel(new BorderLayout());
+        JPanel header = buildHeaderPanel();
+        top.add(header, BorderLayout.CENTER);
+        top.add(new JSeparator(), BorderLayout.SOUTH);
+        add(top, BorderLayout.NORTH);
 
-        c.gridx = 0; c.gridy = 0; add(new JLabel("Prezentacija:"), c);
-        c.gridx = 1; add(currentPresentationLabel, c);
+        imagesPanel = new JPanel(new GridLayout(0, 1, 5, 5)); // 2 columns, any number of rows
+        JScrollPane scroll = new JScrollPane(imagesPanel);
+        scroll.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+        add(scroll, BorderLayout.CENTER);
 
-        c.gridx = 0; c.gridy = 1; add(new JLabel("Projekat:"), c);
-        c.gridx = 1; add(projectLabel, c);
+        actionsPanel = buildActionsPanel();
+        JPanel bottom = new JPanel(new BorderLayout());
+        bottom.add(new JSeparator(), BorderLayout.NORTH);
+        bottom.add(actionsPanel, BorderLayout.CENTER);
+        add(bottom, BorderLayout.SOUTH);
+    }
+
+    private JPanel buildHeaderPanel() {
+        JPanel header = new JPanel();
+        header.setLayout(new GridLayout(2, 1, 5, 5));
+        header.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        header.add(center(projectLabel));
+        header.add(center(presentationLabel));
+
+        return header;
+    }
+
+    private JPanel buildActionsPanel() {
+        JPanel p = new JPanel(new GridLayout(3, 2, 5, 5));
+        p.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        ActionManager actionManager = MainFrame.getInstance().getActionManager();
+        p.add(createToolButton(actionManager.getAddSlideElementsAction()));
+        p.add(createToolButton(actionManager.getSelectSlideElementsAction()));
+        p.add(createToolButton(actionManager.getResizeSlideElementsAction()));
+        p.add(createToolButton(actionManager.getMoveSlideElementsAction()));
+        p.add(createToolButton(actionManager.getZoomSlideAction()));
+        p.add(createToolButton(actionManager.getDeleteSlideElementsAction()));
+
+        return p;
+    }
+
+    private Component center(JComponent c) {
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        p.add(c);
+        return p;
+    }
+
+    @Override
+    public void update(ModelEvent event) {
+        GraffNode node = event.getNode();
+        ModelEventType type = event.getType();
+
+        switch (type) {
+            case ADD_CHILD -> { }
+            case REMOVE_CHILD -> {
+                if (node == project) {
+                    setProject(null);
+                    setPresentation(null);
+                }
+
+                else if (node == presentation) {
+                    setPresentation(null);
+                }
+            } case RENAME -> {
+                if (node == project) {
+                    projectLabel.setText(project.getName());
+                }
+
+                else if (node == presentation) {
+                    presentationLabel.setText(presentation.getName());
+                }
+            }
+        }
+    }
+
+    private JButton createToolButton(AbstractGraffAction action) {
+        JButton b = new JButton();
+        b.setAction(action);
+        b.setText("");
+        b.setContentAreaFilled(false);
+
+        Icon icon = (Icon) action.getValue(Action.SMALL_ICON);
+        if (icon != null) {
+            int size = Math.max(icon.getIconWidth(), icon.getIconHeight());
+            size += 5;
+            Dimension d = new Dimension(size, size);
+            b.setPreferredSize(d);
+        }
+
+        return b;
     }
 
     public void setProject(Project project) {
@@ -47,41 +134,22 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
         }
     }
 
-    public void setCurrentPresentation(Presentation currentPresentation) {
-        if (this.currentPresentation != null){
-            this.currentPresentation.removeSubscriber(this);
+    public void setPresentation(Presentation presentation) {
+        if (this.presentation != null){
+            this.presentation.removeSubscriber(this);
         }
 
-        this.currentPresentation = currentPresentation;
+        this.presentation = presentation;
 
-        if (currentPresentation != null) {
-            this.currentPresentation.addSubscriber(this);
-            currentPresentationLabel.setText(currentPresentation.getName());
+        if (presentation != null) {
+            this.presentation.addSubscriber(this);
+            presentationLabel.setText(presentation.getName());
         } else {
-            currentPresentationLabel.setText("-");
+            presentationLabel.setText("-");
         }
     }
 
     public void setProjectLabel(String label) {
         projectLabel.setText(label);
-    }
-
-    @Override
-    public void update(ModelEvent event) {
-        GraffNode node = event.getNode();
-        ModelEventType type = event.getType();
-
-        if (node == project) {
-            if (type == ModelEventType.RENAME) projectLabel.setText(project.getName());
-
-            else if (type == ModelEventType.REMOVE_CHILD) {
-                setProject(null);
-                setCurrentPresentation(null);
-            }
-        }  else if (node == currentPresentation) {
-            if (type == ModelEventType.RENAME) currentPresentationLabel.setText(currentPresentation.getName());
-
-            else if (type == ModelEventType.REMOVE_CHILD) setCurrentPresentation(null);
-        }
     }
 }

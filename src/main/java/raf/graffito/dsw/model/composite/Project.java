@@ -8,23 +8,23 @@ import java.util.List;
 public class Project extends GraffNodeComposite {
     private String title;
     private int totalNumberOfSlides;
-    private List<ModelSubscriber> subscribers;
 
     public Project(GraffNode parent, String name) {
         super(parent, name);
         this.title = name;
         this.totalNumberOfSlides = 0;
-        this.subscribers = new ArrayList<>();
     }
 
     @Override
     public void addChild(GraffNode child) {
-        if (child instanceof Presentation || child instanceof Slide) {
-            super.addChild(child);
+        if (!(child instanceof Presentation || child instanceof Slide)) {
+            throw new IllegalArgumentException("ELement ne može da se doda na projekat.");
+        }
 
-            if (child instanceof Slide) {
-                incrementNumberOfSlides();
-            }
+        super.addChild(child);
+
+        if (child instanceof Slide) {
+            incrementNumberOfSlides();
         }
     }
 

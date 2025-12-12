@@ -43,14 +43,6 @@ public abstract class GraffNode implements ModelPublisher {
         }
     }
 
-    public GraffNode getParent() {
-        return parent;
-    }
-
-    public void setParent(GraffNode parent) {
-        this.parent = parent;
-    }
-
     public String getName() {
         return name;
     }
@@ -64,5 +56,13 @@ public abstract class GraffNode implements ModelPublisher {
 
         this.name = name;
         notifySubscribers(new ModelEvent(ModelEventType.RENAME, this));
+    }
+
+    public GraffNode getParent() {
+        return parent;
+    }
+
+    public void setParent(GraffNode parent) {
+        this.parent = parent;
     }
 }

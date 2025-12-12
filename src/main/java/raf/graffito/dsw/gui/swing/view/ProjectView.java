@@ -1,6 +1,6 @@
 package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.controller.TabListener;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
@@ -14,9 +14,8 @@ import java.util.List;
 
 public class ProjectView extends JPanel implements ModelSubscriber {
     private Project project;
-    private JTabbedPane tabs;
     private Color tabColor;
-    private InfoPanel infoPanel;
+    private JTabbedPane tabs;
 
     public ProjectView(Project project) {
         this(project, null);
@@ -25,35 +24,27 @@ public class ProjectView extends JPanel implements ModelSubscriber {
     public ProjectView(Project project, Color tabColor) {
         this.project = project;
         this.tabColor = tabColor;
+        tabs = new JTabbedPane();
+
+        setLayout(new BorderLayout());
         initialize();
     }
 
     private void initialize() {
-        setLayout(new BorderLayout());
+        if (project == null) {
+            return;
+        }
 
-        infoPanel = new InfoPanel();
-        infoPanel.setProject(project);
+        project.getParent().addSubscriber(this);
+        project.addSubscriber(this);
 
-        tabs = new JTabbedPane();
-        tabs.addChangeListener(e -> {
-            if (tabs.getSelectedIndex() != -1) {
-                PresentationView view = (PresentationView) tabs.getSelectedComponent();
-                infoPanel.setCurrentPresentation(view.getPresentation());
-            } else {
-                infoPanel.setCurrentPresentation(null);
-            }
-        });
+        tabs.addChangeListener(new TabListener());
 
-        if (project != null) {
-            project.getParent().addSubscriber(this);
-            project.addSubscriber(this);
+        MainFrame.getInstance().getInfoPanel().setProject(project);
+        List<Presentation> presentations = project.getPresentations();
 
-            List<Presentation> presentations = project.getPresentations();
-
-            if (!presentations.isEmpty()) {
-                infoPanel.setCurrentPresentation(presentations.getFirst());
-            }
-
+        if (!presentations.isEmpty()) {
+            MainFrame.getInstance().getInfoPanel().setPresentation(presentations.getFirst());
             createTabsFor(presentations);
         }
 
@@ -62,7 +53,6 @@ public class ProjectView extends JPanel implements ModelSubscriber {
         }
 
         add(tabs, BorderLayout.CENTER);
-        add(infoPanel, BorderLayout.EAST);
     }
 
     private void createTabsFor(List<Presentation> presentations) {
@@ -80,29 +70,33 @@ public class ProjectView extends JPanel implements ModelSubscriber {
         GraffNode node = event.getNode();
         ModelEventType type = event.getType();
 
-        if (type == ModelEventType.ADD_CHILD) {
-            if (node instanceof Presentation p) {
-                p.addSubscriber(this);
-                PresentationView view = new PresentationView(p);
-                tabs.add(p.getName(), view);
+        switch (type) {
+            case ADD_CHILD -> {
+                if (node instanceof Presentation p) {
+                    p.addSubscriber(this);
+                    PresentationView view = new PresentationView(p);
+                    tabs.add(p.getName(), view);
 
-                if (tabColor != null) {
-                    tabs.setBackground(tabColor);
+                    if (tabColor != null) {
+                        tabs.setBackground(tabColor);
+                    }
                 }
             }
-        } else if (type == ModelEventType.REMOVE_CHILD) {
-            if (node == project) {
-                tabs.removeAll();
-                infoPanel.setProject(null);
-                infoPanel.setCurrentPresentation(null);
-            } else if (node instanceof Presentation p) {
-                removePresentationTab(p);
+            case REMOVE_CHILD -> {
+                if (node == project) {
+                    tabs.removeAll();
+                    MainFrame.getInstance().getInfoPanel().setProject(null);
+                    MainFrame.getInstance().getInfoPanel().setPresentation(null);
+                } else if (node instanceof Presentation p) {
+                    removePresentationTab(p);
+                }
             }
-        } else if (type == ModelEventType.RENAME) {
-            if (node == project) {
-                infoPanel.setProjectLabel(project.getName());
-            } else if (node instanceof Presentation p) {
-                renamePresentationTab(p);
+            case RENAME -> {
+                if (node == project) {
+                    MainFrame.getInstance().getInfoPanel().setProjectLabel(project.getName());
+                } else if (node instanceof Presentation p) {
+                    renamePresentationTab(p);
+                }
             }
         }
     }
@@ -124,5 +118,13 @@ public class ProjectView extends JPanel implements ModelSubscriber {
                 break;
             }
         }
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public JTabbedPane getTabs() {
+        return tabs;
     }
 }

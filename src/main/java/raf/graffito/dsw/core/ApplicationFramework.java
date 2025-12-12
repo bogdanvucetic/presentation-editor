@@ -6,8 +6,6 @@ import raf.graffito.dsw.observer.message.LoggerFactory;
 import raf.graffito.dsw.observer.message.MessageGenerator;
 
 public class ApplicationFramework {
-    // Buduća polja za model celog projekta
-
     private static ApplicationFramework instance;
     private MessageGenerator messageGenerator;
     private GraffRepository graffRepository;
