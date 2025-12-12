@@ -1,5 +1,11 @@
 package raf.graffito.dsw.controller;
 
+import raf.graffito.dsw.controller.slide.*;
+import raf.graffito.dsw.controller.tree.ChangeProjectTitleAction;
+import raf.graffito.dsw.controller.tree.CreateChildAction;
+import raf.graffito.dsw.controller.tree.DeleteNodeAction;
+import raf.graffito.dsw.controller.tree.RenameNodeAction;
+
 public class ActionManager {
     private ExitAction exitAction;
     private AboutUsAction aboutUsAction;
@@ -7,7 +13,14 @@ public class ActionManager {
     private RenameNodeAction renameNodeAction;
     private DeleteNodeAction deleteNodeAction;
     private ChangeProjectTitleAction changeProjectTitleAction;
-    private OpenTabsAction openTabsAction;
+
+    private AddSlideElementsAction addSlideElementsAction;
+    private SelectSlideElementsAction selectSlideElementsAction;
+    private ResizeSlideElementsAction resizeSlideElementsAction;
+    private RotateSlideElementsAction rotateSlideElementsAction;
+    private MoveSlideElementsAction moveSlideElementsAction;
+    private ZoomSlideAction zoomSlideAction;
+    private DeleteSlideElementsAction deleteSlideElementsAction;
 
     public ActionManager() {
         this.exitAction = new ExitAction();
@@ -16,7 +29,14 @@ public class ActionManager {
         this.renameNodeAction = new RenameNodeAction();
         this.deleteNodeAction = new DeleteNodeAction();
         this.changeProjectTitleAction = new ChangeProjectTitleAction();
-        this.openTabsAction = new OpenTabsAction();
+
+        this.addSlideElementsAction = new AddSlideElementsAction();
+        this.selectSlideElementsAction = new SelectSlideElementsAction();
+        this.resizeSlideElementsAction = new ResizeSlideElementsAction();
+        this.rotateSlideElementsAction = new RotateSlideElementsAction();
+        this.moveSlideElementsAction = new MoveSlideElementsAction();
+        this.zoomSlideAction = new ZoomSlideAction();
+        this.deleteSlideElementsAction = new DeleteSlideElementsAction();
     }
 
     public ExitAction getExitAction() {
@@ -43,7 +63,31 @@ public class ActionManager {
         return changeProjectTitleAction;
     }
 
-    public OpenTabsAction getOpenTabsAction() {
-        return openTabsAction;
+    public AddSlideElementsAction getAddSlideElementsAction() {
+        return addSlideElementsAction;
+    }
+
+    public SelectSlideElementsAction getSelectSlideElementsAction() {
+        return selectSlideElementsAction;
+    }
+
+    public ResizeSlideElementsAction getResizeSlideElementsAction() {
+        return resizeSlideElementsAction;
+    }
+
+    public RotateSlideElementsAction getRotateSlideElementsAction() {
+        return rotateSlideElementsAction;
+    }
+
+    public MoveSlideElementsAction getMoveSlideElementsAction() {
+        return moveSlideElementsAction;
+    }
+
+    public ZoomSlideAction getZoomSlideAction() {
+        return zoomSlideAction;
+    }
+
+    public DeleteSlideElementsAction getDeleteSlideElementsAction() {
+        return deleteSlideElementsAction;
     }
 }

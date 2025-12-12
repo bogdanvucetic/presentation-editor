@@ -1,6 +1,6 @@
 package raf.graffito.dsw.model.composite;
 
-public abstract class SlideElement extends GraffLeaf {
+public abstract class SlideElement extends GraffNode {
     private int x;
     private int y;
     private int width;
@@ -23,7 +23,7 @@ public abstract class SlideElement extends GraffLeaf {
 
     public abstract SlideElement clone();
 
-    protected String getCloneName() {
+    private String getCloneName() {
         String name = getName();
         int counter = 0;
 

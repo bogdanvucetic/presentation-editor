@@ -1,7 +1,5 @@
 package raf.graffito.dsw.model.composite;
 
-import raf.graffito.dsw.core.ApplicationFramework;
-
 public class Workspace extends GraffNodeComposite {
     public Workspace(String name) {
         super(null, name);
@@ -9,14 +7,10 @@ public class Workspace extends GraffNodeComposite {
 
     @Override
     public void addChild(GraffNode child) {
-        if (child instanceof Project) {
-            super.addChild(child);
+        if (!(child instanceof Project)) {
+            throw new IllegalArgumentException("ELement ne može da se doda na radno okuženje.");
         }
-    }
 
-    @Override
-    public void removeChild(GraffNode child) {
-        super.removeChild(child);
-        ApplicationFramework.getInstance().getGraffRepository().getDecoratorRepository().removeColorDecoratorFor(child);
+        super.addChild(child);
     }
 }

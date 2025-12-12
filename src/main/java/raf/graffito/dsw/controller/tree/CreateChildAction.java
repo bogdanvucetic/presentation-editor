@@ -1,12 +1,15 @@
-package raf.graffito.dsw.controller;
+package raf.graffito.dsw.controller.tree;
 
+import raf.graffito.dsw.controller.AbstractGraffAction;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
-import raf.graffito.dsw.model.composite.GraffNode;
-import raf.graffito.dsw.model.composite.GraffNodeComposite;
+import raf.graffito.dsw.model.composite.*;
 import raf.graffito.dsw.model.factory.GraffNodeFactory;
+import raf.graffito.dsw.model.factory.ProjectFactory;
+import raf.graffito.dsw.model.factory.SlideFactory;
 import raf.graffito.dsw.observer.message.MessageType;
+import raf.graffito.dsw.utils.ChildTypePicker;
 
 import java.awt.event.ActionEvent;
 
@@ -31,7 +34,7 @@ public class CreateChildAction extends AbstractGraffAction {
             return;
         }
 
-        GraffNodeFactory factory = ApplicationFramework.getInstance().getGraffRepository().getFactoryFor(parent);
+        GraffNodeFactory factory = getFactoryFor(parent);
 
         if (factory == null) {
             return;
@@ -45,5 +48,16 @@ public class CreateChildAction extends AbstractGraffAction {
         } catch (Exception ex) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }
+    }
+
+    private GraffNodeFactory getFactoryFor(GraffNode parent) {
+        if (parent instanceof Workspace) {
+            return new ProjectFactory();
+        } else if (parent instanceof Project) {
+            return ChildTypePicker.pickProjectChild();
+        } else if (parent instanceof Presentation) {
+            return new SlideFactory();
+        }
+        return null;
     }
 }

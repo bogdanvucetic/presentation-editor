@@ -3,6 +3,10 @@ package raf.graffito.dsw.gui.swing.view;
 
 
 import raf.graffito.dsw.controller.*;
+import raf.graffito.dsw.controller.tree.ChangeProjectTitleAction;
+import raf.graffito.dsw.controller.tree.CreateChildAction;
+import raf.graffito.dsw.controller.tree.DeleteNodeAction;
+import raf.graffito.dsw.controller.tree.RenameNodeAction;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

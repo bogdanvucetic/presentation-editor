@@ -1,6 +1,11 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.controller.*;
+import raf.graffito.dsw.controller.slide.RotateSlideElementsAction;
+import raf.graffito.dsw.controller.tree.ChangeProjectTitleAction;
+import raf.graffito.dsw.controller.tree.CreateChildAction;
+import raf.graffito.dsw.controller.tree.DeleteNodeAction;
+import raf.graffito.dsw.controller.tree.RenameNodeAction;
 
 import javax.swing.*;
 
@@ -26,5 +31,8 @@ public class MyToolBar extends JToolBar {
 
         ChangeProjectTitleAction changeProjectTitleAction = MainFrame.getInstance().getActionManager().getChangeProjectTitleAction();
         add(changeProjectTitleAction);
+
+        RotateSlideElementsAction rotateSlideElementsAction = MainFrame.getInstance().getActionManager().getRotateSlideElementsAction();
+        add(rotateSlideElementsAction);
     }
 }

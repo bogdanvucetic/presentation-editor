@@ -6,7 +6,6 @@ import raf.graffito.dsw.model.decorator.DecoratorRepository;
 import raf.graffito.dsw.model.factory.GraffNodeFactory;
 
 public interface GraffRepository {
-    GraffNodeFactory getFactoryFor(GraffNode parent);
     Workspace getWorkspace();
     DecoratorRepository getDecoratorRepository();
 }

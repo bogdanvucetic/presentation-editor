@@ -1,6 +1,6 @@
 package raf.graffito.dsw.gui.swing.view;
 
-import com.sun.source.tree.ParenthesizedTree;
+import raf.graffito.dsw.controller.tree.GraffTreeListener;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
@@ -8,6 +8,7 @@ import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Project;
+import raf.graffito.dsw.model.composite.Slide;
 import raf.graffito.dsw.observer.message.MessageGenerator;
 import raf.graffito.dsw.observer.message.MessageType;
 import raf.graffito.dsw.observer.message.MessageSubscriber;
@@ -15,15 +16,15 @@ import raf.graffito.dsw.observer.message.MessageSubscriber;
 import javax.swing.*;
 import javax.swing.tree.TreePath;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame implements MessageSubscriber {
     private static MainFrame instance;
     private ActionManager actionManager;
+
+    private JSplitPane mainPanel;
     private GraffTree graffTree;
     private ProjectView projectView;
-    private JSplitPane splitPane;
+    private InfoPanel infoPanel;
 
     private MainFrame() {
         actionManager = new ActionManager();
@@ -47,42 +48,43 @@ public class MainFrame extends JFrame implements MessageSubscriber {
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
         JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
+        tree.addMouseListener(new GraffTreeListener());
         JScrollPane treePane = new JScrollPane(tree);
-        tree.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() != 2) {
-                    return;
-                }
-
-                TreePath path = tree.getPathForLocation(e.getX(), e.getY());
-
-                if (path == null) {
-                    return;
-                }
-
-                Project project = getProjectFromPath(path);
-
-                if (project == null) {
-                    ApplicationFramework.getInstance().getMessageGenerator().createMessage("Izabrana putanja nema projekat.", MessageType.INFO);
-                    return;
-                }
-
-                getActionManager().getOpenTabsAction().actionPerformed(project);
-            }
-        });
+        treePane.setPreferredSize(new Dimension(180, 0));
 
         projectView = new ProjectView(null);
+        infoPanel = new InfoPanel();
+        infoPanel.setPreferredSize(new Dimension(180, 0));
 
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePane, projectView);
-        splitPane.setResizeWeight(0.1);
+        mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, projectView, infoPanel);
+        mainPanel.setOneTouchExpandable(true);
+        mainPanel.setResizeWeight(1.0);
 
-        add(splitPane, BorderLayout.CENTER);
+        add(treePane, BorderLayout.WEST);
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
+    public void openSoloSlide(Slide slide) {
+        int oldLocation = mainPanel.getDividerLocation();
+
+        SlideView slideView = new SlideView(slide);
+        mainPanel.setLeftComponent(slideView);
+        this.projectView = null;
+
+        infoPanel.setProject((Project) slide.getParent());
+
+        SwingUtilities.invokeLater(() -> mainPanel.setDividerLocation(oldLocation));
     }
 
     public void openProject(ProjectView projectView) {
-        splitPane.setRightComponent(projectView);
+        int oldLocation = mainPanel.getDividerLocation();
+
+        mainPanel.setLeftComponent(projectView);
         this.projectView = projectView;
+
+        infoPanel.setProject(projectView.getProject());
+
+        mainPanel.setDividerLocation(oldLocation);
     }
 
     @Override
@@ -120,5 +122,13 @@ public class MainFrame extends JFrame implements MessageSubscriber {
 
     public GraffTree getGraffTree() {
         return graffTree;
+    }
+
+    public ProjectView getProjectView() {
+        return projectView;
+    }
+
+    public InfoPanel getInfoPanel() {
+        return infoPanel;
     }
 }
