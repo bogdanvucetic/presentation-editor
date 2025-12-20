@@ -1,7 +1,6 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.model.composite.Slide;
-import raf.graffito.dsw.model.composite.SlideElement;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +8,6 @@ import java.awt.*;
 public class SlideView extends JComponent {
     private Slide slide;
 
-    private static final Dimension size = new Dimension(1600, 900);
     private static final int hPadding = 2;
     private static final int vPadding = 2;
 
@@ -23,24 +21,26 @@ public class SlideView extends JComponent {
         super.paintComponent(g);
         if (slide == null) return;
 
+        Dimension size = slide.getResolution();
+
         Graphics2D g2 = (Graphics2D) g.create();
         try {
-            int compW = getWidth();
-            int compH = getHeight();
+            int totalWidth = getWidth();
+            int totalHeight = getHeight();
 
             // Available area AFTER padding
-            int availW = Math.max(1, compW - 2 * hPadding);
-            int availH = Math.max(1, compH - 2 * vPadding);
+            int availableWidth = Math.max(1, totalWidth - 2 * hPadding);
+            int availableHeight = Math.max(1, totalHeight - 2 * vPadding);
 
             // scale so 1600x900 fits into the available space
-            double sx = availW / (double) size.width;
-            double sy = availH / (double) size.height;
+            double sx = availableWidth / (double) size.width;
+            double sy = availableHeight / (double) size.height;
             double scale = Math.min(sx, sy);
 
             int drawW = (int) (size.width * scale);
             int drawH = (int) (size.height * scale);
-            int offsetX = hPadding + (availW - drawW) / 2;
-            int offsetY = vPadding + (availH - drawH) / 2;
+            int offsetX = hPadding + (availableWidth - drawW) / 2;
+            int offsetY = vPadding + (availableHeight - drawH) / 2;
 
             // move to where the slide should appear and scale it
             g2.translate(offsetX, offsetY);

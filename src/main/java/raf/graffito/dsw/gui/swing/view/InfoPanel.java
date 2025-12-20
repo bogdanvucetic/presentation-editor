@@ -24,25 +24,14 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
     public InfoPanel() {
         setLayout(new BorderLayout(0, 8));
 
-        JPanel top = new JPanel(new BorderLayout());
-        JPanel header = buildHeaderPanel();
-        top.add(header, BorderLayout.CENTER);
-        top.add(new JSeparator(), BorderLayout.SOUTH);
-        add(top, BorderLayout.NORTH);
-
-        imagesPanel = new JPanel(new GridLayout(0, 1, 5, 5)); // 2 columns, any number of rows
-        JScrollPane scroll = new JScrollPane(imagesPanel);
-        scroll.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
-        add(scroll, BorderLayout.CENTER);
-
-        actionsPanel = buildActionsPanel();
-        JPanel bottom = new JPanel(new BorderLayout());
-        bottom.add(new JSeparator(), BorderLayout.NORTH);
-        bottom.add(actionsPanel, BorderLayout.CENTER);
-        add(bottom, BorderLayout.SOUTH);
+        buildHeaderPanel();
+        buildImagesPanel();
+        buildActionsPanel();
     }
 
-    private JPanel buildHeaderPanel() {
+    private void buildHeaderPanel() {
+        JPanel top = new JPanel(new BorderLayout());
+
         JPanel header = new JPanel();
         header.setLayout(new GridLayout(2, 1, 5, 5));
         header.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -50,22 +39,34 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
         header.add(center(projectLabel));
         header.add(center(presentationLabel));
 
-        return header;
+        top.add(header, BorderLayout.CENTER);
+        top.add(new JSeparator(), BorderLayout.SOUTH);
+        add(top, BorderLayout.NORTH);
     }
 
-    private JPanel buildActionsPanel() {
-        JPanel p = new JPanel(new GridLayout(3, 2, 5, 5));
-        p.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    private void buildImagesPanel() {
+        imagesPanel = new JPanel(new GridLayout(0, 1, 5, 5));
+        JScrollPane scroll = new JScrollPane(imagesPanel);
+        scroll.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+        add(scroll, BorderLayout.CENTER);
+    }
+
+    private void buildActionsPanel() {
+        actionsPanel = new JPanel(new GridLayout(3, 2, 5, 5));
+        actionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         ActionManager actionManager = MainFrame.getInstance().getActionManager();
-        p.add(createToolButton(actionManager.getAddSlideElementsAction()));
-        p.add(createToolButton(actionManager.getSelectSlideElementsAction()));
-        p.add(createToolButton(actionManager.getResizeSlideElementsAction()));
-        p.add(createToolButton(actionManager.getMoveSlideElementsAction()));
-        p.add(createToolButton(actionManager.getZoomSlideAction()));
-        p.add(createToolButton(actionManager.getDeleteSlideElementsAction()));
+        actionsPanel.add(createToolButton(actionManager.getAddSlideElementsAction()));
+        actionsPanel.add(createToolButton(actionManager.getSelectSlideElementsAction()));
+        actionsPanel.add(createToolButton(actionManager.getResizeSlideElementsAction()));
+        actionsPanel.add(createToolButton(actionManager.getMoveSlideElementsAction()));
+        actionsPanel.add(createToolButton(actionManager.getZoomSlideAction()));
+        actionsPanel.add(createToolButton(actionManager.getDeleteSlideElementsAction()));
 
-        return p;
+        JPanel bottom = new JPanel(new BorderLayout());
+        bottom.add(new JSeparator(), BorderLayout.NORTH);
+        bottom.add(actionsPanel, BorderLayout.CENTER);
+        add(bottom, BorderLayout.SOUTH);
     }
 
     private Component center(JComponent c) {
