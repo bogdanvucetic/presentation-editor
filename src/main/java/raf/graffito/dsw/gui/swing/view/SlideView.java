@@ -1,5 +1,6 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.controller.SlideViewListener;
 import raf.graffito.dsw.model.composite.Slide;
 
 import javax.swing.*;
@@ -14,6 +15,9 @@ public class SlideView extends JComponent {
     public SlideView(Slide slide) {
         this.slide = slide;
         setOpaque(false);
+        addMouseListener(new SlideViewListener());
+        addMouseMotionListener(new SlideViewListener());
+        addMouseWheelListener(new SlideViewListener());
     }
 
     @Override

@@ -1,6 +1,8 @@
 package raf.graffito.dsw.controller.slide;
 
 import raf.graffito.dsw.controller.AbstractGraffAction;
+import raf.graffito.dsw.controller.state.RotateState;
+import raf.graffito.dsw.controller.state.SlideEditorSession;
 
 import java.awt.event.ActionEvent;
 
@@ -13,6 +15,6 @@ public class RotateSlideElementsAction extends AbstractGraffAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        SlideEditorSession.getInstance().changeState(new RotateState());
     }
 }
