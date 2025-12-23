@@ -18,18 +18,17 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
         setModel(treeModel);
         setToggleClickCount(0);
 
-        subscribeToAllNodes(root);
+        subscribeToAllNodes(root.getGraffNode());
 
         return this;
     }
 
-    private void subscribeToAllNodes(GraffTreeElem elem) {
-        GraffNode node = elem.getGraffNode();
+    private void subscribeToAllNodes(GraffNode node) {
         node.addSubscriber(this);
 
         if (node instanceof GraffNodeComposite composite) {
             for (GraffNode child : composite.getChildren()) {
-                subscribeToAllNodes(new GraffTreeElem(child));
+                subscribeToAllNodes(child);
             }
         }
     }

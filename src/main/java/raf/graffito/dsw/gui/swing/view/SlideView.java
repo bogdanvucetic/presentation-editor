@@ -21,14 +21,22 @@ public class SlideView extends JComponent implements ModelSubscriber {
 
     public SlideView(Slide slide) {
         this.slide = slide;
-        slide.addSubscriber(this);
-
         setOpaque(false);
 
         SlideViewListener slideViewListener = new SlideViewListener();
         addMouseListener(slideViewListener);
         addMouseMotionListener(slideViewListener);
         addMouseWheelListener(slideViewListener);
+
+        subscribeToAllNodes(slide);
+    }
+
+    private void subscribeToAllNodes(Slide slide) {
+        slide.addSubscriber(this);
+
+        for (GraffNode child : slide.getChildren()) {
+            child.addSubscriber(this);
+        }
     }
 
     @Override
@@ -115,7 +123,19 @@ public class SlideView extends JComponent implements ModelSubscriber {
 
     @Override
     public void update(ModelEvent event) {
-        revalidate();
+        ModelEventType type = event.getType();
+        GraffNode node = event.getNode();
+
+        switch (type) {
+            case ADD_CHILD -> {
+                node.addSubscriber(this);
+            }
+            case REMOVE_CHILD -> {
+                node.removeSubscriber(this);
+            }
+            case RENAME -> { }
+        }
+
         repaint();
     }
 }
