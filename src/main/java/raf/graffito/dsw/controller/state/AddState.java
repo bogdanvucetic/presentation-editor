@@ -29,9 +29,6 @@ public class AddState extends State {
         }
 
         EditorContext.getInstance().setSelectedElements(newSelectedElements);
-
-        EditorContext.getInstance().getCurrentSlideView().revalidate();
-        EditorContext.getInstance().getCurrentSlideView().repaint();
     }
 
     @Override
@@ -86,9 +83,6 @@ public class AddState extends State {
         sv.getSlide().addChild(l);
 
         EditorContext.getInstance().addSelectedElement(l);
-
-        EditorContext.getInstance().getCurrentSlideView().revalidate();
-        EditorContext.getInstance().getCurrentSlideView().repaint();
     }
 
     @Override

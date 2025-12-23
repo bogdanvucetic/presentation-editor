@@ -5,11 +5,14 @@ import raf.graffito.dsw.gui.swing.painter.SlideLabelPainteer;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Label;
 import raf.graffito.dsw.model.composite.Slide;
+import raf.graffito.dsw.observer.model.ModelEvent;
+import raf.graffito.dsw.observer.model.ModelEventType;
+import raf.graffito.dsw.observer.model.ModelSubscriber;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SlideView extends JComponent {
+public class SlideView extends JComponent implements ModelSubscriber {
     private Slide slide;
 
     private static final int hPadding = 2;
@@ -18,6 +21,8 @@ public class SlideView extends JComponent {
 
     public SlideView(Slide slide) {
         this.slide = slide;
+        slide.addSubscriber(this);
+
         setOpaque(false);
 
         SlideViewListener slideViewListener = new SlideViewListener();
@@ -106,5 +111,11 @@ public class SlideView extends JComponent {
 
     public Slide getSlide() {
         return slide;
+    }
+
+    @Override
+    public void update(ModelEvent event) {
+        revalidate();
+        repaint();
     }
 }

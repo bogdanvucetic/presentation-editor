@@ -134,9 +134,15 @@ public class ProjectView extends JPanel implements ModelSubscriber {
 
     private void removeNodeTab(GraffNode node) {
         for (Component c : tabs.getComponents()) {
-            if ((c instanceof PresentationView pv && pv.getPresentation() == node) ||
-                    (c instanceof SlideView sv && sv.getSlide() == node)) {
-                tabs.remove(c);
+            if (c instanceof PresentationView pv && pv.getPresentation() == node) {
+                if (pv.getCurrentSlideView() != null) {
+                    pv.getCurrentSlideView().getSlide().removeSubscriber(pv.getCurrentSlideView());
+                }
+                tabs.remove(pv);
+                break;
+            } else if (c instanceof SlideView sv && sv.getSlide() == node) {
+                sv.getSlide().removeSubscriber(sv);
+                tabs.remove(sv);
                 break;
             }
         }

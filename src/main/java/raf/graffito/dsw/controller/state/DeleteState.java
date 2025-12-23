@@ -25,8 +25,5 @@ public class DeleteState extends State {
 
         context.clearSelectedElements();
         context.changeState(MainFrame.getInstance().getActionManager().getSelectSlideElementsAction().getState());
-
-        context.getCurrentSlideView().revalidate();
-        context.getCurrentSlideView().repaint();
     }
 }

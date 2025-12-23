@@ -28,6 +28,7 @@ public class PresentationView extends JPanel implements ModelSubscriber {
 
     public void setSelectedSlide(Slide slide) {
         if (currentSlideView != null) {
+            currentSlideView.getSlide().removeSubscriber(this);
             remove(currentSlideView);
         }
 
