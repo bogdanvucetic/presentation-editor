@@ -42,7 +42,7 @@ public class EditorContext {
 
     public void setCurrentSlideView(SlideView currentSlideView) {
         this.currentSlideView = currentSlideView;
-        selectedElements.clear();
+        clearSelectedElements();
     }
 
     public Set<SlideElement> getSelectedElements() {
@@ -55,5 +55,9 @@ public class EditorContext {
 
     public void setSelectedElements(Set<SlideElement> selectedElements) {
         this.selectedElements = new HashSet<>(selectedElements);
+    }
+
+    public void clearSelectedElements() {
+        selectedElements.clear();
     }
 }

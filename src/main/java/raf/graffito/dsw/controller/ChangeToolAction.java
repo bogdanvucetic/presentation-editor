@@ -18,4 +18,8 @@ public class ChangeToolAction extends AbstractGraffAction {
     public void actionPerformed(ActionEvent e) {
         EditorContext.getInstance().changeState(state);
     }
+
+    public State getState() {
+        return state;
+    }
 }

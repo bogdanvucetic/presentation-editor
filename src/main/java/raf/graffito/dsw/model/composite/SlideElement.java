@@ -54,7 +54,6 @@ public abstract class SlideElement extends GraffNode {
             }
         }
 
-        System.out.println(baseName + " " + (maxIndex + 1));
         return baseName + " " + (maxIndex + 1);
     }
 
