@@ -1,6 +1,5 @@
 package raf.graffito.dsw.controller;
 
-import raf.graffito.dsw.controller.state.SlideEditorSession;
 import raf.graffito.dsw.controller.state.State;
 
 import java.awt.event.ActionEvent;
@@ -17,6 +16,6 @@ public class ChangeToolAction extends AbstractGraffAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        SlideEditorSession.getInstance().changeState(state);
+        EditorContext.getInstance().changeState(state);
     }
 }

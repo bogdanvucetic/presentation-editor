@@ -1,6 +1,9 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.controller.SlideViewListener;
+import raf.graffito.dsw.gui.swing.painter.SlideLabelPainteer;
+import raf.graffito.dsw.model.composite.GraffNode;
+import raf.graffito.dsw.model.composite.Label;
 import raf.graffito.dsw.model.composite.Slide;
 
 import javax.swing.*;
@@ -11,13 +14,16 @@ public class SlideView extends JComponent {
 
     private static final int hPadding = 2;
     private static final int vPadding = 2;
+    private final SlideLabelPainteer labelPainter = new SlideLabelPainteer();
 
     public SlideView(Slide slide) {
         this.slide = slide;
         setOpaque(false);
-        addMouseListener(new SlideViewListener());
-        addMouseMotionListener(new SlideViewListener());
-        addMouseWheelListener(new SlideViewListener());
+
+        SlideViewListener slideViewListener = new SlideViewListener();
+        addMouseListener(slideViewListener);
+        addMouseMotionListener(slideViewListener);
+        addMouseWheelListener(slideViewListener);
     }
 
     @Override
@@ -57,14 +63,45 @@ public class SlideView extends JComponent {
             g2.setColor(Color.LIGHT_GRAY);
             g2.drawRect(0, 0, size.width - 1, size.height - 1);
 
-            // now draw slide elements in logical coordinates (0..1600, 0..900)
-            // for (SlideElement el : slide.getChildren()) {
-            //     el.paint(g2);
-            // }
+             for (GraffNode elem : slide.getChildren()) {
+                 if (elem instanceof Label l) {
+                     labelPainter.paint(g2, l);
+                 }
+             }
 
         } finally {
             g2.dispose();
         }
+    }
+
+    public Point convertToSlidePoint(Point viewPoint) {
+        if (slide == null) return new Point(0, 0);
+
+        Dimension size = slide.getResolution();
+
+        int totalWidth = getWidth();
+        int totalHeight = getHeight();
+
+        int availableWidth = Math.max(1, totalWidth - 2 * hPadding);
+        int availableHeight = Math.max(1, totalHeight - 2 * vPadding);
+
+        double sx = availableWidth / (double) size.width;
+        double sy = availableHeight / (double) size.height;
+        double scale = Math.min(sx, sy);
+
+        int drawW = (int) (size.width * scale);
+        int drawH = (int) (size.height * scale);
+        int offsetX = hPadding + (availableWidth - drawW) / 2;
+        int offsetY = vPadding + (availableHeight - drawH) / 2;
+
+        int slideX = (int) Math.round((viewPoint.x - offsetX) / scale);
+        int slideY = (int) Math.round((viewPoint.y - offsetY) / scale);
+
+        // Optional: clamp so you never go outside slide
+        slideX = Math.max(0, Math.min(size.width, slideX));
+        slideY = Math.max(0, Math.min(size.height, slideY));
+
+        return new Point(slideX, slideY);
     }
 
     public Slide getSlide() {

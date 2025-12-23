@@ -4,6 +4,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 public abstract class State {
+    public void onEnter() {
+
+    }
+    
     public void mouseClicked(MouseEvent e) {
 
     }
@@ -13,6 +17,10 @@ public abstract class State {
     }
 
     public void mouseWheelMoved(MouseWheelEvent e) {
+
+    }
+
+    public void imageClicked() {
 
     }
 }

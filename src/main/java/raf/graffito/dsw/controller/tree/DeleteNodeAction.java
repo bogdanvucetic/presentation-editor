@@ -35,7 +35,7 @@ public class DeleteNodeAction extends AbstractGraffAction {
         
         try {
             parent.removeChild(selected.getGraffNode());
-            MainFrame.getInstance().getGraffTree().removeNodeFromView(selected);
+            MainFrame.getInstance().getGraffTree().removeNodeFromTree(selected);
 
             if (selected.getGraffNode() instanceof Project) {
                 ApplicationFramework.getInstance().getGraffRepository().getDecoratorRepository().removeColorDecoratorFor(selected.getGraffNode());

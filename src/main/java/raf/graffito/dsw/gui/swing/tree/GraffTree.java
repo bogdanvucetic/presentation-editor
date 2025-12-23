@@ -7,8 +7,8 @@ import javax.swing.*;
 
 public interface GraffTree {
     JTree generateTree(Workspace workspace);
-    void addChildToView(GraffTreeElem parent, GraffNode child);
-    void removeNodeFromView(GraffTreeElem nodeElem);
+    void addChildToTree(GraffTreeElem parent, GraffNode child);
+    void removeNodeFromTree(GraffTreeElem nodeElem);
     void refresh();
     GraffTreeElem getSelectedNode();
 }

@@ -33,7 +33,7 @@ public class ActionManager {
         this.addSlideElementsAction = new ChangeToolAction(new AddState(), "/images/slideAdd.png", "Dodaj na slajd", "Dodaj novi element na slajd");
         this.selectSlideElementsAction = new ChangeToolAction(new SelectState(), "/images/slideSelect.png", "Izaberi elemente", "Izaberi elemente na slajdu");
         this.resizeSlideElementsAction = new ChangeToolAction(new ResizeState(), "/images/slideResize.png", "Promeni veličinu elemenata", "Promeni veličinu elemenata na slajdu");
-        this.rotateSlideElementsAction = new ChangeToolAction(new RotateState(), "/images/rotate.png", "Rotiraj", "Rotiraj elemente slajda");
+        this.rotateSlideElementsAction = new ChangeToolAction(new RotateState(), "/images/rotate.png", "Rotiraj", "Rotiraj elemente na slajdu");
         this.moveSlideElementsAction = new ChangeToolAction(new MoveState(), "/images/slideMove.png", "Pomeri elemente", "Pomeri elemente na slajdu");
         this.zoomSlideAction = new ChangeToolAction(new ZoomState(), "/images/slideZoom.png", "Zumiraj", "Zumiraj slajd");
         this.deleteSlideElementsAction = new ChangeToolAction(new DeleteState(), "/images/slideDelete.png", "Obriši elemente", "Obriši elemente sa slajda");

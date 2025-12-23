@@ -1,12 +1,9 @@
 package raf.graffito.dsw.gui.swing.tree;
 
-import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.*;
-import raf.graffito.dsw.model.factory.GraffNodeFactory;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 
 public class GraffTreeImplementation extends JTree implements GraffTree {
     private DefaultTreeModel treeModel;
@@ -23,7 +20,7 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     }
 
     @Override
-    public void addChildToView(GraffTreeElem parentElem, GraffNode child) {
+    public void addChildToTree(GraffTreeElem parentElem, GraffNode child) {
         GraffTreeElem childElem = new GraffTreeElem(child);
         parentElem.add(childElem);
 
@@ -32,7 +29,7 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     }
 
     @Override
-    public void removeNodeFromView(GraffTreeElem nodeElem) {
+    public void removeNodeFromTree(GraffTreeElem nodeElem) {
         treeModel.removeNodeFromParent(nodeElem);
     }
 

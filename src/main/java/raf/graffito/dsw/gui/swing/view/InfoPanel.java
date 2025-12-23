@@ -25,8 +25,8 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
         setLayout(new BorderLayout(0, 8));
 
         buildHeaderPanel();
-        buildImagesPanel();
-        buildActionsPanel();
+        buildImagePanel();
+        buildToolPanel();
     }
 
     private void buildHeaderPanel() {
@@ -44,14 +44,14 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
         add(top, BorderLayout.NORTH);
     }
 
-    private void buildImagesPanel() {
+    private void buildImagePanel() {
         imagesPanel = new JPanel(new GridLayout(0, 1, 5, 5));
         JScrollPane scroll = new JScrollPane(imagesPanel);
         scroll.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
         add(scroll, BorderLayout.CENTER);
     }
 
-    private void buildActionsPanel() {
+    private void buildToolPanel() {
         actionsPanel = new JPanel(new GridLayout(3, 2, 5, 5));
         actionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 

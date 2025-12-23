@@ -1,25 +1,23 @@
 package raf.graffito.dsw.controller;
 
-import raf.graffito.dsw.controller.state.SlideEditorSession;
-
 import java.awt.event.*;
 
 public class SlideViewListener implements MouseListener, MouseMotionListener, MouseWheelListener {
-    private SlideEditorSession slideEditorSession = SlideEditorSession.getInstance();
+    private EditorContext editorContext = EditorContext.getInstance();
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        slideEditorSession.getCurrentState().mouseClicked(e);
+        editorContext.getCurrentState().mouseClicked(e);
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        slideEditorSession.getCurrentState().mouseDragged(e);
+        editorContext.getCurrentState().mouseDragged(e);
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        slideEditorSession.getCurrentState().mouseWheelMoved(e);
+        editorContext.getCurrentState().mouseWheelMoved(e);
     }
 
     @Override

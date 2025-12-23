@@ -1,39 +1,61 @@
 package raf.graffito.dsw.model.composite;
 
-import java.awt.*;
-
 public abstract class SlideElement extends GraffNode {
     private int xCoordinate;
     private int yCoordinate;
-    private Dimension dimension;
+    private int width;
+    private int height;
     private double rotationAngle;
 
-    public SlideElement(GraffNode parent, String name, int xCoordinate, int yCoordinate, Dimension dimension) {
+    public SlideElement(GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
         super(parent, name);
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-        this.dimension = dimension;
+        this.width = width;
+        this.height = height;
         this.rotationAngle = 0;
     }
 
     public SlideElement(SlideElement elem) {
-        this(elem.getParent(), elem.getCloneName(), elem.getXCoordinate() + 2, elem.getYCoordinate() + 2, elem.getDimension());
+        this(elem.getParent(), elem.getCloneName(), elem.getXCoordinate() + 20, elem.getYCoordinate() + 20, elem.getWidth(), elem.getHeight());
         this.rotationAngle = elem.getRotationAngle();
     }
 
     public abstract SlideElement clone();
 
     private String getCloneName() {
-        String name = getName();
-        int counter = 0;
+        String currentName = getName();
+        String baseName = currentName;
+        int maxIndex = 0;
 
-        for (GraffNode node : ((GraffNodeComposite)getParent()).getChildren()){
-            if (node.getName().equals(name)){
-                counter++;
+        int lastSpace = currentName.lastIndexOf(" ");
+        if (lastSpace != -1) {
+            String suffix = currentName.substring(lastSpace + 1);
+            if (suffix.matches("\\d+")) {
+                baseName = currentName.substring(0, lastSpace);
             }
         }
 
-        return name + counter;
+        GraffNodeComposite parent = (GraffNodeComposite) getParent();
+        for (GraffNode child : parent.getChildren()) {
+            String childName = child.getName();
+
+            if (childName.startsWith(baseName + " ")) {
+                try {
+                    String numberPart = childName.substring(baseName.length() + 1);
+                    int existingIndex = Integer.parseInt(numberPart);
+
+                    if (existingIndex > maxIndex) {
+                        maxIndex = existingIndex;
+                    }
+                } catch (NumberFormatException _) {
+
+                }
+            }
+        }
+
+        System.out.println(baseName + " " + (maxIndex + 1));
+        return baseName + " " + (maxIndex + 1);
     }
 
     public int getXCoordinate() {
@@ -44,8 +66,12 @@ public abstract class SlideElement extends GraffNode {
         return yCoordinate;
     }
 
-    public Dimension getDimension() {
-        return dimension;
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public double getRotationAngle() {

@@ -3,12 +3,9 @@ package raf.graffito.dsw.controller.tree;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
-import raf.graffito.dsw.gui.swing.view.PresentationView;
 import raf.graffito.dsw.gui.swing.view.ProjectView;
 import raf.graffito.dsw.model.composite.GraffNode;
-import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
-import raf.graffito.dsw.model.composite.Slide;
 import raf.graffito.dsw.model.decorator.ColorDecorator;
 import raf.graffito.dsw.model.decorator.DecoratorRepository;
 import raf.graffito.dsw.observer.message.MessageType;
@@ -32,38 +29,29 @@ public class GraffTreeListener implements MouseListener {
             return;
         }
 
-        GraffNode lastNodeInPath = ((GraffTreeElem) path.getLastPathComponent()).getGraffNode();
+        openTabFor(((GraffTreeElem) path.getLastPathComponent()).getGraffNode());
+    }
 
-        if (lastNodeInPath instanceof Project p) {
-            openProjectTabs(p);
-        } else if (lastNodeInPath instanceof Presentation p) {
-            openPresentationTab(p);
-        } else if (lastNodeInPath instanceof Slide s) {
-            openSlideView(s);
+    private void openTabFor(GraffNode graffNode) {
+        Project targetProject = findTargetProject(graffNode);
+
+        if (targetProject == null) {
+            return;
+        }
+
+        ProjectView currentView = MainFrame.getInstance().getCurrentProjectView();
+
+        if (currentView == null || currentView.getProject() != targetProject) {
+            openProject(targetProject);
+            currentView = MainFrame.getInstance().getCurrentProjectView();
+        }
+
+        if (currentView != null && !(graffNode instanceof Project)) {
+            currentView.openTabFor(graffNode);
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    private void openProjectTabs(Project project) {
+    private void openProject(Project project) {
         DecoratorRepository decoratorRepository = ApplicationFramework.getInstance().getGraffRepository().getDecoratorRepository();
 
         ColorDecorator decorator = decoratorRepository.getColorDecoratorFor(project);
@@ -87,45 +75,33 @@ public class GraffTreeListener implements MouseListener {
         MainFrame.getInstance().openProject(new ProjectView(project, color));
     }
 
-    private void openPresentationTab(Presentation presentation) {
-        Project p = (Project) presentation.getParent();
-        ProjectView currentProjectView = MainFrame.getInstance().getProjectView();
+    private Project findTargetProject(GraffNode node) {
+        GraffNode current = node;
 
-        if (currentProjectView == null || currentProjectView.getProject() != p) {
-            openProjectTabs(p);
+        while (current != null && !(current instanceof Project)) {
+            current = current.getParent();
         }
 
-        JTabbedPane tabs = MainFrame.getInstance().getProjectView().getTabs();
-        int idx = -1;
-
-        for (int i = 0; i < tabs.getTabCount(); i++) {
-            if (((PresentationView) tabs.getComponentAt(i)).getPresentation() == presentation) {
-                idx = i;
-                break;
-            }
-        }
-
-        if (idx == -1) {
-            return;
-        }
-
-        MainFrame.getInstance().getProjectView().getTabs().setSelectedIndex(idx);
+        return (Project) current;
     }
 
-    private void openSlideView(Slide slide) {
-        GraffNode parent = slide.getParent();
+    @Override
+    public void mousePressed(MouseEvent e) {
 
-        if (parent instanceof Project) {
-            MainFrame.getInstance().openSoloSlide(slide);
-        } else if (parent instanceof Presentation p) {
-            openPresentationTab(p);
-            PresentationView presentationView = (PresentationView) MainFrame.getInstance().getProjectView().getTabs().getSelectedComponent();
+    }
 
-            if (presentationView == null) {
-                return;
-            }
+    @Override
+    public void mouseReleased(MouseEvent e) {
 
-            presentationView.setSelectedSlide(slide);
-        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
