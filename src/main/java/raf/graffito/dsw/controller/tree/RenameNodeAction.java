@@ -44,7 +44,6 @@ public class RenameNodeAction extends AbstractGraffAction {
 
         try {
             selected.getGraffNode().setName(input);
-            MainFrame.getInstance().getGraffTree().refresh();
         } catch (IllegalArgumentException ex) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }

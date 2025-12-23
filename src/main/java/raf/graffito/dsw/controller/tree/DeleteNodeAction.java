@@ -34,12 +34,11 @@ public class DeleteNodeAction extends AbstractGraffAction {
         }
         
         try {
-            parent.removeChild(selected.getGraffNode());
-            MainFrame.getInstance().getGraffTree().removeNodeFromTree(selected);
-
             if (selected.getGraffNode() instanceof Project) {
                 ApplicationFramework.getInstance().getGraffRepository().getDecoratorRepository().removeColorDecoratorFor(selected.getGraffNode());
             }
+
+            parent.removeChild(selected.getGraffNode());
         } catch (Exception ex) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }

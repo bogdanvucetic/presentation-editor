@@ -11,7 +11,7 @@ public class Slide extends GraffNodeComposite {
 
     @Override
     public void addChild(GraffNode child) {
-        if (!(child instanceof SlideElement)) {
+        if (!(child instanceof SlideElement slideElement)) {
             throw new IllegalArgumentException("ELement ne može da se doda na slajd.");
         }
 

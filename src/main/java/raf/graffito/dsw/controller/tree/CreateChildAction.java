@@ -44,7 +44,6 @@ public class CreateChildAction extends AbstractGraffAction {
 
         try {
             parent.addChild(child);
-            MainFrame.getInstance().getGraffTree().addChildToTree(selected, child);
         } catch (Exception ex) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }
