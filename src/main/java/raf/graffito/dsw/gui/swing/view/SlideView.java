@@ -1,5 +1,6 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.controller.EditorContext;
 import raf.graffito.dsw.controller.listeners.SlideViewListener;
 import raf.graffito.dsw.gui.swing.painter.ImagePainter;
 import raf.graffito.dsw.gui.swing.painter.LabelPainter;
@@ -13,6 +14,7 @@ import raf.graffito.dsw.observer.model.ModelSubscriber;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Set;
 
 public class SlideView extends JComponent implements ModelSubscriber {
     private Slide slide;
@@ -86,9 +88,31 @@ public class SlideView extends JComponent implements ModelSubscriber {
                  }
              }
 
+             drawSelectionBoxes(g2);
         } finally {
             g2.dispose();
         }
+    }
+
+    private void drawSelectionBoxes(Graphics2D g2) {
+        Set<SlideElement> selectedElements = EditorContext.getInstance().getSelectedElements();
+
+        if (selectedElements.isEmpty()) {
+            return;
+        }
+
+        Stroke oldStroke = g2.getStroke();
+        Color oldColor = g2.getColor();
+
+        g2.setColor(new Color(100, 150, 255));
+        g2.setStroke(new BasicStroke(3f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[]{14, 6}, 0));
+
+        for (SlideElement element : selectedElements) {
+            g2.drawRect(element.getXCoordinate(), element.getYCoordinate(), element.getWidth(), element.getHeight());
+        }
+
+        g2.setStroke(oldStroke);
+        g2.setColor(oldColor);
     }
 
     public Point convertToSlidePoint(Point viewPoint) {
@@ -139,6 +163,10 @@ public class SlideView extends JComponent implements ModelSubscriber {
             case RENAME -> { }
         }
 
+        repaint();
+    }
+
+    public void updateSelectedElements() {
         repaint();
     }
 }

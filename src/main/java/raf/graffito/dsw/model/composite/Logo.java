@@ -17,6 +17,8 @@ public class Logo extends SlideElement {
 
     public Logo(Logo elem) {
         super(elem);
+        this.points = getDefaultPoints();
+        this.color = elem.getColor();
     }
 
     public static List<Point2D> getDefaultPoints() {
@@ -39,7 +41,7 @@ public class Logo extends SlideElement {
     }
 
     public List<Point2D> getPoints() {
-        return List.copyOf(points);
+        return points;
     }
 
     public Color getColor() {

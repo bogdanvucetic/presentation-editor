@@ -131,8 +131,6 @@ public class AddState extends State {
         sv.getSlide().addChild(image);
         context.clearSelectedElements();
         context.addSelectedElement(image);
-
-        context.changeState(MainFrame.getInstance().getActionManager().getMoveSlideElementsAction().getState());
     }
 
     private void addLogoToSlide(SlideView sv) {
@@ -153,8 +151,6 @@ public class AddState extends State {
         sv.getSlide().addChild(logo);
         context.clearSelectedElements();
         context.addSelectedElement(logo);
-
-        context.changeState(MainFrame.getInstance().getActionManager().getMoveSlideElementsAction().getState());
     }
 
     private String buildImageName(String baseName, SlideView sv) {

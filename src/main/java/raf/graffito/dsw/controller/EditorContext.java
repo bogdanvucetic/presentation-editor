@@ -52,13 +52,18 @@ public class EditorContext {
 
     public void addSelectedElement(SlideElement selectedElement) {
         selectedElements.add(selectedElement);
+        currentSlideView.updateSelectedElements();
     }
 
     public void setSelectedElements(Set<SlideElement> selectedElements) {
         this.selectedElements = new HashSet<>(selectedElements);
+        currentSlideView.updateSelectedElements();
     }
 
     public void clearSelectedElements() {
         selectedElements.clear();
+        if (currentSlideView != null) {
+            currentSlideView.updateSelectedElements();
+        }
     }
 }
