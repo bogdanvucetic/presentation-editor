@@ -1,7 +1,8 @@
 package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.controller.AbstractGraffAction;
+import raf.graffito.dsw.controller.buttons.AbstractGraffAction;
 import raf.graffito.dsw.controller.ActionManager;
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
@@ -18,11 +19,12 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
     private JLabel projectLabel = new JLabel("-");
     private JLabel presentationLabel = new JLabel("-");
 
-    private JPanel imagesPanel;
-    private JPanel actionsPanel;
+    private ImagePanel imagePanel;
+    private JPanel toolPanel;
 
     public InfoPanel() {
         setLayout(new BorderLayout(0, 8));
+        ApplicationFramework.getInstance().getGraffRepository().getWorkspace().addSubscriber(this);
 
         buildHeaderPanel();
         buildImagePanel();
@@ -45,27 +47,29 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
     }
 
     private void buildImagePanel() {
-        imagesPanel = new JPanel(new GridLayout(0, 1, 5, 5));
-        JScrollPane scroll = new JScrollPane(imagesPanel);
+        imagePanel = new ImagePanel();
+        JScrollPane scroll = new JScrollPane(imagePanel);
         scroll.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+        scroll.getVerticalScrollBar().setUnitIncrement(8);
+
         add(scroll, BorderLayout.CENTER);
     }
 
     private void buildToolPanel() {
-        actionsPanel = new JPanel(new GridLayout(3, 2, 5, 5));
-        actionsPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        toolPanel = new JPanel(new GridLayout(3, 2, 5, 5));
+        toolPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         ActionManager actionManager = MainFrame.getInstance().getActionManager();
-        actionsPanel.add(createToolButton(actionManager.getAddSlideElementsAction()));
-        actionsPanel.add(createToolButton(actionManager.getSelectSlideElementsAction()));
-        actionsPanel.add(createToolButton(actionManager.getResizeSlideElementsAction()));
-        actionsPanel.add(createToolButton(actionManager.getMoveSlideElementsAction()));
-        actionsPanel.add(createToolButton(actionManager.getZoomSlideAction()));
-        actionsPanel.add(createToolButton(actionManager.getDeleteSlideElementsAction()));
+        toolPanel.add(createToolButton(actionManager.getAddSlideElementsAction()));
+        toolPanel.add(createToolButton(actionManager.getSelectSlideElementsAction()));
+        toolPanel.add(createToolButton(actionManager.getResizeSlideElementsAction()));
+        toolPanel.add(createToolButton(actionManager.getMoveSlideElementsAction()));
+        toolPanel.add(createToolButton(actionManager.getZoomSlideAction()));
+        toolPanel.add(createToolButton(actionManager.getDeleteSlideElementsAction()));
 
         JPanel bottom = new JPanel(new BorderLayout());
         bottom.add(new JSeparator(), BorderLayout.NORTH);
-        bottom.add(actionsPanel, BorderLayout.CENTER);
+        bottom.add(toolPanel, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
     }
 
@@ -150,7 +154,7 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
         }
     }
 
-    public void setProjectLabel(String label) {
-        projectLabel.setText(label);
+    public ImagePanel getImagePanel() {
+        return imagePanel;
     }
 }

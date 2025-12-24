@@ -1,8 +1,11 @@
 package raf.graffito.dsw.controller.state;
 
-import raf.graffito.dsw.controller.EditorContext;
+import raf.graffito.dsw.gui.swing.thumbnail.ImageThumbnail;
+import raf.graffito.dsw.gui.swing.thumbnail.LogoThumbnail;
+import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.gui.swing.view.SlideView;
 import raf.graffito.dsw.model.composite.*;
+import raf.graffito.dsw.model.composite.Image;
 import raf.graffito.dsw.model.composite.Label;
 
 import javax.swing.*;
@@ -15,7 +18,7 @@ import java.util.Set;
 public class AddState extends State {
     @Override
     public void onEnter() {
-        Set<SlideElement> selectedElements = EditorContext.getInstance().getSelectedElements();
+        Set<SlideElement> selectedElements = context.getSelectedElements();
         Set<SlideElement> newSelectedElements = new HashSet<>();
 
         if (selectedElements.isEmpty()) {
@@ -24,16 +27,16 @@ public class AddState extends State {
 
         for (SlideElement element : selectedElements) {
             SlideElement e = element.clone();
-            EditorContext.getInstance().getCurrentSlideView().getSlide().addChild(e);
+            context.getCurrentSlideView().getSlide().addChild(e);
             newSelectedElements.add(e);
         }
 
-        EditorContext.getInstance().setSelectedElements(newSelectedElements);
+        context.setSelectedElements(newSelectedElements);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        SlideView sv = EditorContext.getInstance().getCurrentSlideView();
+        SlideView sv = context.getCurrentSlideView();
 
         if (e.getClickCount() != 2) {
             return;
@@ -81,13 +84,86 @@ public class AddState extends State {
         );
 
         sv.getSlide().addChild(l);
-
-        EditorContext.getInstance().addSelectedElement(l);
+        context.addSelectedElement(l);
     }
 
     @Override
-    public void imageClicked() {
+    public void thumbnailClicked(MouseEvent e) {
+        SlideView sv = context.getCurrentSlideView();
+        if (sv == null) return;
 
+        if (e.getSource() instanceof ImageThumbnail thumbnail) {
+            addImageToSlide(thumbnail, sv);
+        } else if (e.getSource() instanceof LogoThumbnail) {
+            addLogoToSlide(sv);
+        }
+    }
+
+    private void addImageToSlide(ImageThumbnail thumbnail, SlideView sv) {
+        ImageIcon imageIcon = thumbnail.getImage();
+        java.awt.Image img = imageIcon.getImage();
+
+        String name = buildImageName(thumbnail.getBaseName(), sv);
+
+        int imgWidth = imageIcon.getIconWidth();
+        int imgHeight = imageIcon.getIconHeight();
+
+        Dimension slideSize = sv.getSlide().getResolution();
+        int maxWidth = slideSize.width / 2;
+        int maxHeight = slideSize.height / 2;
+
+        if (imgWidth > maxWidth || imgHeight > maxHeight) {
+            double scale = Math.min((double) maxWidth / imgWidth, (double) maxHeight / imgHeight);
+            imgWidth = (int) (imgWidth * scale);
+            imgHeight = (int) (imgHeight * scale);
+        }
+
+        Image image = new Image(
+                img,
+                sv.getSlide(),
+                name,
+                50,
+                50,
+                imgWidth,
+                imgHeight
+        );
+
+        sv.getSlide().addChild(image);
+        context.clearSelectedElements();
+        context.addSelectedElement(image);
+
+        context.changeState(MainFrame.getInstance().getActionManager().getMoveSlideElementsAction().getState());
+    }
+
+    private void addLogoToSlide(SlideView sv) {
+        String name = buildImageName("Logo", sv);
+
+        Dimension slideSize = sv.getSlide().getResolution();
+        int size = Math.min(slideSize.width, slideSize.height) / 4;
+
+        Logo logo = new Logo(
+                sv.getSlide(),
+                name,
+                50,
+                50,
+                size,
+                size
+        );
+
+        sv.getSlide().addChild(logo);
+        context.clearSelectedElements();
+        context.addSelectedElement(logo);
+
+        context.changeState(MainFrame.getInstance().getActionManager().getMoveSlideElementsAction().getState());
+    }
+
+    private String buildImageName(String baseName, SlideView sv) {
+        String name = (baseName == null || baseName.trim().isEmpty()) ? "Slika" : baseName.trim();
+
+        if (sv.getSlide().isChildNameTaken(name)) {
+            name = buildForTakenName(sv.getSlide(), name);
+        }
+        return name;
     }
 
     private String buildForTakenName(Slide parent, String name) {

@@ -13,6 +13,7 @@ public class MyToolBar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getRenameNodeAction());
         add(MainFrame.getInstance().getActionManager().getDeleteNodeAction());
         add(MainFrame.getInstance().getActionManager().getChangeProjectTitleAction());
+        add(MainFrame.getInstance().getActionManager().getLoadImageAction());
         add(MainFrame.getInstance().getActionManager().getRotateSlideElementsAction());
     }
 }

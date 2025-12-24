@@ -1,10 +1,7 @@
 package raf.graffito.dsw.controller;
 
+import raf.graffito.dsw.controller.buttons.*;
 import raf.graffito.dsw.controller.state.*;
-import raf.graffito.dsw.controller.tree.ChangeProjectTitleAction;
-import raf.graffito.dsw.controller.tree.CreateChildAction;
-import raf.graffito.dsw.controller.tree.DeleteNodeAction;
-import raf.graffito.dsw.controller.tree.RenameNodeAction;
 
 public class ActionManager {
     private ExitAction exitAction;
@@ -13,6 +10,7 @@ public class ActionManager {
     private RenameNodeAction renameNodeAction;
     private DeleteNodeAction deleteNodeAction;
     private ChangeProjectTitleAction changeProjectTitleAction;
+    private LoadImageAction loadImageAction;
 
     private ChangeToolAction addSlideElementsAction;
     private ChangeToolAction selectSlideElementsAction;
@@ -29,6 +27,7 @@ public class ActionManager {
         this.renameNodeAction = new RenameNodeAction();
         this.deleteNodeAction = new DeleteNodeAction();
         this.changeProjectTitleAction = new ChangeProjectTitleAction();
+        this.loadImageAction = new LoadImageAction();
 
         this.addSlideElementsAction = new ChangeToolAction(new AddState(), "/images/slideAdd.png", "Dodaj na slajd", "Dodaj novi element na slajd");
         this.selectSlideElementsAction = new ChangeToolAction(new SelectState(), "/images/slideSelect.png", "Izaberi elemente", "Izaberi elemente na slajdu");
@@ -61,6 +60,10 @@ public class ActionManager {
 
     public ChangeProjectTitleAction getChangeProjectTitleAction() {
         return changeProjectTitleAction;
+    }
+
+    public LoadImageAction getLoadImageAction() {
+        return loadImageAction;
     }
 
     public ChangeToolAction getAddSlideElementsAction() {

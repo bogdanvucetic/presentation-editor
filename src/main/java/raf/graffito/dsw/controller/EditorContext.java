@@ -16,7 +16,7 @@ public class EditorContext {
     private Set<SlideElement> selectedElements;
 
     private EditorContext() {
-        currentState = new SelectState();
+        currentState = null;
         selectedElements = new HashSet<>();
     }
 
@@ -28,6 +28,7 @@ public class EditorContext {
     public static EditorContext getInstance() {
         if (instance == null) {
             instance = new EditorContext();
+            instance.currentState = new SelectState();
         }
         return instance;
     }

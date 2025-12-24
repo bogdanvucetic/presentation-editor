@@ -1,5 +1,6 @@
-package raf.graffito.dsw.controller;
+package raf.graffito.dsw.controller.buttons;
 
+import raf.graffito.dsw.controller.EditorContext;
 import raf.graffito.dsw.controller.state.State;
 
 import java.awt.event.ActionEvent;

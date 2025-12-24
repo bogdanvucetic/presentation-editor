@@ -1,6 +1,5 @@
 package raf.graffito.dsw.controller.state;
 
-import raf.graffito.dsw.controller.EditorContext;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.composite.Slide;
 import raf.graffito.dsw.model.composite.SlideElement;
@@ -10,8 +9,6 @@ import java.util.Set;
 public class DeleteState extends State {
     @Override
     public void onEnter() {
-        EditorContext context = EditorContext.getInstance();
-
         if (context.getCurrentSlideView() == null) {
             return;
         }

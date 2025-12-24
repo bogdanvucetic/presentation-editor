@@ -1,7 +1,7 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import raf.graffito.dsw.controller.EditorContext;
-import raf.graffito.dsw.controller.TabListener;
+import raf.graffito.dsw.controller.listeners.TabListener;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
@@ -11,6 +11,7 @@ import raf.graffito.dsw.observer.model.ModelSubscriber;
 import raf.graffito.dsw.observer.model.ModelEvent;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.util.List;
 
@@ -38,7 +39,8 @@ public class ProjectView extends JPanel implements ModelSubscriber {
             return;
         }
 
-        tabs.addChangeListener(new TabListener());
+        TabListener tabListener = new TabListener();
+        tabs.addChangeListener(tabListener);
 
         project.getParent().addSubscriber(this);
         project.addSubscriber(this);
@@ -50,6 +52,8 @@ public class ProjectView extends JPanel implements ModelSubscriber {
         }
 
         add(tabs, BorderLayout.CENTER);
+
+        tabListener.stateChanged(new ChangeEvent(tabs));
     }
 
     public SlideView getDisplayedSlideView() {
@@ -89,27 +93,21 @@ public class ProjectView extends JPanel implements ModelSubscriber {
             case ADD_CHILD -> {
                 if (node instanceof Presentation p) {
                     p.addSubscriber(this);
-                    PresentationView view = new PresentationView(p);
-                    tabs.add(p.getName(), view);
+                    tabs.add(p.getName(), new PresentationView(p));
                 } else if (node instanceof Slide s && s.getParent() == project) {
                     s.addSubscriber(this);
-                    SlideView view = new SlideView(s);
-                    tabs.add(s.getName(), view);
+                    tabs.add(s.getName(), new SlideView(s));
                 }
             }
             case REMOVE_CHILD -> {
                 if (node == project) {
                     tabs.removeAll();
-                    MainFrame.getInstance().getInfoPanel().setProject(null);
-                    MainFrame.getInstance().getInfoPanel().setPresentation(null);
                 } else if (node instanceof Presentation || node instanceof Slide) {
                     removeNodeTab(node);
                 }
             }
             case RENAME -> {
-                if (node == project) {
-                    MainFrame.getInstance().getInfoPanel().setProjectLabel(project.getName());
-                } else if (node instanceof Presentation || node instanceof Slide) {
+                if (node instanceof Presentation || node instanceof Slide) {
                     renameNodeTab(node);
                 }
             }

@@ -1,5 +1,6 @@
-package raf.graffito.dsw.controller;
+package raf.graffito.dsw.controller.listeners;
 
+import raf.graffito.dsw.controller.EditorContext;
 import raf.graffito.dsw.gui.swing.view.InfoPanel;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.gui.swing.view.PresentationView;
@@ -24,6 +25,7 @@ public class TabListener implements ChangeListener {
             infoPanel.setPresentation(null);
             context.setCurrentSlideView(sv);
         } else {
+            infoPanel.setPresentation(null);
             context.setCurrentSlideView(null);
         }
     }

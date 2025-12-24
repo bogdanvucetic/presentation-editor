@@ -1,6 +1,6 @@
 package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.controller.tree.GraffTreeListener;
+import raf.graffito.dsw.controller.listeners.GraffTreeListener;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;

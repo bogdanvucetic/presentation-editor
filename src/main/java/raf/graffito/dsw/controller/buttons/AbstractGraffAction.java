@@ -1,4 +1,4 @@
-package raf.graffito.dsw.controller;
+package raf.graffito.dsw.controller.buttons;
 
 import javax.swing.*;
 import java.awt.*;

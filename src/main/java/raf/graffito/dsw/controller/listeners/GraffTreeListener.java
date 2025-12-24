@@ -1,4 +1,4 @@
-package raf.graffito.dsw.controller.tree;
+package raf.graffito.dsw.controller.listeners;
 
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
@@ -6,6 +6,7 @@ import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.gui.swing.view.ProjectView;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Project;
+import raf.graffito.dsw.model.composite.SlideElement;
 import raf.graffito.dsw.model.decorator.ColorDecorator;
 import raf.graffito.dsw.model.decorator.DecoratorRepository;
 import raf.graffito.dsw.observer.message.MessageType;
@@ -26,6 +27,11 @@ public class GraffTreeListener implements MouseListener {
         TreePath path = ((JTree) MainFrame.getInstance().getGraffTree()).getPathForLocation(e.getX(), e.getY());
 
         if (path == null) {
+            return;
+        }
+
+        // todo fix: dodao samo kako bih izbegao bag kada se ne otvara ispravan slajd kada kliknemo na SlideElement, vrlo glupa implementacija
+        if (path.getLastPathComponent() instanceof SlideElement) {
             return;
         }
 
