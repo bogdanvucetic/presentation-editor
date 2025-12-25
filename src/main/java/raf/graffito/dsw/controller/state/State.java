@@ -27,4 +27,8 @@ public abstract class State {
     public void thumbnailClicked(MouseEvent e) {
 
     }
+    public void mousePressed(MouseEvent e) {
+    }
+    public void mouseReleased(MouseEvent e) {
+    }
 }

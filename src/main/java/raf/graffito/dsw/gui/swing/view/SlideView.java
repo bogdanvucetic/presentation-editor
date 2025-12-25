@@ -25,9 +25,11 @@ public class SlideView extends JComponent implements ModelSubscriber {
     private final LabelPainter labelPainter = new LabelPainter();
     private final LogoPainter logoPainter = new LogoPainter();
 
+
     public SlideView(Slide slide) {
         this.slide = slide;
         setOpaque(false);
+        EditorContext.getInstance().setCurrentSlideView(this);
 
         SlideViewListener slideViewListener = new SlideViewListener();
         addMouseListener(slideViewListener);
@@ -170,3 +172,5 @@ public class SlideView extends JComponent implements ModelSubscriber {
         repaint();
     }
 }
+
+
