@@ -160,7 +160,7 @@ public class SlideView extends JComponent implements ModelSubscriber {
             case REMOVE_CHILD -> {
                 node.removeSubscriber(this);
             }
-            case RENAME -> { }
+            case RENAME, OPEN_PROJECT -> { }
         }
 
         repaint();

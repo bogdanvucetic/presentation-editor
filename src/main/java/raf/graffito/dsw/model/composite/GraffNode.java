@@ -1,5 +1,6 @@
 package raf.graffito.dsw.model.composite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import raf.graffito.dsw.observer.model.ModelEvent;
 import raf.graffito.dsw.observer.model.ModelEventType;
 import raf.graffito.dsw.observer.model.ModelPublisher;
@@ -9,8 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class GraffNode implements ModelPublisher {
+    @JsonIgnore
     private GraffNode parent;
     private String name;
+    @JsonIgnore
     private List<ModelSubscriber> subscribers;
 
     public GraffNode() {

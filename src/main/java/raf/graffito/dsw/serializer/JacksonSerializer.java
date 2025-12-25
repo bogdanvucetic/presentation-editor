@@ -23,7 +23,7 @@ public class JacksonSerializer implements Serializer {
         try {
             return mapper.readValue(file, Project.class);
         } catch (IOException e) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno otvaranje projekta", MessageType.ERROR);
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno otvaranje projekta: " + e.getMessage(), MessageType.ERROR);
             return null;
         }
     }
@@ -34,7 +34,7 @@ public class JacksonSerializer implements Serializer {
             mapper.writeValue(file, project);
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Uspešno čuvanje projekta", MessageType.INFO);
         } catch (IOException e) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno čuvanje projekta", MessageType.ERROR);
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno čuvanje projekta: " + e.getMessage(), MessageType.ERROR);
         }
     }
 }

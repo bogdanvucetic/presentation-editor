@@ -111,6 +111,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
                     renameNodeTab(node);
                 }
             }
+            case OPEN_PROJECT -> {}
         }
     }
 

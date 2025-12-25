@@ -103,7 +103,7 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
                 else if (node == presentation) {
                     presentationLabel.setText(presentation.getName());
                 }
-            }
+            } case OPEN_PROJECT -> {}
         }
     }
 

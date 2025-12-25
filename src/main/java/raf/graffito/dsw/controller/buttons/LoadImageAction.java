@@ -10,14 +10,15 @@ import java.io.File;
 public class LoadImageAction extends AbstractGraffAction {
     public LoadImageAction() {
         putValue(SMALL_ICON, loadIcon("/images/loadImage.png"));
-        putValue(NAME, "Učitaj sliku sa sistema");
-        putValue(SHORT_DESCRIPTION, "Učitaj sliku");
+        putValue(NAME, "Učitaj sliku");
+        putValue(SHORT_DESCRIPTION, "Učitaj sliku sa sistema");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.setDialogTitle("Otvori sliku");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "bmp"));
 
         if (fileChooser.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION) {

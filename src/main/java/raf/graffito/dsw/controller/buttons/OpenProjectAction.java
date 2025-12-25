@@ -1,8 +1,16 @@
 package raf.graffito.dsw.controller.buttons;
 
+import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.gui.swing.view.MainFrame;
+import raf.graffito.dsw.model.composite.Project;
+import raf.graffito.dsw.serializer.JacksonSerializer;
+import raf.graffito.dsw.serializer.Serializer;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class OpenProjectAction extends AbstractGraffAction {
     public OpenProjectAction() {
@@ -13,6 +21,22 @@ public class OpenProjectAction extends AbstractGraffAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        Serializer serializer = new JacksonSerializer();
 
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setDialogTitle("Otvori projekat");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("JSON", "json"));
+
+        if (fileChooser.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            Project openedProject = serializer.openProject(file);
+
+            if (openedProject == null) {
+                return;
+            }
+
+            ApplicationFramework.getInstance().getGraffRepository().getWorkspace().openProject(openedProject);
+        }
     }
 }

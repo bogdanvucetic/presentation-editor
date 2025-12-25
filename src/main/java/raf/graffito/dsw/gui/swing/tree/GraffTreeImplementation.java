@@ -45,23 +45,37 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
         switch (type) {
             case ADD_CHILD -> {
-                GraffNode parent = node.getParent();
-                GraffTreeElem parentElem = findTreeElemFor(parent);
+                GraffTreeElem parentElem = findTreeElemFor(node.getParent());
+
                 if (parentElem != null) {
                     addChildToTree(parentElem, node);
                 }
             }
             case REMOVE_CHILD -> {
                 GraffTreeElem nodeElem = findTreeElemFor(node);
+
                 if (nodeElem != null) {
                     removeNodeFromTree(nodeElem);
                 }
             }
             case RENAME -> {
                 GraffTreeElem nodeElem = findTreeElemFor(node);
+
                 if (nodeElem != null) {
                     treeModel.nodeChanged(nodeElem);
                 }
+            }
+            case OPEN_PROJECT -> {
+                GraffTreeElem parentElem = findTreeElemFor(node.getParent());
+
+                if (parentElem == null) {
+                    return;
+                }
+
+                addMultipleChildrenToTree(findTreeElemFor(node.getParent()), node);
+                subscribeToAllNodes(node);
+
+                treeModel.reload(parentElem);
             }
         }
     }
@@ -113,5 +127,16 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
     private void refresh() {
         SwingUtilities.updateComponentTreeUI(this);
+    }
+
+    private void addMultipleChildrenToTree(GraffTreeElem parentElem, GraffNode node) {
+        GraffTreeElem elem = new GraffTreeElem(node);
+        parentElem.add(elem);
+
+        if (node instanceof GraffNodeComposite composite) {
+            for (GraffNode child : composite.getChildren()) {
+                addMultipleChildrenToTree(elem, child);
+            }
+        }
     }
 }
