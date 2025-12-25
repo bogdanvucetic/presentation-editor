@@ -15,6 +15,14 @@ public class LabelPainter {
         int yTop = label.getYCoordinate();
 
         FontMetrics fm = g2.getFontMetrics();
+
+        int textWidth = fm.stringWidth(label.getText());
+        int textHeight = fm.getHeight();
+
+        label.setWidth(textWidth);
+        label.setHeight(textHeight);
+
+
         int baselineY = yTop + fm.getAscent();
 
         g2.drawString(label.getText(), x, baselineY);

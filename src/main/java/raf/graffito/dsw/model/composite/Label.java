@@ -37,4 +37,15 @@ public class Label extends SlideElement {
     public Color getColor() {
         return color;
     }
+
+
+    public int getFontSize() {
+        return font.getSize();
+    }
+
+    public void setFontSize(int newSize) {
+        newSize = Math.max(8, newSize); // minimalni font
+        font = font.deriveFont((float) newSize);
+    }
+
 }

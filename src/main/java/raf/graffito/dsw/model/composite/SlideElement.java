@@ -86,11 +86,11 @@ public abstract class SlideElement extends GraffNode {
     }
 
     public void setWidth(int width) {
-        this.width = width;
+        this.width = Math.max(5, width);
     }
 
     public void setHeight(int height) {
-        this.height = height;
+        this.height = Math.max(5, height);
     }
 
     public void setRotationAngle(double rotationAngle) {
