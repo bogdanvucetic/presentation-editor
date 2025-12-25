@@ -25,6 +25,14 @@ public class SlideView extends JComponent implements ModelSubscriber {
     private final LabelPainter labelPainter = new LabelPainter();
     private final LogoPainter logoPainter = new LogoPainter();
 
+    private double zoomFactor = 1.0;
+
+    private static final double MIN_ZOOM = 0.3;
+    private static final double MAX_ZOOM = 3.0;
+    private static final int RESIZE_HANDLE_SIZE = 20;
+
+
+
 
     public SlideView(Slide slide) {
         this.slide = slide;
@@ -64,7 +72,9 @@ public class SlideView extends JComponent implements ModelSubscriber {
 
             double sx = availableWidth / (double) size.width;
             double sy = availableHeight / (double) size.height;
-            double scale = Math.min(sx, sy);
+//            double scale = Math.min(sx, sy);
+            double scale = Math.min(sx, sy) * zoomFactor;
+
 
             int drawW = (int) (size.width * scale);
             int drawH = (int) (size.height * scale);
@@ -109,9 +119,26 @@ public class SlideView extends JComponent implements ModelSubscriber {
         g2.setColor(new Color(100, 150, 255));
         g2.setStroke(new BasicStroke(3f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[]{14, 6}, 0));
 
+//        for (SlideElement element : selectedElements) {
+//            g2.drawRect(element.getXCoordinate(), element.getYCoordinate(), element.getWidth(), element.getHeight());
+//        }
+
         for (SlideElement element : selectedElements) {
-            g2.drawRect(element.getXCoordinate(), element.getYCoordinate(), element.getWidth(), element.getHeight());
+            int x = element.getXCoordinate();
+            int y = element.getYCoordinate();
+            int w = element.getWidth();
+            int h = element.getHeight();
+
+            // okvir selekcije
+            g2.drawRect(x, y, w, h);
+
+            //  resize tačkica (donji desni ugao)
+            int handleX = x + w - RESIZE_HANDLE_SIZE / 2;
+            int handleY = y + h - RESIZE_HANDLE_SIZE / 2;
+
+            g2.fillOval(handleX, handleY, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE);
         }
+
 
         g2.setStroke(oldStroke);
         g2.setColor(oldColor);
@@ -130,7 +157,7 @@ public class SlideView extends JComponent implements ModelSubscriber {
 
         double sx = availableWidth / (double) size.width;
         double sy = availableHeight / (double) size.height;
-        double scale = Math.min(sx, sy);
+        double scale = Math.min(sx, sy) * zoomFactor;
 
         int drawW = (int) (size.width * scale);
         int drawH = (int) (size.height * scale);
@@ -170,6 +197,20 @@ public class SlideView extends JComponent implements ModelSubscriber {
 
     public void updateSelectedElements() {
         repaint();
+    }
+
+    public void zoom(double delta) {
+        zoomFactor += delta;
+        zoomFactor = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoomFactor));
+        repaint();
+    }
+
+
+    public double getZoomFactor() {
+        return zoomFactor;
+    }
+    public void setZoomFactor(double zoomFactor) {
+        this.zoomFactor = zoomFactor;
     }
 }
 

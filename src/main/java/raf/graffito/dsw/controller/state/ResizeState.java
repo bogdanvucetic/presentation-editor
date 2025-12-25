@@ -23,6 +23,11 @@ public class ResizeState extends State {
 
         resizingElement = getResizeElement(p, context.getSelectedElements());
         lastPoint = (resizingElement != null) ? p : null;
+
+        context.getCurrentSlideView().setCursor(
+                Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR)
+        );
+
     }
 
     @Override
@@ -58,6 +63,8 @@ public class ResizeState extends State {
     public void mouseReleased(MouseEvent e) {
         resizingElement = null;
         lastPoint = null;
+        context.getCurrentSlideView().setCursor(Cursor.getDefaultCursor());
+
     }
     private SlideElement getResizeElement(Point p, Set<SlideElement> selected) {
         for (SlideElement el : selected) {
