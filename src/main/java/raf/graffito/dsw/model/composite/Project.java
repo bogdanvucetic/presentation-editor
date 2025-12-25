@@ -1,10 +1,5 @@
 package raf.graffito.dsw.model.composite;
 
-import raf.graffito.dsw.observer.model.ModelSubscriber;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Project extends GraffNodeComposite {
     private String title;
     private int totalNumberOfSlides;
@@ -39,16 +34,6 @@ public class Project extends GraffNodeComposite {
 
     public void incrementNumberOfSlides(){
         totalNumberOfSlides++;
-    }
-
-    public List<Presentation> getPresentations() {
-        List<Presentation> presentations = new ArrayList<>();
-        for (GraffNode child : getChildren()) {
-            if (child instanceof Presentation) {
-                presentations.add((Presentation) child);
-            }
-        }
-        return presentations;
     }
 
     public String getTitle() {

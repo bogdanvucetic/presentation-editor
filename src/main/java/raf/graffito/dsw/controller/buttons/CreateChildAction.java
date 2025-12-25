@@ -1,6 +1,5 @@
-package raf.graffito.dsw.controller.tree;
+package raf.graffito.dsw.controller.buttons;
 
-import raf.graffito.dsw.controller.AbstractGraffAction;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
@@ -44,7 +43,6 @@ public class CreateChildAction extends AbstractGraffAction {
 
         try {
             parent.addChild(child);
-            MainFrame.getInstance().getGraffTree().addChildToView(selected, child);
         } catch (Exception ex) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }

@@ -1,6 +1,5 @@
-package raf.graffito.dsw.controller.tree;
+package raf.graffito.dsw.controller.buttons;
 
-import raf.graffito.dsw.controller.AbstractGraffAction;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
@@ -34,12 +33,11 @@ public class DeleteNodeAction extends AbstractGraffAction {
         }
         
         try {
-            parent.removeChild(selected.getGraffNode());
-            MainFrame.getInstance().getGraffTree().removeNodeFromView(selected);
-
             if (selected.getGraffNode() instanceof Project) {
                 ApplicationFramework.getInstance().getGraffRepository().getDecoratorRepository().removeColorDecoratorFor(selected.getGraffNode());
             }
+
+            parent.removeChild(selected.getGraffNode());
         } catch (Exception ex) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage(ex.getMessage(), MessageType.ERROR);
         }

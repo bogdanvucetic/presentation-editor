@@ -11,25 +11,24 @@ public class ApplicationFramework {
     private GraffRepository graffRepository;
 
     private ApplicationFramework(){
+        messageGenerator = new MessageGenerator();
+        graffRepository = new GraffRepositoryImplementation();
+
+        LoggerFactory loggerFactory = new LoggerFactory();
+        messageGenerator.addSubscriber(loggerFactory.createLogger("file"));
+        messageGenerator.addSubscriber(loggerFactory.createLogger("console"));
+
         initialize();
     }
 
     public void initialize(){
         MainFrame mainFrame = MainFrame.getInstance();
-        mainFrame.setVisible(true);
-
-        messageGenerator = new MessageGenerator();
-        graffRepository = new GraffRepositoryImplementation();
-
-        LoggerFactory loggerFactory = new LoggerFactory();
-
         messageGenerator.addSubscriber(mainFrame);
-        messageGenerator.addSubscriber(loggerFactory.createLogger("file"));
-        messageGenerator.addSubscriber(loggerFactory.createLogger("console"));
+        mainFrame.setVisible(true);
     }
 
     public static ApplicationFramework getInstance(){
-        if(instance == null){
+        if (instance == null) {
             instance = new ApplicationFramework();
         }
         return instance;

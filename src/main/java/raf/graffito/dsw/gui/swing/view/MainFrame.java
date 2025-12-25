@@ -1,29 +1,24 @@
 package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.controller.tree.GraffTreeListener;
+import raf.graffito.dsw.controller.listeners.GraffTreeListener;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.controller.ActionManager;
 import raf.graffito.dsw.gui.swing.tree.GraffTree;
-import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeImplementation;
-import raf.graffito.dsw.model.composite.GraffNode;
-import raf.graffito.dsw.model.composite.Project;
-import raf.graffito.dsw.model.composite.Slide;
 import raf.graffito.dsw.observer.message.MessageGenerator;
 import raf.graffito.dsw.observer.message.MessageType;
 import raf.graffito.dsw.observer.message.MessageSubscriber;
 
 import javax.swing.*;
-import javax.swing.tree.TreePath;
 import java.awt.*;
 
 public class MainFrame extends JFrame implements MessageSubscriber {
     private static MainFrame instance;
     private ActionManager actionManager;
 
-    private JSplitPane mainPanel;
+    private JSplitPane workspaceSplitPane;
     private GraffTree graffTree;
-    private ProjectView projectView;
+    private ProjectView currentProjectView;
     private InfoPanel infoPanel;
 
     private MainFrame() {
@@ -47,44 +42,40 @@ public class MainFrame extends JFrame implements MessageSubscriber {
         MyToolBar toolBar = new MyToolBar(); // Kreiranje toolbar-a
         add(toolBar, BorderLayout.NORTH); // Postavljanje toolbar-a na vrh prozora
 
+        buildTreePanel();
+        buildWorkspaceSplitPane();
+    }
+
+    private void buildTreePanel() {
         JTree tree = graffTree.generateTree(ApplicationFramework.getInstance().getGraffRepository().getWorkspace());
         tree.addMouseListener(new GraffTreeListener());
         JScrollPane treePane = new JScrollPane(tree);
         treePane.setPreferredSize(new Dimension(180, 0));
 
-        projectView = new ProjectView(null);
+        add(treePane, BorderLayout.WEST);
+    }
+
+    private void buildWorkspaceSplitPane() {
+        currentProjectView = new ProjectView(null);
         infoPanel = new InfoPanel();
         infoPanel.setPreferredSize(new Dimension(180, 0));
 
-        mainPanel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, projectView, infoPanel);
-        mainPanel.setOneTouchExpandable(true);
-        mainPanel.setResizeWeight(1.0);
+        workspaceSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, currentProjectView, infoPanel);
+        workspaceSplitPane.setOneTouchExpandable(true);
+        workspaceSplitPane.setResizeWeight(1.0);
 
-        add(treePane, BorderLayout.WEST);
-        add(mainPanel, BorderLayout.CENTER);
-    }
-
-    public void openSoloSlide(Slide slide) {
-        int oldLocation = mainPanel.getDividerLocation();
-
-        SlideView slideView = new SlideView(slide);
-        mainPanel.setLeftComponent(slideView);
-        this.projectView = null;
-
-        infoPanel.setProject((Project) slide.getParent());
-
-        SwingUtilities.invokeLater(() -> mainPanel.setDividerLocation(oldLocation));
+        add(workspaceSplitPane, BorderLayout.CENTER);
     }
 
     public void openProject(ProjectView projectView) {
-        int oldLocation = mainPanel.getDividerLocation();
+        int oldDividerLocation = workspaceSplitPane.getDividerLocation();
 
-        mainPanel.setLeftComponent(projectView);
-        this.projectView = projectView;
+        workspaceSplitPane.setLeftComponent(projectView);
+        this.currentProjectView = projectView;
 
         infoPanel.setProject(projectView.getProject());
 
-        mainPanel.setDividerLocation(oldLocation);
+        workspaceSplitPane.setDividerLocation(oldDividerLocation);
     }
 
     @Override
@@ -105,17 +96,6 @@ public class MainFrame extends JFrame implements MessageSubscriber {
         return instance;
     }
 
-    public Project getProjectFromPath(TreePath path) {
-        for (int i = 0; i < path.getPathCount(); i++) {
-            GraffNode node = ((GraffTreeElem) path.getPathComponent(i)).getGraffNode();
-
-            if (node instanceof Project project) {
-                return project;
-            }
-        }
-        return null;
-    }
-
     public ActionManager getActionManager() {
         return actionManager;
     }
@@ -124,8 +104,8 @@ public class MainFrame extends JFrame implements MessageSubscriber {
         return graffTree;
     }
 
-    public ProjectView getProjectView() {
-        return projectView;
+    public ProjectView getCurrentProjectView() {
+        return currentProjectView;
     }
 
     public InfoPanel getInfoPanel() {

@@ -1,13 +1,5 @@
 package raf.graffito.dsw.gui.swing.view;
 
-
-
-import raf.graffito.dsw.controller.*;
-import raf.graffito.dsw.controller.tree.ChangeProjectTitleAction;
-import raf.graffito.dsw.controller.tree.CreateChildAction;
-import raf.graffito.dsw.controller.tree.DeleteNodeAction;
-import raf.graffito.dsw.controller.tree.RenameNodeAction;
-
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
@@ -16,20 +8,12 @@ public class MyMenuBar extends JMenuBar {
         JMenu fileMenu = new JMenu("Fajl");
         fileMenu.setMnemonic(KeyEvent.VK_F);
 
-        ExitAction exitAction = MainFrame.getInstance().getActionManager().getExitAction();
-        fileMenu.add(exitAction);
-
-        CreateChildAction createChildAction = MainFrame.getInstance().getActionManager().getCreateChildAction();
-        fileMenu.add(createChildAction);
-
-        RenameNodeAction renameNodeAction = MainFrame.getInstance().getActionManager().getRenameNodeAction();
-        fileMenu.add(renameNodeAction);
-
-        DeleteNodeAction deleteNodeAction = MainFrame.getInstance().getActionManager().getDeleteNodeAction();
-        fileMenu.add(deleteNodeAction);
-
-        ChangeProjectTitleAction changeProjectTitleAction = MainFrame.getInstance().getActionManager().getChangeProjectTitleAction();
-        fileMenu.add(changeProjectTitleAction);
+        fileMenu.add(MainFrame.getInstance().getActionManager().getExitAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getCreateChildAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getRenameNodeAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getDeleteNodeAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getChangeProjectTitleAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getLoadImageAction());
 
         add(fileMenu);
     }

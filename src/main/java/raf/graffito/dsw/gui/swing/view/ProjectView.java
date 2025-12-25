@@ -1,14 +1,17 @@
 package raf.graffito.dsw.gui.swing.view;
 
-import raf.graffito.dsw.controller.TabListener;
+import raf.graffito.dsw.controller.EditorContext;
+import raf.graffito.dsw.controller.listeners.TabListener;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
+import raf.graffito.dsw.model.composite.Slide;
 import raf.graffito.dsw.observer.model.ModelEventType;
 import raf.graffito.dsw.observer.model.ModelSubscriber;
 import raf.graffito.dsw.observer.model.ModelEvent;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.util.List;
 
@@ -28,6 +31,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
 
         setLayout(new BorderLayout());
         initialize();
+        EditorContext.getInstance().setCurrentSlideView(getDisplayedSlideView());
     }
 
     private void initialize() {
@@ -35,33 +39,48 @@ public class ProjectView extends JPanel implements ModelSubscriber {
             return;
         }
 
+        TabListener tabListener = new TabListener();
+        tabs.addChangeListener(tabListener);
+
         project.getParent().addSubscriber(this);
         project.addSubscriber(this);
 
-        tabs.addChangeListener(new TabListener());
-
-        MainFrame.getInstance().getInfoPanel().setProject(project);
-        List<Presentation> presentations = project.getPresentations();
-
-        if (!presentations.isEmpty()) {
-            MainFrame.getInstance().getInfoPanel().setPresentation(presentations.getFirst());
-            createTabsFor(presentations);
-        }
+        createTabsFor(project.getChildren());
 
         if (tabColor != null) {
             tabs.setBackground(tabColor);
         }
 
         add(tabs, BorderLayout.CENTER);
+
+        tabListener.stateChanged(new ChangeEvent(tabs));
     }
 
-    private void createTabsFor(List<Presentation> presentations) {
-        tabs.removeAll();
+    public SlideView getDisplayedSlideView() {
+        if (tabs.getSelectedComponent() instanceof PresentationView pv) {
+            return pv.getCurrentSlideView();
+        } else if (tabs.getSelectedComponent() instanceof SlideView sv) {
+            return sv;
+        }
+        return null;
+    }
 
-        for (Presentation p : presentations) {
-            p.addSubscriber(this);
-            PresentationView view = new PresentationView(p);
-            tabs.add(p.getName(), view);
+    public void openTabFor(GraffNode node) {
+        for (int i = 0; i < tabs.getTabCount(); i++) {
+            Component c = tabs.getComponentAt(i);
+
+            if (c instanceof PresentationView pv && (pv.getPresentation() == node || pv.getPresentation() == node.getParent())) {
+                tabs.setSelectedIndex(i);
+                if (node instanceof Slide s && pv.getCurrentSlideView().getSlide() != s) {
+                    pv.setSelectedSlide(s);
+                }
+                return;
+            }
+
+            if (c instanceof SlideView sv && sv.getSlide() == node) {
+                tabs.setSelectedIndex(i);
+                return;
+            }
         }
     }
 
@@ -74,47 +93,65 @@ public class ProjectView extends JPanel implements ModelSubscriber {
             case ADD_CHILD -> {
                 if (node instanceof Presentation p) {
                     p.addSubscriber(this);
-                    PresentationView view = new PresentationView(p);
-                    tabs.add(p.getName(), view);
-
-                    if (tabColor != null) {
-                        tabs.setBackground(tabColor);
-                    }
+                    tabs.add(p.getName(), new PresentationView(p));
+                } else if (node instanceof Slide s && s.getParent() == project) {
+                    s.addSubscriber(this);
+                    tabs.add(s.getName(), new SlideView(s));
                 }
             }
             case REMOVE_CHILD -> {
                 if (node == project) {
                     tabs.removeAll();
-                    MainFrame.getInstance().getInfoPanel().setProject(null);
-                    MainFrame.getInstance().getInfoPanel().setPresentation(null);
-                } else if (node instanceof Presentation p) {
-                    removePresentationTab(p);
+                } else if (node instanceof Presentation || node instanceof Slide) {
+                    removeNodeTab(node);
                 }
             }
             case RENAME -> {
-                if (node == project) {
-                    MainFrame.getInstance().getInfoPanel().setProjectLabel(project.getName());
-                } else if (node instanceof Presentation p) {
-                    renamePresentationTab(p);
+                if (node instanceof Presentation || node instanceof Slide) {
+                    renameNodeTab(node);
                 }
             }
         }
     }
 
-    private void removePresentationTab(Presentation p) {
-        for (Component c : tabs.getComponents()){
-            if (c instanceof PresentationView pv && pv.getPresentation() == p){
-                tabs.remove(c);
+    private void createTabsFor(List<GraffNode> children) {
+        tabs.removeAll();
+
+        for (GraffNode node : children) {
+            node.addSubscriber(this);
+
+            if (node instanceof Slide s) {
+                SlideView view = new SlideView(s);
+                tabs.addTab(s.getName(), view);
+            } else if (node instanceof Presentation p) {
+                PresentationView view = new PresentationView(p);
+                tabs.addTab(p.getName(), view);
+            }
+        }
+    }
+
+    private void removeNodeTab(GraffNode node) {
+        for (Component c : tabs.getComponents()) {
+            if (c instanceof PresentationView pv && pv.getPresentation() == node) {
+                if (pv.getCurrentSlideView() != null) {
+                    pv.getCurrentSlideView().getSlide().removeSubscriber(pv.getCurrentSlideView());
+                }
+                tabs.remove(pv);
+                break;
+            } else if (c instanceof SlideView sv && sv.getSlide() == node) {
+                sv.getSlide().removeSubscriber(sv);
+                tabs.remove(sv);
                 break;
             }
         }
     }
 
-    private void renamePresentationTab(Presentation p) {
+    private void renameNodeTab(GraffNode node) {
         for (int i = 0; i < tabs.getTabCount(); i++) {
             Component c = tabs.getComponentAt(i);
-            if (c instanceof PresentationView pv && pv.getPresentation() == p) {
-                tabs.setTitleAt(i, p.getName());
+            if ((c instanceof PresentationView pv && pv.getPresentation() == node) ||
+                    (c instanceof SlideView sv && sv.getSlide() == node)) {
+                tabs.setTitleAt(i, node.getName());
                 break;
             }
         }

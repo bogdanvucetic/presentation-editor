@@ -1,7 +1,4 @@
-package raf.graffito.dsw.controller;
-
-import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.observer.message.MessageType;
+package raf.graffito.dsw.controller.buttons;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +10,7 @@ public abstract class AbstractGraffAction extends AbstractAction {
         URL ImageURL = getClass().getResource(path); // URL služi za pronalaženje resursa unutar JAR fajla ili klase
 
         if (ImageURL == null) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Ikonica nije pronađena: " + path, MessageType.INFO);
+            System.err.println("Ikonica nije pronađena: " + path);
             return null;
         }
 
