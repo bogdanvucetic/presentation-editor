@@ -4,6 +4,8 @@ public class Project extends GraffNodeComposite {
     private String title;
     private int totalNumberOfSlides;
 
+    public Project() {}
+
     public Project(GraffNode parent, String name) {
         super(parent, name);
         this.title = name;

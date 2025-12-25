@@ -7,6 +7,8 @@ public abstract class SlideElement extends GraffNode {
     private int height;
     private double rotationAngle;
 
+    public SlideElement() {}
+
     public SlideElement(GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
         super(parent, name);
         this.xCoordinate = xCoordinate;

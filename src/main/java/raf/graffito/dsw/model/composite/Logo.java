@@ -9,6 +9,8 @@ public class Logo extends SlideElement {
     private List<Point2D> points;
     private Color color;
 
+    public Logo() {}
+
     public Logo(GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
         super(parent, name, xCoordinate, yCoordinate, width, height);
         this.points = getDefaultPoints();

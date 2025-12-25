@@ -7,6 +7,8 @@ public class Label extends SlideElement {
     private Font font;
     private Color color;
 
+    public Label() {}
+
     public Label(String text, GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
         super(parent, name, xCoordinate, yCoordinate, width, height);
         this.text = text;

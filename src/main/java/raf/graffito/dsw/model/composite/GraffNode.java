@@ -13,6 +13,10 @@ public abstract class GraffNode implements ModelPublisher {
     private String name;
     private List<ModelSubscriber> subscribers;
 
+    public GraffNode() {
+        subscribers = new LinkedList<>();
+    }
+
     public GraffNode(GraffNode parent, String name) {
         this.parent = parent;
         this.name = name;
