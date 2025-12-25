@@ -31,7 +31,7 @@ public class GraffTreeListener implements MouseListener {
         }
 
         // todo fix: dodao samo kako bih izbegao bag kada se ne otvara ispravan slajd kada kliknemo na SlideElement, vrlo glupa implementacija
-        if (path.getLastPathComponent() instanceof SlideElement) {
+        if (((GraffTreeElem) path.getLastPathComponent()).getGraffNode() instanceof SlideElement) {
             return;
         }
 

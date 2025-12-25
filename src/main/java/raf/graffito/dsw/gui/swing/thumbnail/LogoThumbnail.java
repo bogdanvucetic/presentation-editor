@@ -30,8 +30,8 @@ public class LogoThumbnail extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        List<Point2D> pts = Logo.getDefaultPoints();
-        Color color = Logo.getDefaultColor();
+        List<Point2D.Double> pts = Logo.getDefaultPoints();
+        Color color = new Color(Logo.getDefaultColorRGB());
 
         int panelWidth = getWidth() - 4;
         int panelHeight = getHeight() - 4;

@@ -3,6 +3,8 @@ package raf.graffito.dsw.serializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.model.composite.GraffNode;
+import raf.graffito.dsw.model.composite.GraffNodeComposite;
 import raf.graffito.dsw.model.composite.Project;
 import raf.graffito.dsw.observer.message.MessageType;
 
@@ -21,7 +23,9 @@ public class JacksonSerializer implements Serializer {
     @Override
     public Project openProject(File file) {
         try {
-            return mapper.readValue(file, Project.class);
+            Project p = mapper.readValue(file, Project.class);
+            relinkParents(p);
+            return p;
         } catch (IOException e) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno otvaranje projekta: " + e.getMessage(), MessageType.ERROR);
             return null;
@@ -35,6 +39,15 @@ public class JacksonSerializer implements Serializer {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Uspešno čuvanje projekta", MessageType.INFO);
         } catch (IOException e) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno čuvanje projekta: " + e.getMessage(), MessageType.ERROR);
+        }
+    }
+
+    private void relinkParents(GraffNode node) {
+        if (node instanceof GraffNodeComposite composite) {
+            for (GraffNode child : composite.getChildren()) {
+                child.setParent(node);
+                relinkParents(child);
+            }
         }
     }
 }

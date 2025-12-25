@@ -36,7 +36,7 @@ public abstract class GraffNodeComposite extends GraffNode {
 
     public void addChild(GraffNode child) {
         if (isChildNameTaken(child.getName())) {
-            throw new IllegalArgumentException("Ime je zauzeto.");
+            throw new IllegalStateException("Ime je zauzeto.");
         }
 
         children.add(child);
@@ -61,5 +61,9 @@ public abstract class GraffNodeComposite extends GraffNode {
 
     public List<GraffNode> getChildren() {
         return children;
+    }
+
+    public void setChildren(List<GraffNode> children) {
+        this.children = children;
     }
 }

@@ -1,5 +1,7 @@
 package raf.graffito.dsw.model.composite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.awt.*;
 
 public class Slide extends GraffNodeComposite {
@@ -20,6 +22,7 @@ public class Slide extends GraffNodeComposite {
         super.addChild(child);
     }
 
+    @JsonIgnore
     public Dimension getResolution() {
         return resolution;
     }

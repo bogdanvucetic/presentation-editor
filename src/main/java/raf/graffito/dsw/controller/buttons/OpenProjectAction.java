@@ -3,6 +3,7 @@ package raf.graffito.dsw.controller.buttons;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.composite.Project;
+import raf.graffito.dsw.observer.message.MessageType;
 import raf.graffito.dsw.serializer.JacksonSerializer;
 import raf.graffito.dsw.serializer.Serializer;
 
@@ -36,7 +37,11 @@ public class OpenProjectAction extends AbstractGraffAction {
                 return;
             }
 
-            ApplicationFramework.getInstance().getGraffRepository().getWorkspace().openProject(openedProject);
+            try {
+                ApplicationFramework.getInstance().getGraffRepository().getWorkspace().openProject(openedProject);
+            } catch (Exception ex) {
+                ApplicationFramework.getInstance().getMessageGenerator().createMessage("Postoji projekat sa istim imenom.", MessageType.ERROR);
+            }
         }
     }
 }

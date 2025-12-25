@@ -1,6 +1,9 @@
 package raf.graffito.dsw.model.composite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Image extends SlideElement {
+    @JsonIgnore
     private java.awt.Image image;
 
     public Image() {}
@@ -22,5 +25,9 @@ public class Image extends SlideElement {
 
     public java.awt.Image getImage() {
         return image;
+    }
+
+    public void setImage(java.awt.Image image) {
+        this.image = image;
     }
 }

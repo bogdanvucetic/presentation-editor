@@ -4,23 +4,29 @@ import java.awt.*;
 
 public class Label extends SlideElement {
     private String text;
-    private Font font;
-    private Color color;
+    private String fontName;
+    private int fontStyle;
+    private int fontSize;
+    private int colorRGB;
 
     public Label() {}
 
     public Label(String text, GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
         super(parent, name, xCoordinate, yCoordinate, width, height);
         this.text = text;
-        this.font = new Font("Arial", Font.PLAIN, 40);
-        this.color = Color.BLACK;
+        this.fontName = "Arial";
+        this.fontStyle = Font.PLAIN;
+        this.fontSize = 40;
+        this.colorRGB = Color.BLACK.getRGB();
     }
 
     public Label(Label elem) {
         super(elem);
         this.text = elem.getText();
-        this.font = elem.getFont();
-        this.color = elem.getColor();
+        this.fontName = elem.getFontName();
+        this.fontStyle = elem.getFontStyle();
+        this.fontSize = elem.getFontSize();
+        this.colorRGB = elem.getColorRGB();
     }
 
     @Override
@@ -32,11 +38,39 @@ public class Label extends SlideElement {
         return text;
     }
 
-    public Font getFont() {
-        return font;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public Color getColor() {
-        return color;
+    public String getFontName() {
+        return fontName;
+    }
+
+    public void setFontName(String fontName) {
+        this.fontName = fontName;
+    }
+
+    public int getFontStyle() {
+        return fontStyle;
+    }
+
+    public void setFontStyle(int fontStyle) {
+        this.fontStyle = fontStyle;
+    }
+
+    public int getFontSize() {
+        return fontSize;
+    }
+
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
+    }
+
+    public int getColorRGB() {
+        return colorRGB;
+    }
+
+    public void setColorRGB(int colorRGB) {
+        this.colorRGB = colorRGB;
     }
 }

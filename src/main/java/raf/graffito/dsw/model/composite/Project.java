@@ -49,4 +49,8 @@ public class Project extends GraffNodeComposite {
     public int getTotalNumberOfSlides() {
         return totalNumberOfSlides;
     }
+
+    public void setTotalNumberOfSlides(int totalNumberOfSlides) {
+        this.totalNumberOfSlides = totalNumberOfSlides;
+    }
 }

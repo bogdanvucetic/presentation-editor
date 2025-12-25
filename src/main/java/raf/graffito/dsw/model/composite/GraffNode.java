@@ -1,6 +1,8 @@
 package raf.graffito.dsw.model.composite;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import raf.graffito.dsw.observer.model.ModelEvent;
 import raf.graffito.dsw.observer.model.ModelEventType;
 import raf.graffito.dsw.observer.model.ModelPublisher;
@@ -8,6 +10,21 @@ import raf.graffito.dsw.observer.model.ModelSubscriber;
 
 import java.util.LinkedList;
 import java.util.List;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Project.class, name = "project"),
+        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Presentation.class, name = "presentation"),
+        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Slide.class, name = "slide"),
+        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Logo.class, name = "logo"),
+        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Label.class, name = "label"),
+        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Image.class, name = "image"),
+})
 
 public abstract class GraffNode implements ModelPublisher {
     @JsonIgnore
