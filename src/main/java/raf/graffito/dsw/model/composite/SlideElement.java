@@ -105,4 +105,9 @@ public abstract class SlideElement extends GraffNode {
         this.xCoordinate += dx;
         this.yCoordinate += dy;
     }
+    public void rotateLeft() {
+        rotationAngle -= 90;
+        rotationAngle = (rotationAngle % 360 + 360) % 360;
+    }
+
 }
