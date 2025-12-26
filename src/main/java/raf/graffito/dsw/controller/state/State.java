@@ -11,8 +11,16 @@ public abstract class State {
     public void onEnter() {
 
     }
-    
+
     public void mouseClicked(MouseEvent e) {
+
+    }
+
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    public void mouseReleased(MouseEvent e) {
 
     }
 
@@ -26,9 +34,5 @@ public abstract class State {
 
     public void thumbnailClicked(MouseEvent e) {
 
-    }
-    public void mousePressed(MouseEvent e) {
-    }
-    public void mouseReleased(MouseEvent e) {
     }
 }
