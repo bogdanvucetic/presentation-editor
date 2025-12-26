@@ -13,6 +13,7 @@ public class MyMenuBar extends JMenuBar {
         fileMenu.add(MainFrame.getInstance().getActionManager().getOpenProjectAction());
         fileMenu.add(MainFrame.getInstance().getActionManager().getSaveProjectAction());
         fileMenu.add(MainFrame.getInstance().getActionManager().getSaveProjectAsAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getSaveAsTemplateAction());
         fileMenu.addSeparator();
         fileMenu.add(MainFrame.getInstance().getActionManager().getCreateChildAction());
         fileMenu.add(MainFrame.getInstance().getActionManager().getRenameNodeAction());
