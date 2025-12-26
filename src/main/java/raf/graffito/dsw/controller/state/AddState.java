@@ -1,5 +1,6 @@
 package raf.graffito.dsw.controller.state;
 
+import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.proxy.ImageProxy;
 import raf.graffito.dsw.gui.swing.thumbnail.ImageThumbnail;
 import raf.graffito.dsw.gui.swing.thumbnail.LogoThumbnail;
@@ -7,6 +8,7 @@ import raf.graffito.dsw.gui.swing.view.SlideView;
 import raf.graffito.dsw.model.composite.*;
 import raf.graffito.dsw.model.composite.Image;
 import raf.graffito.dsw.model.composite.Label;
+import raf.graffito.dsw.observer.message.MessageType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +28,11 @@ public class AddState extends State {
         }
 
         for (SlideElement element : selectedElements) {
+            if (!context.isNewElementsAllowed()) {
+                ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nedovoljno prostora na slajdu za novi element", MessageType.ERROR);
+                break;
+            }
+
             SlideElement e = element.clone();
             context.getCurrentSlideView().getSlide().addChild(e);
             newSelectedElements.add(e);
@@ -36,12 +43,16 @@ public class AddState extends State {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        SlideView sv = context.getCurrentSlideView();
-
         if (e.getClickCount() != 2) {
             return;
         }
 
+        if (!context.isNewElementsAllowed()) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nedovoljno prostora na slajdu za novi element", MessageType.ERROR);
+            return;
+        }
+
+        SlideView sv = context.getCurrentSlideView();
         String text = JOptionPane.showInputDialog("Unesite tekst");
 
         if (text == null) {
@@ -89,6 +100,11 @@ public class AddState extends State {
 
     @Override
     public void thumbnailClicked(MouseEvent e) {
+        if (!context.isNewElementsAllowed()) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nedovoljno prostora na slajdu za novi element", MessageType.ERROR);
+            return;
+        }
+
         SlideView sv = context.getCurrentSlideView();
         if (sv == null) return;
 
