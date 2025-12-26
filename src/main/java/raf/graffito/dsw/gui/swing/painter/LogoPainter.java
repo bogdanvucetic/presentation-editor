@@ -19,7 +19,7 @@ public class LogoPainter {
 
         if (w <= 0 || h <= 0) return;
 
-        List<Point2D> pts = logo.getPoints();
+        List<Point2D.Double> pts = logo.getPoints();
         if (pts == null || pts.size() < 3) return;
 
         AffineTransform oldTx = g2.getTransform();
@@ -52,7 +52,7 @@ public class LogoPainter {
             }
             path.closePath();
 
-            g2.setColor(logo.getColor());
+            g2.setColor(new Color(logo.getColorRGB()));
             g2.fill(path);
         } finally {
             g2.setTransform(oldTx);

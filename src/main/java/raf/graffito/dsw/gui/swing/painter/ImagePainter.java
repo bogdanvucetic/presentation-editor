@@ -2,12 +2,13 @@ package raf.graffito.dsw.gui.swing.painter;
 
 import raf.graffito.dsw.model.composite.Image;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
 public class ImagePainter {
     public void paint(Graphics2D g2, Image element) {
-        if (element == null || element.getImage() == null) return;
+        if (element == null || element.getImagePath() == null) return;
 
         int x = element.getXCoordinate();
         int y = element.getYCoordinate();
@@ -38,6 +39,8 @@ public class ImagePainter {
 
             g2.drawImage(element.getImage(), x, y, w, h, null);
 
+            ImageIcon imageIcon = new ImageIcon(element.getImagePath());
+            g2.drawImage(imageIcon.getImage(), x, y, w, h, null);
         } finally {
             g2.setComposite(oldComposite);
             g2.setRenderingHints(oldHints);

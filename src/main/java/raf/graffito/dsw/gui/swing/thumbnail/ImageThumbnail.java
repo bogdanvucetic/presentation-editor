@@ -1,17 +1,19 @@
 package raf.graffito.dsw.gui.swing.thumbnail;
 
 import raf.graffito.dsw.controller.listeners.ThumbnailListener;
+import raf.graffito.dsw.gui.swing.proxy.ImageData;
+import raf.graffito.dsw.gui.swing.proxy.ImageProxy;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ImageThumbnail extends JPanel {
-    private ImageIcon image;
+    private ImageProxy imageProxy;
     private String baseName;
     private boolean hovered;
 
-    public ImageThumbnail(ImageIcon image, String baseName) {
-        this.image = image;
+    public ImageThumbnail(ImageProxy imageProxy, String baseName) {
+        this.imageProxy = imageProxy;
         this.baseName = baseName;
         hovered = false;
 
@@ -27,7 +29,7 @@ public class ImageThumbnail extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (image == null || image.getImage() == null) return;
+        if (imageProxy == null || imageProxy.getImage() == null) return;
 
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -35,8 +37,9 @@ public class ImageThumbnail extends JPanel {
         int panelWidth = getWidth() - 4;
         int panelHeight = getHeight() - 4;
 
-        int imgWidth = image.getIconWidth();
-        int imgHeight = image.getIconHeight();
+        Image thumbnail = imageProxy.getThumbnail();
+        int imgWidth = thumbnail.getWidth(null);
+        int imgHeight = thumbnail.getHeight(null);
 
         double scale = (double) panelWidth / imgWidth;
         int scaledWidth = panelWidth;
@@ -45,7 +48,7 @@ public class ImageThumbnail extends JPanel {
         int y = (panelHeight - scaledHeight) / 2;
         int x = 2;
 
-        g2.drawImage(image.getImage(), x, Math.max(2, y), scaledWidth, scaledHeight, null);
+        g2.drawImage(thumbnail, x, Math.max(2, y), scaledWidth, scaledHeight, null);
 
         g2.dispose();
 
@@ -58,8 +61,8 @@ public class ImageThumbnail extends JPanel {
         }
     }
 
-    public ImageIcon getImage() {
-        return image;
+    public ImageProxy getImageProxy() {
+        return imageProxy;
     }
 
     public String getBaseName() {

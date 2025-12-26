@@ -8,9 +8,14 @@ import raf.graffito.dsw.model.factory.GraffNodeFactory;
 import raf.graffito.dsw.model.factory.ProjectFactory;
 import raf.graffito.dsw.model.factory.SlideFactory;
 import raf.graffito.dsw.observer.message.MessageType;
+import raf.graffito.dsw.serializer.JacksonSerializer;
+import raf.graffito.dsw.serializer.Serializer;
 import raf.graffito.dsw.utils.ChildTypePicker;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class CreateChildAction extends AbstractGraffAction {
     public CreateChildAction() {
@@ -37,6 +42,41 @@ public class CreateChildAction extends AbstractGraffAction {
 
         if (factory == null) {
             return;
+        }
+
+        if (factory instanceof ProjectFactory) {
+            if (JOptionPane.showConfirmDialog(
+                    MainFrame.getInstance(),
+                    new JLabel("Da li želite da napravite projekat na osnovu postojećeg šablona?"),
+                    "",
+                    JOptionPane.YES_NO_OPTION) == 0) {
+
+                Serializer serializer = new JacksonSerializer();
+
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Otvori šablon");
+                fileChooser.setFileFilter(new FileNameExtensionFilter("JSON", "json"));
+                fileChooser.setCurrentDirectory(new File("src/main/resources/templates"));
+
+                if (fileChooser.showOpenDialog(MainFrame.getInstance()) != JFileChooser.APPROVE_OPTION) {
+                    return;
+                }
+
+                File file = fileChooser.getSelectedFile();
+                Project openedProject = serializer.openProject(file);
+
+                if (openedProject == null) {
+                    return;
+                }
+
+                try {
+                    ApplicationFramework.getInstance().getGraffRepository().getWorkspace().openProject(openedProject);
+                } catch (Exception ex) {
+                    ApplicationFramework.getInstance().getMessageGenerator().createMessage("Postoji projekat sa istim imenom.", MessageType.ERROR);
+                }
+
+                return;
+            }
         }
 
         GraffNode child = factory.createGraffNode(parent);

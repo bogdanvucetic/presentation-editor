@@ -65,7 +65,7 @@ public class PresentationView extends JPanel implements ModelSubscriber {
                     }
                 }
             }
-            case RENAME -> {}
+            case RENAME, OPEN_PROJECT -> {}
         }
     }
 

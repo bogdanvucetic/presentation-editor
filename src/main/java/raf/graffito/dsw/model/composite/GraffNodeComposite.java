@@ -9,6 +9,10 @@ import java.util.List;
 public abstract class GraffNodeComposite extends GraffNode {
     private List<GraffNode> children;
 
+    public GraffNodeComposite() {
+        children = new ArrayList<>();
+    }
+
     public GraffNodeComposite(GraffNode parent, String name) {
         super(parent, name);
         children = new ArrayList<>();
@@ -32,18 +36,20 @@ public abstract class GraffNodeComposite extends GraffNode {
 
     public void addChild(GraffNode child) {
         if (isChildNameTaken(child.getName())) {
-            throw new IllegalArgumentException("Ime je zauzeto.");
+            throw new IllegalStateException("Ime je zauzeto.");
         }
 
         children.add(child);
         child.setParent(this);
         notifySubscribers(new ModelEvent(ModelEventType.ADD_CHILD, child));
+        markProjectAsChanged();
     }
 
     public void removeChild(GraffNode child) {
         children.remove(child);
         child.setParent(null);
         notifySubscribers(new ModelEvent(ModelEventType.REMOVE_CHILD, child));
+        markProjectAsChanged();
     }
 
     public boolean isChildNameTaken(String name) {
@@ -57,5 +63,9 @@ public abstract class GraffNodeComposite extends GraffNode {
 
     public List<GraffNode> getChildren() {
         return children;
+    }
+
+    public void setChildren(List<GraffNode> children) {
+        this.children = children;
     }
 }

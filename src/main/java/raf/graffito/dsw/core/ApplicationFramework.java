@@ -17,8 +17,6 @@ public class ApplicationFramework {
         LoggerFactory loggerFactory = new LoggerFactory();
         messageGenerator.addSubscriber(loggerFactory.createLogger("file"));
         messageGenerator.addSubscriber(loggerFactory.createLogger("console"));
-
-        initialize();
     }
 
     public void initialize(){
