@@ -7,19 +7,17 @@ public class GraffRepositoryImplementation implements GraffRepository {
     private Workspace workspace;
     private DecoratorRepository decoratorRepository;
 
+    public GraffRepositoryImplementation() {
+        workspace = new Workspace("Radni prostor");
+        decoratorRepository = new DecoratorRepository();
+    }
+
     @Override
     public Workspace getWorkspace() {
-        if (workspace == null) {
-            workspace = new Workspace("Radni prostor");
-        }
-
         return workspace;
     }
 
     public DecoratorRepository getDecoratorRepository() {
-        if (decoratorRepository == null) {
-            decoratorRepository = new DecoratorRepository();
-        }
         return decoratorRepository;
     }
 }

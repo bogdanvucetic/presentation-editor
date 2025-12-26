@@ -1,13 +1,22 @@
 package raf.graffito.dsw.model.composite;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Project extends GraffNodeComposite {
     private String title;
     private int totalNumberOfSlides;
+    @JsonIgnore
+    private boolean changed;
+
+    public Project() {
+        changed = false;
+    }
 
     public Project(GraffNode parent, String name) {
         super(parent, name);
         this.title = name;
         this.totalNumberOfSlides = 0;
+        this.changed = false;
     }
 
     @Override
@@ -21,6 +30,8 @@ public class Project extends GraffNodeComposite {
         if (child instanceof Slide) {
             incrementNumberOfSlides();
         }
+
+        markAsChanged();
     }
 
     @Override
@@ -30,10 +41,24 @@ public class Project extends GraffNodeComposite {
         }
 
         super.removeChild(child);
+        markAsChanged();
     }
 
     public void incrementNumberOfSlides(){
         totalNumberOfSlides++;
+        markAsChanged();
+    }
+
+    public void markAsChanged() {
+        this.changed = true;
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
     }
 
     public String getTitle() {
@@ -42,9 +67,14 @@ public class Project extends GraffNodeComposite {
 
     public void setTitle(String title) {
         this.title = title;
+        markAsChanged();
     }
 
     public int getTotalNumberOfSlides() {
         return totalNumberOfSlides;
+    }
+
+    public void setTotalNumberOfSlides(int totalNumberOfSlides) {
+        this.totalNumberOfSlides = totalNumberOfSlides;
     }
 }

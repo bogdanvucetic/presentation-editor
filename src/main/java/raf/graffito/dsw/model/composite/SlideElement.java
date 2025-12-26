@@ -7,6 +7,8 @@ public abstract class SlideElement extends GraffNode {
     private int height;
     private double rotationAngle;
 
+    public SlideElement() {}
+
     public SlideElement(GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
         super(parent, name);
         this.xCoordinate = xCoordinate;
@@ -61,19 +63,44 @@ public abstract class SlideElement extends GraffNode {
         return xCoordinate;
     }
 
+    public void setXCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+        markProjectAsChanged();
+    }
+
     public int getYCoordinate() {
         return yCoordinate;
+    }
+
+    public void setYCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
+        markProjectAsChanged();
     }
 
     public int getWidth() {
         return width;
     }
 
+    public void setWidth(int width) {
+        this.width = width;
+        markProjectAsChanged();
+    }
+
     public int getHeight() {
         return height;
     }
 
+    public void setHeight(int height) {
+        this.height = height;
+        markProjectAsChanged();
+    }
+
     public double getRotationAngle() {
         return rotationAngle;
+    }
+
+    public void setRotationAngle(double rotationAngle) {
+        this.rotationAngle = rotationAngle;
+        markProjectAsChanged();
     }
 }

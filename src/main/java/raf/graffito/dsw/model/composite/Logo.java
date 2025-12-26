@@ -6,23 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Logo extends SlideElement {
-    private List<Point2D> points;
-    private Color color;
+    private List<Point2D.Double> points;
+    private int colorRGB;
+
+    public Logo() {}
 
     public Logo(GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
         super(parent, name, xCoordinate, yCoordinate, width, height);
         this.points = getDefaultPoints();
-        this.color = getDefaultColor();
+        this.colorRGB = getDefaultColorRGB();
     }
 
     public Logo(Logo elem) {
         super(elem);
         this.points = getDefaultPoints();
-        this.color = elem.getColor();
+        this.colorRGB = elem.getColorRGB();
     }
 
-    public static List<Point2D> getDefaultPoints() {
-        List<Point2D> points = new ArrayList<>();
+    public static List<Point2D.Double> getDefaultPoints() {
+        List<Point2D.Double> points = new ArrayList<>();
         points.add(new Point2D.Double(0, 0.17));
         points.add(new Point2D.Double(0.5, 0));
         points.add(new Point2D.Double(1, 0.33));
@@ -31,8 +33,8 @@ public class Logo extends SlideElement {
         return points;
     }
 
-    public static Color getDefaultColor() {
-        return Color.BLUE;
+    public static int getDefaultColorRGB() {
+        return Color.BLUE.getRGB();
     }
 
     @Override
@@ -40,11 +42,21 @@ public class Logo extends SlideElement {
         return new Logo(this);
     }
 
-    public List<Point2D> getPoints() {
+    public List<Point2D.Double> getPoints() {
         return points;
     }
 
-    public Color getColor() {
-        return color;
+    public void setPoints(List<Point2D.Double> points) {
+        this.points = points;
+        markProjectAsChanged();
+    }
+
+    public int getColorRGB() {
+        return colorRGB;
+    }
+
+    public void setColorRGB(int colorRGB) {
+        this.colorRGB = colorRGB;
+        markProjectAsChanged();
     }
 }

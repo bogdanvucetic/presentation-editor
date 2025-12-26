@@ -1,5 +1,10 @@
 package raf.graffito.dsw.model.composite;
 
+import raf.graffito.dsw.core.ApplicationFramework;
+import raf.graffito.dsw.observer.message.MessageType;
+import raf.graffito.dsw.observer.model.ModelEvent;
+import raf.graffito.dsw.observer.model.ModelEventType;
+
 public class Workspace extends GraffNodeComposite {
     public Workspace(String name) {
         super(null, name);
@@ -12,5 +17,15 @@ public class Workspace extends GraffNodeComposite {
         }
 
         super.addChild(child);
+    }
+
+    public void openProject(Project project) {
+        if (isChildNameTaken(project.getName())) {
+            project.setName("Novi " + project.getName());
+        }
+
+        getChildren().add(project);
+        project.setParent(this);
+        notifySubscribers(new ModelEvent(ModelEventType.OPEN_PROJECT, project));
     }
 }

@@ -1,5 +1,6 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.gui.swing.proxy.ImageProxy;
 import raf.graffito.dsw.gui.swing.thumbnail.ImageThumbnail;
 import raf.graffito.dsw.gui.swing.thumbnail.LogoThumbnail;
 
@@ -13,8 +14,8 @@ public class ImagePanel extends JPanel {
         add(new LogoThumbnail());
     }
 
-    public void addImageToPanel(ImageIcon image, String baseName) {
-        ImageThumbnail thumbnail = new ImageThumbnail(image, baseName);
+    public void addImageToPanel(ImageProxy proxy, String baseName) {
+        ImageThumbnail thumbnail = new ImageThumbnail(proxy, baseName);
         add(thumbnail);
         add(Box.createRigidArea(new Dimension(0, 5)));
         revalidate();
