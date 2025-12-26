@@ -37,7 +37,8 @@ public class LogoPainter {
             double cx = x + w / 2.0;
             double cy = y + h / 2.0;
 
-            double angle = logo.getRotationAngle();
+//            double angle = logo.getRotationAngle();
+            double angle = Math.toRadians(logo.getRotationAngle());
 
             g2.rotate(angle, cx, cy);
 

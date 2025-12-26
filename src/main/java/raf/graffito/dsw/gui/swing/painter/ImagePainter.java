@@ -4,6 +4,7 @@ import raf.graffito.dsw.model.composite.Image;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class ImagePainter {
     public void paint(Graphics2D g2, Image element) {
@@ -16,6 +17,7 @@ public class ImagePainter {
 
         Composite oldComposite = g2.getComposite();
         RenderingHints oldHints = g2.getRenderingHints();
+        AffineTransform oldTransform = g2.getTransform();
 
         try {
             g2.setComposite(AlphaComposite.SrcOver);
@@ -27,11 +29,22 @@ public class ImagePainter {
 
             g2.addRenderingHints(hints);
 
+            double angle = Math.toRadians(element.getRotationAngle());
+            double cx = x + w / 2.0;
+            double cy = y + h / 2.0;
+
+            g2.rotate(angle, cx, cy);
+
+
+
+            g2.drawImage(element.getImage(), x, y, w, h, null);
+
             ImageIcon imageIcon = new ImageIcon(element.getImagePath());
             g2.drawImage(imageIcon.getImage(), x, y, w, h, null);
         } finally {
             g2.setComposite(oldComposite);
             g2.setRenderingHints(oldHints);
+            g2.setTransform(oldTransform);
         }
     }
 }

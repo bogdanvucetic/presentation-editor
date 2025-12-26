@@ -24,12 +24,12 @@ public class SlideViewListener implements MouseListener, MouseMotionListener, Mo
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        context.getCurrentState().mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        context.getCurrentState().mouseReleased(e);
     }
 
     @Override

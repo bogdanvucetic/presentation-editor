@@ -99,6 +99,39 @@ public abstract class SlideElement extends GraffNode {
         return rotationAngle;
     }
 
+    public void setxCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public void setyCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
+    public void setWidth(int width) {
+        this.width = Math.max(5, width);
+    }
+
+    public void setHeight(int height) {
+        this.height = Math.max(5, height);
+    }
+
+    public void setRotationAngle(double rotationAngle) {
+        this.rotationAngle = rotationAngle;
+    }
+    public void setPosition(int x, int y) {
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+    }
+
+    public void translate(int dx, int dy) {
+        this.xCoordinate += dx;
+        this.yCoordinate += dy;
+    }
+    public void rotateLeft() {
+        rotationAngle -= 90;
+        rotationAngle = (rotationAngle % 360 + 360) % 360;
+    }
+
     public void setRotationAngle(double rotationAngle) {
         this.rotationAngle = rotationAngle;
         markProjectAsChanged();
