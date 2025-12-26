@@ -3,6 +3,7 @@ package raf.graffito.dsw.controller.buttons;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.gui.swing.view.ProjectView;
+import raf.graffito.dsw.model.composite.Project;
 import raf.graffito.dsw.observer.message.MessageType;
 import raf.graffito.dsw.serializer.JacksonSerializer;
 import raf.graffito.dsw.serializer.Serializer;
@@ -23,13 +24,20 @@ public class SaveProjectAction extends AbstractGraffAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         ProjectView currentProjectView = MainFrame.getInstance().getCurrentProjectView();
-        Serializer serializer = new JacksonSerializer();
 
         if (currentProjectView == null || currentProjectView.getProject() == null) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nijedan projekat trenutno nije otvoren", MessageType.ERROR);
             return;
         }
 
+        Project project = currentProjectView.getProject();
+
+        if (!project.isChanged()) {
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Projekat nije promenjen", MessageType.ERROR);
+            return;
+        }
+
+        Serializer serializer = new JacksonSerializer();
         String defaultFolderPath = FolderPreferences.getDefaultFolderPath();
         File fileToSave;
 
@@ -46,14 +54,14 @@ public class SaveProjectAction extends AbstractGraffAction {
             File selectedFolder = fileChooser.getSelectedFile();
             FolderPreferences.setDefaultFolderPath(selectedFolder.getAbsolutePath());
 
-            String projectName = currentProjectView.getProject().getName().replaceAll("\\s+", "_");
+            String projectName = project.getName().replaceAll("\\s+", "_");
             fileToSave = new File(selectedFolder, projectName + ".json");
         } else {
-            String projectName = currentProjectView.getProject().getName().replaceAll("\\s+", "_");
+            String projectName = project.getName().replaceAll("\\s+", "_");
             fileToSave = new File(defaultFolderPath, projectName + ".json");
         }
 
-        serializer.saveProject(currentProjectView.getProject(), fileToSave);
-        ApplicationFramework.getInstance().getMessageGenerator().createMessage("Projekat uspešno sačuvan", MessageType.INFO);
+        serializer.saveProject(project, fileToSave);
+        project.setChanged(false);
     }
 }

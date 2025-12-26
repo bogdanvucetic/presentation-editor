@@ -48,6 +48,7 @@ public class Logo extends SlideElement {
 
     public void setPoints(List<Point2D.Double> points) {
         this.points = points;
+        markProjectAsChanged();
     }
 
     public int getColorRGB() {
@@ -56,5 +57,6 @@ public class Logo extends SlideElement {
 
     public void setColorRGB(int colorRGB) {
         this.colorRGB = colorRGB;
+        markProjectAsChanged();
     }
 }

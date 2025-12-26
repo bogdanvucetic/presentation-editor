@@ -36,9 +36,9 @@ public class JacksonSerializer implements Serializer {
     public void saveProject(Project project, File file) {
         try {
             mapper.writeValue(file, project);
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Uspešno čuvanje projekta", MessageType.INFO);
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Projekat uspešno sačuvan", MessageType.INFO);
         } catch (IOException e) {
-            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno čuvanje projekta: " + e.getMessage(), MessageType.ERROR);
+            ApplicationFramework.getInstance().getMessageGenerator().createMessage("Projekat nije sačuvan: " + e.getMessage(), MessageType.ERROR);
         }
     }
 

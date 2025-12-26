@@ -102,6 +102,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
             case REMOVE_CHILD -> {
                 if (node == project) {
                     tabs.removeAll();
+                    project = null;
                 } else if (node instanceof Presentation || node instanceof Slide) {
                     removeNodeTab(node);
                 }

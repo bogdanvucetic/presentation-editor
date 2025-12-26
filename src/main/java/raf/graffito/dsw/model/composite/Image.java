@@ -26,5 +26,6 @@ public class Image extends SlideElement {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+        markProjectAsChanged();
     }
 }

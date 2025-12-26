@@ -40,6 +40,7 @@ public class Label extends SlideElement {
 
     public void setText(String text) {
         this.text = text;
+        markProjectAsChanged();
     }
 
     public String getFontName() {
@@ -48,6 +49,7 @@ public class Label extends SlideElement {
 
     public void setFontName(String fontName) {
         this.fontName = fontName;
+        markProjectAsChanged();
     }
 
     public int getFontStyle() {
@@ -56,6 +58,7 @@ public class Label extends SlideElement {
 
     public void setFontStyle(int fontStyle) {
         this.fontStyle = fontStyle;
+        markProjectAsChanged();
     }
 
     public int getFontSize() {
@@ -64,6 +67,7 @@ public class Label extends SlideElement {
 
     public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
+        markProjectAsChanged();
     }
 
     public int getColorRGB() {
@@ -72,5 +76,6 @@ public class Label extends SlideElement {
 
     public void setColorRGB(int colorRGB) {
         this.colorRGB = colorRGB;
+        markProjectAsChanged();
     }
 }
