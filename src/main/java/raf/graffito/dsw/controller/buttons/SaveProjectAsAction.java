@@ -6,6 +6,7 @@ import raf.graffito.dsw.gui.swing.view.ProjectView;
 import raf.graffito.dsw.observer.message.MessageType;
 import raf.graffito.dsw.serializer.JacksonSerializer;
 import raf.graffito.dsw.serializer.Serializer;
+import raf.graffito.dsw.utils.FolderPreferences;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,17 +29,27 @@ public class SaveProjectAsAction extends AbstractGraffAction {
         }
 
         JFileChooser fileChooser = new JFileChooser();
+
+        String defaultFolderPath = FolderPreferences.getDefaultFolderPath();
+        if (defaultFolderPath != null) {
+            fileChooser.setCurrentDirectory(new File(defaultFolderPath));
+        }
+
         fileChooser.setDialogTitle("Sačuvaj projekat kao");
         fileChooser.setSelectedFile(new File(currentProjectView.getProject().getName().replaceAll("\\s+", "_") + ".json"));
 
-        if (fileChooser.showSaveDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-
-            if (!fileToSave.getName().toLowerCase().endsWith(".json")) {
-                fileToSave = new File(fileToSave.getAbsolutePath() + ".json");
-            }
-
-            serializer.saveProject(currentProjectView.getProject(), fileToSave);
+        if (!(fileChooser.showSaveDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION)) {
+            return;
         }
+
+        File fileToSave = fileChooser.getSelectedFile();
+
+        if (!fileToSave.getName().toLowerCase().endsWith(".json")) {
+            fileToSave = new File(fileToSave.getAbsolutePath() + ".json");
+        }
+
+        serializer.saveProject(currentProjectView.getProject(), fileToSave);
+        FolderPreferences.setDefaultFolderPath(fileToSave.getParentFile().getAbsolutePath());
+        ApplicationFramework.getInstance().getMessageGenerator().createMessage("Projekat uspešno sačuvan", MessageType.INFO);
     }
 }
