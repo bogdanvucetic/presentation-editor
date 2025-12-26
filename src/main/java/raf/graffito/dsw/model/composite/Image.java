@@ -1,21 +1,18 @@
 package raf.graffito.dsw.model.composite;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class Image extends SlideElement {
-    @JsonIgnore
-    private java.awt.Image image;
+    private String imagePath;
 
     public Image() {}
 
-    public Image(java.awt.Image image, GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
+    public Image(String imagePath, GraffNode parent, String name, int xCoordinate, int yCoordinate, int width, int height) {
         super(parent, name, xCoordinate, yCoordinate, width, height);
-        this.image = image;
+        this.imagePath = imagePath;
     }
 
     public Image(Image elem) {
         super(elem);
-        this.image = elem.getImage();
+        this.imagePath = elem.getImagePath();
     }
 
     @Override
@@ -23,11 +20,11 @@ public class Image extends SlideElement {
         return new Image(this);
     }
 
-    public java.awt.Image getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(java.awt.Image image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

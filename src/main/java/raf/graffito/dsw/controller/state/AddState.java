@@ -1,8 +1,8 @@
 package raf.graffito.dsw.controller.state;
 
+import raf.graffito.dsw.gui.swing.proxy.ImageProxy;
 import raf.graffito.dsw.gui.swing.thumbnail.ImageThumbnail;
 import raf.graffito.dsw.gui.swing.thumbnail.LogoThumbnail;
-import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.gui.swing.view.SlideView;
 import raf.graffito.dsw.model.composite.*;
 import raf.graffito.dsw.model.composite.Image;
@@ -100,13 +100,13 @@ public class AddState extends State {
     }
 
     private void addImageToSlide(ImageThumbnail thumbnail, SlideView sv) {
-        ImageIcon imageIcon = thumbnail.getImage();
-        java.awt.Image img = imageIcon.getImage();
+        ImageProxy imageProxy = thumbnail.getImageProxy();
+        java.awt.Image fullResolutionImage = imageProxy.getImage();
 
         String name = buildImageName(thumbnail.getBaseName(), sv);
 
-        int imgWidth = imageIcon.getIconWidth();
-        int imgHeight = imageIcon.getIconHeight();
+        int imgWidth = fullResolutionImage.getWidth(null);
+        int imgHeight = fullResolutionImage.getHeight(null);
 
         Dimension slideSize = sv.getSlide().getResolution();
         int maxWidth = slideSize.width / 2;
@@ -119,7 +119,7 @@ public class AddState extends State {
         }
 
         Image image = new Image(
-                img,
+                imageProxy.getFilePath(),
                 sv.getSlide(),
                 name,
                 50,

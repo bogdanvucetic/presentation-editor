@@ -1,5 +1,6 @@
 package raf.graffito.dsw.controller.buttons;
 
+import raf.graffito.dsw.gui.swing.proxy.ImageProxy;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 
 import javax.swing.*;
@@ -21,12 +22,14 @@ public class LoadImageAction extends AbstractGraffAction {
         fileChooser.setDialogTitle("Otvori sliku");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png", "bmp"));
 
-        if (fileChooser.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION) {
-            for (File file : fileChooser.getSelectedFiles()) {
-                ImageIcon icon = new ImageIcon(file.getAbsolutePath());
-                String baseName = file.getName().replaceFirst("[.][^.]+$", "");
-                MainFrame.getInstance().getInfoPanel().getImagePanel().addImageToPanel(icon, baseName);
-            }
+        if (!(fileChooser.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION)) {
+            return;
+        }
+
+        for (File file : fileChooser.getSelectedFiles()) {
+            ImageProxy proxy = new ImageProxy(file.getAbsolutePath());
+            String baseName = file.getName().replaceFirst("[.][^.]+$", "");
+            MainFrame.getInstance().getInfoPanel().getImagePanel().addImageToPanel(proxy, baseName);
         }
     }
 }
