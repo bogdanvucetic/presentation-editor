@@ -9,6 +9,8 @@ public class LabelPainter {
     public void paint(Graphics2D g2, Label label) {
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
+        AffineTransform oldTransform = g2.getTransform();
+
         g2.setFont(new Font(label.getFontName(), label.getFontStyle(), label.getFontSize()));
         g2.setColor(new Color(label.getColorRGB()));
 
@@ -23,7 +25,6 @@ public class LabelPainter {
         label.setWidth(textWidth);
         label.setHeight(textHeight);
 
-
         int baselineY = yTop + fm.getAscent();
         //  ROTACIJA OKO CENTRA TEKSTA
         double angle = Math.toRadians(label.getRotationAngle());
@@ -31,7 +32,6 @@ public class LabelPainter {
         double cy = yTop + textHeight / 2.0;
 
         g2.rotate(angle, cx, cy);
-
 
         g2.drawString(label.getText(), x, baselineY);
         g2.setTransform(oldTransform);

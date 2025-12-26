@@ -66,7 +66,7 @@ public class Label extends SlideElement {
     }
 
     public void setFontSize(int fontSize) {
-        this.fontSize = fontSize;
+        this.fontSize = Math.max(8, fontSize);;
         markProjectAsChanged();
     }
 
@@ -78,15 +78,4 @@ public class Label extends SlideElement {
         this.colorRGB = colorRGB;
         markProjectAsChanged();
     }
-
-
-    public int getFontSize() {
-        return font.getSize();
-    }
-
-    public void setFontSize(int newSize) {
-        newSize = Math.max(8, newSize); // minimalni font
-        font = font.deriveFont((float) newSize);
-    }
-
 }

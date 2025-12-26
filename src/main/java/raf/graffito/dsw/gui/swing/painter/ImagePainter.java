@@ -35,10 +35,6 @@ public class ImagePainter {
 
             g2.rotate(angle, cx, cy);
 
-
-
-            g2.drawImage(element.getImage(), x, y, w, h, null);
-
             ImageIcon imageIcon = new ImageIcon(element.getImagePath());
             g2.drawImage(imageIcon.getImage(), x, y, w, h, null);
         } finally {
