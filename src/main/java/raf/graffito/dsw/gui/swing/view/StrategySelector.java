@@ -13,7 +13,7 @@ public class StrategySelector extends JPanel {
         JLabel strategyLabel = new JLabel("Računanje prostora: ");
         add(strategyLabel);
 
-        String[] strategies = {"Prosto (Brzo)", "Kompleksano (Precizno)"};
+        String[] strategies = {"Prosto (Brzo)", "Kompleksno (Precizno)"};
         JComboBox<String> strategyComboBox = new JComboBox<>(strategies);
         strategyComboBox.setSelectedIndex(0);
         strategyComboBox.addActionListener(new StrategyComboBoxListener(strategyComboBox));
