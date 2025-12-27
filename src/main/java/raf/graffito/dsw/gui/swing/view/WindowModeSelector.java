@@ -1,5 +1,7 @@
 package raf.graffito.dsw.gui.swing.view;
 
+import raf.graffito.dsw.controller.listeners.WindowModeListener;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,7 +17,7 @@ public class WindowModeSelector extends JPanel {
         JLabel modeLabel = new JLabel("Režim prozora: ");
         add(modeLabel);
 
-        normalRadio = new JRadioButton("Normalan");
+        normalRadio = new JRadioButton("Normalno");
         normalRadio.setOpaque(false);
 
         fullscreenRadio = new JRadioButton("Pun ekran");
@@ -30,6 +32,11 @@ public class WindowModeSelector extends JPanel {
         buttonGroup.add(smallRadio);
 
         normalRadio.setSelected(true);
+
+        WindowModeListener listener = new WindowModeListener();
+        normalRadio.addActionListener(listener);
+        fullscreenRadio.addActionListener(listener);
+        smallRadio.addActionListener(listener);
 
         add(normalRadio);
         add(fullscreenRadio);

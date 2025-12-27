@@ -16,6 +16,7 @@ public class MainFrame extends JFrame implements MessageSubscriber {
     private static MainFrame instance;
     private ActionManager actionManager;
 
+    private Dimension normalDimension;
     private JSplitPane workspaceSplitPane;
     private GraffTree graffTree;
     private ProjectView currentProjectView;
@@ -31,7 +32,8 @@ public class MainFrame extends JFrame implements MessageSubscriber {
         Dimension screenSize = kit.getScreenSize(); // Veličina ekrana
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
-        setSize(screenWidth / 2, screenHeight / 2);
+        normalDimension = new Dimension(screenWidth / 2, screenHeight / 2);
+        setSize(normalDimension);
         setLocationRelativeTo(null); // Centriranje prozora na ekranu
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Zatvaranje aplikacije pri zatvaranju prozora
         setTitle("Graffito"); // Naslov prozora
@@ -110,5 +112,9 @@ public class MainFrame extends JFrame implements MessageSubscriber {
 
     public InfoPanel getInfoPanel() {
         return infoPanel;
+    }
+
+    public Dimension getNormalDimension() {
+        return normalDimension;
     }
 }
