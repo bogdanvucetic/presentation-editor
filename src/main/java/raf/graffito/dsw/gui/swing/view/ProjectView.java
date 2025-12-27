@@ -53,6 +53,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
 
         add(tabs, BorderLayout.CENTER);
 
+        // neophodno da bi se pri inicijalnom postavljanju lepo apdejtovao desni panel i postavio trenutno otvoreni slideView
         tabListener.stateChanged(new ChangeEvent(tabs));
     }
 

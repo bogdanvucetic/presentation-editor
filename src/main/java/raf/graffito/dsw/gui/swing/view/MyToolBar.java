@@ -1,6 +1,7 @@
 package raf.graffito.dsw.gui.swing.view;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MyToolBar extends JToolBar {
     public MyToolBar() {
@@ -18,6 +19,10 @@ public class MyToolBar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getRotateSlideElementsAction());
 
         add(Box.createHorizontalGlue());
-        add(new StrategySelector());
+        JPanel selectorsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        selectorsPanel.setOpaque(false);
+        selectorsPanel.add(new StrategySelector());
+        selectorsPanel.add(new WindowModeSelector());
+        add(selectorsPanel);
     }
 }
