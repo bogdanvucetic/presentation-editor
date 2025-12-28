@@ -1,5 +1,6 @@
 package raf.graffito.dsw.controller.state;
 
+import raf.graffito.dsw.controller.commands.AddCommand;
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.proxy.ImageProxy;
 import raf.graffito.dsw.gui.swing.thumbnail.ImageThumbnail;
@@ -14,18 +15,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 public class AddState extends State {
     @Override
     public void onEnter() {
         Set<SlideElement> selectedElements = context.getSelectedElements();
-        Set<SlideElement> newSelectedElements = new HashSet<>();
 
         if (selectedElements.isEmpty()) {
             return;
         }
+
+        List<SlideElement> toAdd = new ArrayList<>();
 
         for (SlideElement element : selectedElements) {
             if (!context.isNewElementsAllowed()) {
@@ -33,12 +37,14 @@ public class AddState extends State {
                 break;
             }
 
-            SlideElement e = element.clone();
-            context.getCurrentSlideView().getSlide().addChild(e);
-            newSelectedElements.add(e);
+            toAdd.add(element.clone());
         }
 
-        context.setSelectedElements(newSelectedElements);
+        if (!toAdd.isEmpty()) {
+            AddCommand command = new AddCommand(context.getCurrentSlideView().getSlide(), toAdd);
+            context.execute(command);
+            context.setSelectedElements(new HashSet<>(toAdd));
+        }
     }
 
     @Override
@@ -54,18 +60,11 @@ public class AddState extends State {
 
         SlideView sv = context.getCurrentSlideView();
         String text = JOptionPane.showInputDialog("Unesite tekst");
-
-        if (text == null) {
+        if (text == null || text.trim().isEmpty()) {
             return;
         }
 
-        text = text.trim();
-        String name = text;
-
-        if (text.isEmpty()) {
-            return;
-        }
-
+        String name = text.trim();
         if (sv.getSlide().isChildNameTaken(name)) {
             name = buildForTakenName(sv.getSlide(), name);
         }
@@ -74,17 +73,15 @@ public class AddState extends State {
         int sx = (int) Math.round(p.getX());
         int sy = (int) Math.round(p.getY());
 
-        // todo fix
         Font font = new Font("Arial", Font.PLAIN, 40);
         FontMetrics fm = sv.getFontMetrics(font);
-
         int paddingX = 6;
         int paddingY = 4;
 
         int w = fm.stringWidth(text) + paddingX * 2;
         int h = fm.getHeight() + paddingY * 2;
 
-        Label l = new Label(
+        Label label = new Label(
                 text,
                 sv.getSlide(),
                 name,
@@ -94,8 +91,11 @@ public class AddState extends State {
                 h
         );
 
-        sv.getSlide().addChild(l);
-        context.addSelectedElement(l);
+        AddCommand command = new AddCommand(sv.getSlide(), List.of(label));
+        context.execute(command);
+
+        context.clearSelectedElements();
+        context.addSelectedElement(label);
     }
 
     @Override
@@ -144,7 +144,9 @@ public class AddState extends State {
                 imgHeight
         );
 
-        sv.getSlide().addChild(image);
+        AddCommand command = new AddCommand(sv.getSlide(), List.of(image));
+        context.execute(command);
+
         context.clearSelectedElements();
         context.addSelectedElement(image);
     }
@@ -164,7 +166,9 @@ public class AddState extends State {
                 size
         );
 
-        sv.getSlide().addChild(logo);
+        AddCommand command = new AddCommand(sv.getSlide(), List.of(logo));
+        context.execute(command);
+
         context.clearSelectedElements();
         context.addSelectedElement(logo);
     }
