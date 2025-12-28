@@ -1,6 +1,6 @@
 package raf.graffito.dsw.gui.swing.painter;
 
-import raf.graffito.dsw.model.composite.Image;
+import raf.graffito.dsw.model.composite.elements.Image;
 
 import javax.swing.*;
 import java.awt.*;

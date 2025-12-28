@@ -1,6 +1,7 @@
 package raf.graffito.dsw.model.composite;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
 
 import java.awt.*;
 

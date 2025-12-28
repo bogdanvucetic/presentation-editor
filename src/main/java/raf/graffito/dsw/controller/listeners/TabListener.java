@@ -1,10 +1,10 @@
 package raf.graffito.dsw.controller.listeners;
 
 import raf.graffito.dsw.controller.EditorContext;
-import raf.graffito.dsw.gui.swing.view.InfoPanel;
-import raf.graffito.dsw.gui.swing.view.MainFrame;
-import raf.graffito.dsw.gui.swing.view.PresentationView;
-import raf.graffito.dsw.gui.swing.view.SlideView;
+import raf.graffito.dsw.gui.swing.components.InfoPanel;
+import raf.graffito.dsw.gui.swing.frames.MainFrame;
+import raf.graffito.dsw.gui.swing.frames.PresentationView;
+import raf.graffito.dsw.gui.swing.frames.SlideView;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

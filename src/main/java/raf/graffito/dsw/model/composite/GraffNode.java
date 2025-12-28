@@ -3,10 +3,13 @@ package raf.graffito.dsw.model.composite;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import raf.graffito.dsw.observer.model.ModelUpdate;
-import raf.graffito.dsw.observer.model.UpdateType;
-import raf.graffito.dsw.observer.model.UpdatePublisher;
-import raf.graffito.dsw.observer.model.UpdateSubscriber;
+import raf.graffito.dsw.model.composite.elements.Image;
+import raf.graffito.dsw.model.composite.elements.Label;
+import raf.graffito.dsw.model.composite.elements.Logo;
+import raf.graffito.dsw.services.events.model.ModelUpdate;
+import raf.graffito.dsw.services.events.model.UpdateType;
+import raf.graffito.dsw.services.events.model.UpdatePublisher;
+import raf.graffito.dsw.services.events.model.UpdateSubscriber;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,9 +24,9 @@ import java.util.List;
         @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Project.class, name = "project"),
         @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Presentation.class, name = "presentation"),
         @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Slide.class, name = "slide"),
-        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Logo.class, name = "logo"),
-        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Label.class, name = "label"),
-        @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Image.class, name = "image"),
+        @JsonSubTypes.Type(value = Logo.class, name = "logo"),
+        @JsonSubTypes.Type(value = Label.class, name = "label"),
+        @JsonSubTypes.Type(value = Image.class, name = "image"),
 })
 
 public abstract class GraffNode implements UpdatePublisher {

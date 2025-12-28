@@ -1,9 +1,9 @@
 package raf.graffito.dsw.model.composite;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import raf.graffito.dsw.observer.model.ModelUpdate;
-import raf.graffito.dsw.observer.model.UpdateSubscriber;
-import raf.graffito.dsw.observer.model.UpdateType;
+import raf.graffito.dsw.services.events.model.ModelUpdate;
+import raf.graffito.dsw.services.events.model.UpdateSubscriber;
+import raf.graffito.dsw.services.events.model.UpdateType;
 
 public class Project extends GraffNodeComposite implements UpdateSubscriber {
     private String title;

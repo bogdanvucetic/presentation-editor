@@ -4,11 +4,11 @@ import raf.graffito.dsw.controller.commands.Command;
 import raf.graffito.dsw.controller.state.SelectState;
 import raf.graffito.dsw.controller.state.State;
 import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.gui.swing.view.SlideView;
-import raf.graffito.dsw.model.composite.SlideElement;
-import raf.graffito.dsw.observer.message.MessageType;
-import raf.graffito.dsw.strategy.EvalStrategy;
-import raf.graffito.dsw.strategy.SimpleEvalStrategy;
+import raf.graffito.dsw.gui.swing.frames.SlideView;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
+import raf.graffito.dsw.services.events.message.MessageType;
+import raf.graffito.dsw.model.evaluation.EvalStrategy;
+import raf.graffito.dsw.model.evaluation.SimpleEvalStrategy;
 
 import java.util.HashSet;
 import java.util.Set;

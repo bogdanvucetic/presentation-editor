@@ -1,9 +1,8 @@
 package raf.graffito.dsw.controller.state;
 
 import raf.graffito.dsw.controller.commands.DeleteCommand;
-import raf.graffito.dsw.gui.swing.view.MainFrame;
-import raf.graffito.dsw.model.composite.Slide;
-import raf.graffito.dsw.model.composite.SlideElement;
+import raf.graffito.dsw.gui.swing.frames.MainFrame;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
 
 import java.util.Set;
 

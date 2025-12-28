@@ -1,6 +1,6 @@
 package raf.graffito.dsw.controller.state;
 
-import raf.graffito.dsw.gui.swing.view.SlideView;
+import raf.graffito.dsw.gui.swing.frames.SlideView;
 
 import java.awt.event.MouseWheelEvent;
 

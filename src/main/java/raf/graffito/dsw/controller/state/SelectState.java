@@ -1,7 +1,7 @@
 package raf.graffito.dsw.controller.state;
 
 import raf.graffito.dsw.model.composite.GraffNode;
-import raf.graffito.dsw.model.composite.SlideElement;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
 
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;

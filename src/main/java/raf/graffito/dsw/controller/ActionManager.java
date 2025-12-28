@@ -1,6 +1,8 @@
 package raf.graffito.dsw.controller;
 
-import raf.graffito.dsw.controller.buttons.*;
+import raf.graffito.dsw.controller.actions.*;
+import raf.graffito.dsw.controller.actions.edit.*;
+import raf.graffito.dsw.controller.actions.file.*;
 import raf.graffito.dsw.controller.state.*;
 
 public class ActionManager {

@@ -1,7 +1,7 @@
 package raf.graffito.dsw.model.composite;
 
-import raf.graffito.dsw.observer.model.ModelUpdate;
-import raf.graffito.dsw.observer.model.UpdateType;
+import raf.graffito.dsw.services.events.model.ModelUpdate;
+import raf.graffito.dsw.services.events.model.UpdateType;
 
 public class Workspace extends GraffNodeComposite {
     public Workspace(String name) {

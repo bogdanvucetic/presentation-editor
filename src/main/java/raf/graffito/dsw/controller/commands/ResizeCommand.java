@@ -1,8 +1,8 @@
 package raf.graffito.dsw.controller.commands;
 
-import raf.graffito.dsw.model.composite.Label;
+import raf.graffito.dsw.model.composite.elements.Label;
 import raf.graffito.dsw.model.composite.Slide;
-import raf.graffito.dsw.model.composite.SlideElement;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
 
 public class ResizeCommand extends Command {
     private SlideElement element;

@@ -1,7 +1,7 @@
 package raf.graffito.dsw.gui.swing.thumbnail;
 
 import raf.graffito.dsw.controller.listeners.ThumbnailListener;
-import raf.graffito.dsw.model.composite.Logo;
+import raf.graffito.dsw.model.composite.elements.Logo;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,8 +1,8 @@
 package raf.graffito.dsw.controller.listeners;
 
 import raf.graffito.dsw.controller.EditorContext;
-import raf.graffito.dsw.strategy.PreciseEvalStrategy;
-import raf.graffito.dsw.strategy.SimpleEvalStrategy;
+import raf.graffito.dsw.model.evaluation.PreciseEvalStrategy;
+import raf.graffito.dsw.model.evaluation.SimpleEvalStrategy;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
