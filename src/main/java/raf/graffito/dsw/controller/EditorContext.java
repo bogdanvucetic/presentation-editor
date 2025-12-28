@@ -37,6 +37,7 @@ public class EditorContext {
     }
 
     public void undo() {
+        clearSelectedElements();
         if (!history.isEmpty()) {
             Command command = history.pop();
             command.undo();
@@ -51,6 +52,7 @@ public class EditorContext {
     }
 
     public void redo() {
+        clearSelectedElements();
         if (!redoStack.isEmpty()) {
             Command command = redoStack.pop();
             command.execute();
