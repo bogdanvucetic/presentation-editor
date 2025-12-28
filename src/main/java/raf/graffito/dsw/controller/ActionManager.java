@@ -15,6 +15,8 @@ public class ActionManager {
     private SaveProjectAction saveProjectAction;
     private SaveProjectAsAction saveProjectAsAction;
     private SaveAsTemplateAction saveAsTemplateAction;
+    private UndoAction undoAction;
+    private RedoAction redoAction;
 
     private ChangeToolAction addSlideElementsAction;
     private ChangeToolAction selectSlideElementsAction;
@@ -36,6 +38,8 @@ public class ActionManager {
         this.saveProjectAction = new SaveProjectAction();
         this.saveProjectAsAction = new SaveProjectAsAction();
         this.saveAsTemplateAction = new SaveAsTemplateAction();
+        this.undoAction = new UndoAction();
+        this.redoAction = new RedoAction();
 
         this.addSlideElementsAction = new ChangeToolAction(new AddState(), "/images/slideAdd.png", "Dodaj na slajd", "Dodaj novi element na slajd");
         this.selectSlideElementsAction = new ChangeToolAction(new SelectState(), "/images/slideSelect.png", "Izaberi elemente", "Izaberi elemente na slajdu");
@@ -88,6 +92,14 @@ public class ActionManager {
 
     public SaveAsTemplateAction getSaveAsTemplateAction() {
         return saveAsTemplateAction;
+    }
+
+    public UndoAction getUndoAction() {
+        return undoAction;
+    }
+
+    public RedoAction getRedoAction() {
+        return redoAction;
     }
 
     public ChangeToolAction getAddSlideElementsAction() {
