@@ -18,12 +18,23 @@ public class Workspace extends GraffNodeComposite {
     }
 
     public void openProject(Project project) {
-        if (isChildNameTaken(project.getName())) {
-            project.setName("Novi " + project.getName());
-        }
-
+        project.setName(getDefaultName());
         getChildren().add(project);
         project.setParent(this);
         notifySubscribers(new ModelUpdate(UpdateType.PROJECT_OPENED, project));
+    }
+
+    private String getDefaultName() {
+        int index = 0;
+        for (GraffNode child : getChildren()) {
+            if (child.getName().matches("Projekat \\d+")){
+                String[] parts = child.getName().split(" ");
+                if (Integer.parseInt(parts[1]) > index){
+                    index = Integer.parseInt(parts[1]);
+                }
+            }
+        }
+
+        return "Projekat " + (index + 1);
     }
 }
