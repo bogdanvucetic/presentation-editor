@@ -50,7 +50,7 @@ public class MoveState extends State {
     private SlideElement getElementUnderPoint(Point p, Set<SlideElement> selected) {
         // Ako ima više selektovanih, uzmi prvi na koji si kliknula
         for (SlideElement el : selected) {
-            Rectangle r = new Rectangle(el.getXCoordinate(), el.getYCoordinate(), el.getWidth(), el.getHeight());
+            Rectangle r = new Rectangle(el.getXCoordinate(), el.getYCoordinate(), el.getXCoordinate() + el.getWidth(), el.getYCoordinate() + el.getHeight());
             if (r.contains(p)) {
                 return el;
             }
