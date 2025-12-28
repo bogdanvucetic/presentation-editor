@@ -16,7 +16,8 @@ public class MyToolBar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getDeleteNodeAction());
         add(MainFrame.getInstance().getActionManager().getChangeProjectTitleAction());
         add(MainFrame.getInstance().getActionManager().getLoadImageAction());
-        add(MainFrame.getInstance().getActionManager().getRotateSlideElementsAction());
+        add(MainFrame.getInstance().getActionManager().getRotateLeftAction());
+        add(MainFrame.getInstance().getActionManager().getRotateRightAction());
 
         add(Box.createHorizontalGlue());
         JPanel selectorsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
