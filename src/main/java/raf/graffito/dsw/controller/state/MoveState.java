@@ -2,8 +2,8 @@ package raf.graffito.dsw.controller.state;
 
 
 import raf.graffito.dsw.controller.commands.MoveCommand;
-import raf.graffito.dsw.gui.swing.view.SlideView;
-import raf.graffito.dsw.model.composite.SlideElement;
+import raf.graffito.dsw.gui.swing.frames.SlideView;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -46,7 +46,6 @@ public class MoveState extends State {
         }
 
         lastPoint = current;
-        sv.repaint();
     }
     @Override
     public void mouseReleased(MouseEvent e) {

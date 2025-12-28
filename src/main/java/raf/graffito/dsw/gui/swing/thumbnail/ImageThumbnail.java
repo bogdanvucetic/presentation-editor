@@ -1,8 +1,7 @@
 package raf.graffito.dsw.gui.swing.thumbnail;
 
 import raf.graffito.dsw.controller.listeners.ThumbnailListener;
-import raf.graffito.dsw.gui.swing.proxy.ImageData;
-import raf.graffito.dsw.gui.swing.proxy.ImageProxy;
+import raf.graffito.dsw.services.proxy.ImageProxy;
 
 import javax.swing.*;
 import java.awt.*;

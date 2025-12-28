@@ -1,12 +1,11 @@
 package raf.graffito.dsw.utils;
 
-import raf.graffito.dsw.gui.swing.view.MainFrame;
+import raf.graffito.dsw.gui.swing.frames.MainFrame;
 import raf.graffito.dsw.model.factory.GraffNodeFactory;
 import raf.graffito.dsw.model.factory.PresentationFactory;
 import raf.graffito.dsw.model.factory.SlideFactory;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 public class ChildTypePicker {
     public static GraffNodeFactory pickProjectChild(){

@@ -1,8 +1,11 @@
 package raf.graffito.dsw.model.composite;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import raf.graffito.dsw.services.events.model.ModelUpdate;
+import raf.graffito.dsw.services.events.model.UpdateSubscriber;
+import raf.graffito.dsw.services.events.model.UpdateType;
 
-public class Project extends GraffNodeComposite {
+public class Project extends GraffNodeComposite implements UpdateSubscriber {
     private String title;
     private int totalNumberOfSlides;
     @JsonIgnore
@@ -26,12 +29,11 @@ public class Project extends GraffNodeComposite {
         }
 
         super.addChild(child);
+        child.addSubscriber(this);
 
         if (child instanceof Slide) {
             incrementNumberOfSlides();
         }
-
-        markAsChanged();
     }
 
     @Override
@@ -41,16 +43,11 @@ public class Project extends GraffNodeComposite {
         }
 
         super.removeChild(child);
-        markAsChanged();
+        child.removeSubscriber(this);
     }
 
     public void incrementNumberOfSlides(){
         totalNumberOfSlides++;
-        markAsChanged();
-    }
-
-    public void markAsChanged() {
-        this.changed = true;
     }
 
     public boolean isChanged() {
@@ -67,7 +64,7 @@ public class Project extends GraffNodeComposite {
 
     public void setTitle(String title) {
         this.title = title;
-        markAsChanged();
+        notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
     }
 
     public int getTotalNumberOfSlides() {
@@ -76,5 +73,18 @@ public class Project extends GraffNodeComposite {
 
     public void setTotalNumberOfSlides(int totalNumberOfSlides) {
         this.totalNumberOfSlides = totalNumberOfSlides;
+    }
+
+    @Override
+    public void update(ModelUpdate event) {
+        UpdateType type = event.getType();
+        GraffNode node = event.getNode();
+
+        switch (type) {
+            case CHILD_ADDED -> node.addSubscriber(this);
+            case CHILD_REMOVED -> node.removeSubscriber(this);
+        }
+
+        changed = true;
     }
 }

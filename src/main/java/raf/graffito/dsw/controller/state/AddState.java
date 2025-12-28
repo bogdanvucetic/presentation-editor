@@ -2,14 +2,16 @@ package raf.graffito.dsw.controller.state;
 
 import raf.graffito.dsw.controller.commands.AddCommand;
 import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.gui.swing.proxy.ImageProxy;
+import raf.graffito.dsw.services.proxy.ImageProxy;
 import raf.graffito.dsw.gui.swing.thumbnail.ImageThumbnail;
 import raf.graffito.dsw.gui.swing.thumbnail.LogoThumbnail;
-import raf.graffito.dsw.gui.swing.view.SlideView;
+import raf.graffito.dsw.gui.swing.frames.SlideView;
 import raf.graffito.dsw.model.composite.*;
-import raf.graffito.dsw.model.composite.Image;
-import raf.graffito.dsw.model.composite.Label;
-import raf.graffito.dsw.observer.message.MessageType;
+import raf.graffito.dsw.model.composite.elements.Image;
+import raf.graffito.dsw.model.composite.elements.Label;
+import raf.graffito.dsw.model.composite.elements.Logo;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
+import raf.graffito.dsw.services.events.message.MessageType;
 
 import javax.swing.*;
 import java.awt.*;

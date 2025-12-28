@@ -1,6 +1,6 @@
 package raf.graffito.dsw.gui.swing.painter;
 
-import raf.graffito.dsw.model.composite.Label;
+import raf.graffito.dsw.model.composite.elements.Label;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -22,8 +22,10 @@ public class LabelPainter {
         int textWidth = fm.stringWidth(label.getText());
         int textHeight = fm.getHeight();
 
-        label.setWidth(textWidth);
-        label.setHeight(textHeight);
+        if (label.getWidth() != textWidth || label.getHeight() != textHeight) {
+            label.setWidth(textWidth);
+            label.setHeight(textHeight);
+        }
 
         int baselineY = yTop + fm.getAscent();
         //  ROTACIJA OKO CENTRA TEKSTA

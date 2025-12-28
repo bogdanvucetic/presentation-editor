@@ -1,6 +1,6 @@
 package raf.graffito.dsw.gui.swing.painter;
 
-import raf.graffito.dsw.model.composite.Logo;
+import raf.graffito.dsw.model.composite.elements.Logo;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

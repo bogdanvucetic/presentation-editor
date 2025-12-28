@@ -2,14 +2,14 @@ package raf.graffito.dsw.controller.listeners;
 
 import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.gui.swing.tree.GraffTreeElem;
-import raf.graffito.dsw.gui.swing.view.MainFrame;
-import raf.graffito.dsw.gui.swing.view.ProjectView;
+import raf.graffito.dsw.gui.swing.frames.MainFrame;
+import raf.graffito.dsw.gui.swing.frames.ProjectView;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Project;
-import raf.graffito.dsw.model.composite.SlideElement;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
 import raf.graffito.dsw.model.decorator.ColorDecorator;
 import raf.graffito.dsw.model.decorator.DecoratorRepository;
-import raf.graffito.dsw.observer.message.MessageType;
+import raf.graffito.dsw.services.events.message.MessageType;
 
 import javax.swing.*;
 import javax.swing.tree.TreePath;

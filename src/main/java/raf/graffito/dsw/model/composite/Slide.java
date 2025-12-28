@@ -1,11 +1,12 @@
 package raf.graffito.dsw.model.composite;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
 
 import java.awt.*;
 
 public class Slide extends GraffNodeComposite {
-    private static final Dimension resolution = new Dimension(1600, 900);
+    private static final Dimension RESOLUTION = new Dimension(1600, 900);
 
     public Slide() {}
 
@@ -24,6 +25,6 @@ public class Slide extends GraffNodeComposite {
 
     @JsonIgnore
     public Dimension getResolution() {
-        return resolution;
+        return RESOLUTION;
     }
 }

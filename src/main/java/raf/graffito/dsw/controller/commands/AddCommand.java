@@ -1,7 +1,7 @@
 package raf.graffito.dsw.controller.commands;
 
 import raf.graffito.dsw.model.composite.Slide;
-import raf.graffito.dsw.model.composite.SlideElement;
+import raf.graffito.dsw.model.composite.elements.SlideElement;
 
 import java.util.ArrayList;
 import java.util.List;

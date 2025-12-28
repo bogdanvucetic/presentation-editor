@@ -1,6 +1,6 @@
 package raf.graffito.dsw.controller.listeners;
 
-import raf.graffito.dsw.mediator.WindowModeMediator;
+import raf.graffito.dsw.services.mediator.WindowModeMediator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
