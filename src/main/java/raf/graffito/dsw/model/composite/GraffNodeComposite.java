@@ -1,7 +1,7 @@
 package raf.graffito.dsw.model.composite;
 
-import raf.graffito.dsw.observer.model.ModelEvent;
-import raf.graffito.dsw.observer.model.ModelEventType;
+import raf.graffito.dsw.observer.model.ModelUpdate;
+import raf.graffito.dsw.observer.model.UpdateType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +41,14 @@ public abstract class GraffNodeComposite extends GraffNode {
 
         children.add(child);
         child.setParent(this);
-        notifySubscribers(new ModelEvent(ModelEventType.ADD_CHILD, child));
+        notifySubscribers(new ModelUpdate(UpdateType.CHILD_ADDED, child));
         markProjectAsChanged();
     }
 
     public void removeChild(GraffNode child) {
         children.remove(child);
         child.setParent(null);
-        notifySubscribers(new ModelEvent(ModelEventType.REMOVE_CHILD, child));
+        notifySubscribers(new ModelUpdate(UpdateType.CHILD_REMOVED, child));
         markProjectAsChanged();
     }
 

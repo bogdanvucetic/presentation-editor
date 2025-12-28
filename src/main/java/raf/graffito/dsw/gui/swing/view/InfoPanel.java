@@ -6,14 +6,14 @@ import raf.graffito.dsw.core.ApplicationFramework;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
-import raf.graffito.dsw.observer.model.ModelSubscriber;
-import raf.graffito.dsw.observer.model.ModelEvent;
-import raf.graffito.dsw.observer.model.ModelEventType;
+import raf.graffito.dsw.observer.model.UpdateSubscriber;
+import raf.graffito.dsw.observer.model.ModelUpdate;
+import raf.graffito.dsw.observer.model.UpdateType;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class InfoPanel extends JPanel implements ModelSubscriber {
+public class InfoPanel extends JPanel implements UpdateSubscriber {
     private Project project;
     private Presentation presentation;
     private JLabel projectLabel = new JLabel("-");
@@ -80,13 +80,13 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
     }
 
     @Override
-    public void update(ModelEvent event) {
+    public void update(ModelUpdate event) {
         GraffNode node = event.getNode();
-        ModelEventType type = event.getType();
+        UpdateType type = event.getType();
 
         switch (type) {
-            case ADD_CHILD -> { }
-            case REMOVE_CHILD -> {
+            case CHILD_ADDED -> { }
+            case CHILD_REMOVED -> {
                 if (node == project) {
                     setProject(null);
                     setPresentation(null);
@@ -95,7 +95,7 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
                 else if (node == presentation) {
                     setPresentation(null);
                 }
-            } case RENAME -> {
+            } case RENAMED -> {
                 if (node == project) {
                     projectLabel.setText(project.getName());
                 }
@@ -103,7 +103,7 @@ public class InfoPanel extends JPanel implements ModelSubscriber {
                 else if (node == presentation) {
                     presentationLabel.setText(presentation.getName());
                 }
-            } case OPEN_PROJECT -> {}
+            } case PROJECT_OPENED, PROPERTY_UPDATED -> {}
         }
     }
 

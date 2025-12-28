@@ -1,9 +1,7 @@
 package raf.graffito.dsw.model.composite;
 
-import raf.graffito.dsw.core.ApplicationFramework;
-import raf.graffito.dsw.observer.message.MessageType;
-import raf.graffito.dsw.observer.model.ModelEvent;
-import raf.graffito.dsw.observer.model.ModelEventType;
+import raf.graffito.dsw.observer.model.ModelUpdate;
+import raf.graffito.dsw.observer.model.UpdateType;
 
 public class Workspace extends GraffNodeComposite {
     public Workspace(String name) {
@@ -26,6 +24,6 @@ public class Workspace extends GraffNodeComposite {
 
         getChildren().add(project);
         project.setParent(this);
-        notifySubscribers(new ModelEvent(ModelEventType.OPEN_PROJECT, project));
+        notifySubscribers(new ModelUpdate(UpdateType.PROJECT_OPENED, project));
     }
 }

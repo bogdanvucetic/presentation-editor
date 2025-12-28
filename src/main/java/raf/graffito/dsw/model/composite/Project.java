@@ -1,6 +1,8 @@
 package raf.graffito.dsw.model.composite;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import raf.graffito.dsw.observer.model.ModelUpdate;
+import raf.graffito.dsw.observer.model.UpdateType;
 
 public class Project extends GraffNodeComposite {
     private String title;
@@ -67,6 +69,7 @@ public class Project extends GraffNodeComposite {
 
     public void setTitle(String title) {
         this.title = title;
+        notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
         markAsChanged();
     }
 

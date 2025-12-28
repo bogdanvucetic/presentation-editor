@@ -13,7 +13,5 @@ public class RotateState extends State {
 
         RotateCommand command = new RotateCommand(context.getCurrentSlideView().getSlide(), context.getSelectedElements(), -90);
         context.execute(command);
-
-        context.getCurrentSlideView().repaint();
     }
 }

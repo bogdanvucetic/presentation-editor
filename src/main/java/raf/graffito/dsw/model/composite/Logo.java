@@ -1,5 +1,8 @@
 package raf.graffito.dsw.model.composite;
 
+import raf.graffito.dsw.observer.model.ModelUpdate;
+import raf.graffito.dsw.observer.model.UpdateType;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -33,13 +36,13 @@ public class Logo extends SlideElement {
         return points;
     }
 
-    public static int getDefaultColorRGB() {
-        return Color.BLUE.getRGB();
-    }
-
     @Override
     public SlideElement clone() {
         return new Logo(this);
+    }
+
+    public static int getDefaultColorRGB() {
+        return Color.BLUE.getRGB();
     }
 
     public List<Point2D.Double> getPoints() {
@@ -48,6 +51,7 @@ public class Logo extends SlideElement {
 
     public void setPoints(List<Point2D.Double> points) {
         this.points = points;
+        notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
         markProjectAsChanged();
     }
 
@@ -57,6 +61,7 @@ public class Logo extends SlideElement {
 
     public void setColorRGB(int colorRGB) {
         this.colorRGB = colorRGB;
+        notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
         markProjectAsChanged();
     }
 }

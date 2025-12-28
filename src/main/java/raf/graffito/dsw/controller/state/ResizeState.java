@@ -63,7 +63,6 @@ public class ResizeState extends State {
         }
 
         lastPoint = current;
-        sv.repaint();
     }
     @Override
     public void mouseReleased(MouseEvent e) {

@@ -2,16 +2,16 @@ package raf.graffito.dsw.observer.model;
 
 import raf.graffito.dsw.model.composite.GraffNode;
 
-public class ModelEvent {
-    private ModelEventType type;
+public class ModelUpdate {
+    private UpdateType type;
     private GraffNode node;
 
-    public ModelEvent(ModelEventType type, GraffNode node) {
+    public ModelUpdate(UpdateType type, GraffNode node) {
         this.type = type;
         this.node = node;
     }
 
-    public ModelEventType getType() {
+    public UpdateType getType() {
         return type;
     }
 

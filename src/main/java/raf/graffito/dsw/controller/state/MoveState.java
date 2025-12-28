@@ -46,7 +46,6 @@ public class MoveState extends State {
         }
 
         lastPoint = current;
-        sv.repaint();
     }
     @Override
     public void mouseReleased(MouseEvent e) {

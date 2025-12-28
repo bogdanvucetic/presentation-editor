@@ -1,8 +1,8 @@
 package raf.graffito.dsw.gui.swing.tree;
 
 import raf.graffito.dsw.model.composite.*;
-import raf.graffito.dsw.observer.model.ModelEvent;
-import raf.graffito.dsw.observer.model.ModelEventType;
+import raf.graffito.dsw.observer.model.ModelUpdate;
+import raf.graffito.dsw.observer.model.UpdateType;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -39,33 +39,33 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
     }
 
     @Override
-    public void update(ModelEvent event) {
-        ModelEventType type = event.getType();
+    public void update(ModelUpdate event) {
+        UpdateType type = event.getType();
         GraffNode node = event.getNode();
 
         switch (type) {
-            case ADD_CHILD -> {
+            case CHILD_ADDED -> {
                 GraffTreeElem parentElem = findTreeElemFor(node.getParent());
 
                 if (parentElem != null) {
                     addChildToTree(parentElem, node);
                 }
             }
-            case REMOVE_CHILD -> {
+            case CHILD_REMOVED -> {
                 GraffTreeElem nodeElem = findTreeElemFor(node);
 
                 if (nodeElem != null) {
                     removeNodeFromTree(nodeElem);
                 }
             }
-            case RENAME -> {
+            case RENAMED -> {
                 GraffTreeElem nodeElem = findTreeElemFor(node);
 
                 if (nodeElem != null) {
                     treeModel.nodeChanged(nodeElem);
                 }
             }
-            case OPEN_PROJECT -> {
+            case PROJECT_OPENED -> {
                 GraffTreeElem parentElem = findTreeElemFor(node.getParent());
 
                 if (parentElem == null) {
@@ -77,6 +77,7 @@ public class GraffTreeImplementation extends JTree implements GraffTree {
 
                 treeModel.reload(parentElem);
             }
+            case PROPERTY_UPDATED -> { }
         }
     }
 

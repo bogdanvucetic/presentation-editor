@@ -3,10 +3,10 @@ package raf.graffito.dsw.model.composite;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import raf.graffito.dsw.observer.model.ModelEvent;
-import raf.graffito.dsw.observer.model.ModelEventType;
-import raf.graffito.dsw.observer.model.ModelPublisher;
-import raf.graffito.dsw.observer.model.ModelSubscriber;
+import raf.graffito.dsw.observer.model.ModelUpdate;
+import raf.graffito.dsw.observer.model.UpdateType;
+import raf.graffito.dsw.observer.model.UpdatePublisher;
+import raf.graffito.dsw.observer.model.UpdateSubscriber;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,12 +26,12 @@ import java.util.List;
         @JsonSubTypes.Type(value = raf.graffito.dsw.model.composite.Image.class, name = "image"),
 })
 
-public abstract class GraffNode implements ModelPublisher {
+public abstract class GraffNode implements UpdatePublisher {
     @JsonIgnore
     private GraffNode parent;
     private String name;
     @JsonIgnore
-    private List<ModelSubscriber> subscribers;
+    private List<UpdateSubscriber> subscribers;
 
     public GraffNode() {
         subscribers = new LinkedList<>();
@@ -51,18 +51,18 @@ public abstract class GraffNode implements ModelPublisher {
     }
 
     @Override
-    public void addSubscriber(ModelSubscriber subscriber) {
+    public void addSubscriber(UpdateSubscriber subscriber) {
         subscribers.add(subscriber);
     }
 
     @Override
-    public void removeSubscriber(ModelSubscriber subscriber) {
+    public void removeSubscriber(UpdateSubscriber subscriber) {
         subscribers.remove(subscriber);
     }
 
     @Override
-    public void notifySubscribers(ModelEvent event) {
-        for (ModelSubscriber s : subscribers) {
+    public void notifySubscribers(ModelUpdate event) {
+        for (UpdateSubscriber s : subscribers) {
             s.update(event);
         }
     }
@@ -79,7 +79,7 @@ public abstract class GraffNode implements ModelPublisher {
         }
 
         this.name = name;
-        notifySubscribers(new ModelEvent(ModelEventType.RENAME, this));
+        notifySubscribers(new ModelUpdate(UpdateType.RENAMED, this));
         markProjectAsChanged();
     }
 

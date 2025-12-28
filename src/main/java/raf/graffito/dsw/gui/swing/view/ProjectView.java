@@ -6,16 +6,15 @@ import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Project;
 import raf.graffito.dsw.model.composite.Slide;
-import raf.graffito.dsw.observer.model.ModelEventType;
-import raf.graffito.dsw.observer.model.ModelSubscriber;
-import raf.graffito.dsw.observer.model.ModelEvent;
+import raf.graffito.dsw.observer.model.UpdateType;
+import raf.graffito.dsw.observer.model.UpdateSubscriber;
+import raf.graffito.dsw.observer.model.ModelUpdate;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.util.List;
 
-public class ProjectView extends JPanel implements ModelSubscriber {
+public class ProjectView extends JPanel implements UpdateSubscriber {
     private Project project;
     private Color tabColor;
     private JTabbedPane tabs;
@@ -54,7 +53,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
         add(tabs, BorderLayout.CENTER);
 
         // neophodno da bi se pri inicijalnom postavljanju lepo apdejtovao desni panel i postavio trenutno otvoreni slideView
-        tabListener.stateChanged(new ChangeEvent(tabs));
+        tabListener.stateChanged(new javax.swing.event.ChangeEvent(tabs));
     }
 
     public SlideView getDisplayedSlideView() {
@@ -86,12 +85,12 @@ public class ProjectView extends JPanel implements ModelSubscriber {
     }
 
     @Override
-    public void update(ModelEvent event) {
+    public void update(ModelUpdate event) {
         GraffNode node = event.getNode();
-        ModelEventType type = event.getType();
+        UpdateType type = event.getType();
 
         switch (type) {
-            case ADD_CHILD -> {
+            case CHILD_ADDED -> {
                 if (node instanceof Presentation p) {
                     p.addSubscriber(this);
                     tabs.add(p.getName(), new PresentationView(p));
@@ -100,7 +99,7 @@ public class ProjectView extends JPanel implements ModelSubscriber {
                     tabs.add(s.getName(), new SlideView(s));
                 }
             }
-            case REMOVE_CHILD -> {
+            case CHILD_REMOVED -> {
                 if (node == project) {
                     tabs.removeAll();
                     project = null;
@@ -108,12 +107,12 @@ public class ProjectView extends JPanel implements ModelSubscriber {
                     removeNodeTab(node);
                 }
             }
-            case RENAME -> {
+            case RENAMED -> {
                 if (node instanceof Presentation || node instanceof Slide) {
                     renameNodeTab(node);
                 }
             }
-            case OPEN_PROJECT -> {}
+            case PROJECT_OPENED, PROPERTY_UPDATED -> {}
         }
     }
 

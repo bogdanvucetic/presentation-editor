@@ -4,14 +4,14 @@ import raf.graffito.dsw.controller.EditorContext;
 import raf.graffito.dsw.model.composite.GraffNode;
 import raf.graffito.dsw.model.composite.Presentation;
 import raf.graffito.dsw.model.composite.Slide;
-import raf.graffito.dsw.observer.model.ModelEventType;
-import raf.graffito.dsw.observer.model.ModelSubscriber;
-import raf.graffito.dsw.observer.model.ModelEvent;
+import raf.graffito.dsw.observer.model.UpdateType;
+import raf.graffito.dsw.observer.model.UpdateSubscriber;
+import raf.graffito.dsw.observer.model.ModelUpdate;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PresentationView extends JPanel implements ModelSubscriber {
+public class PresentationView extends JPanel implements UpdateSubscriber {
     private Presentation presentation;
     private SlideView currentSlideView;
 
@@ -46,17 +46,17 @@ public class PresentationView extends JPanel implements ModelSubscriber {
     }
 
     @Override
-    public void update(ModelEvent event) {
-        ModelEventType type = event.getType();
+    public void update(ModelUpdate event) {
+        UpdateType type = event.getType();
         GraffNode node = event.getNode();
 
         switch (type) {
-            case ADD_CHILD -> {
+            case CHILD_ADDED -> {
                 if (node.getParent() == presentation) {
                     setSelectedSlide((Slide) node);
                 }
             }
-            case REMOVE_CHILD -> {
+            case CHILD_REMOVED -> {
                 if (currentSlideView != null && currentSlideView.getSlide() == node) {
                     if (presentation.getChildren().isEmpty()) {
                         setSelectedSlide(null);
@@ -65,7 +65,7 @@ public class PresentationView extends JPanel implements ModelSubscriber {
                     }
                 }
             }
-            case RENAME, OPEN_PROJECT -> {}
+            case RENAMED, PROJECT_OPENED, PROPERTY_UPDATED -> {}
         }
     }
 

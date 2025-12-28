@@ -8,15 +8,15 @@ import raf.graffito.dsw.gui.swing.painter.LogoPainter;
 import raf.graffito.dsw.model.composite.*;
 import raf.graffito.dsw.model.composite.Image;
 import raf.graffito.dsw.model.composite.Label;
-import raf.graffito.dsw.observer.model.ModelEvent;
-import raf.graffito.dsw.observer.model.ModelEventType;
-import raf.graffito.dsw.observer.model.ModelSubscriber;
+import raf.graffito.dsw.observer.model.ModelUpdate;
+import raf.graffito.dsw.observer.model.UpdateType;
+import raf.graffito.dsw.observer.model.UpdateSubscriber;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Set;
 
-public class SlideView extends JComponent implements ModelSubscriber {
+public class SlideView extends JComponent implements UpdateSubscriber {
     private Slide slide;
 
     private static final int hPadding = 2;
@@ -178,18 +178,18 @@ public class SlideView extends JComponent implements ModelSubscriber {
     }
 
     @Override
-    public void update(ModelEvent event) {
-        ModelEventType type = event.getType();
+    public void update(ModelUpdate event) {
+        UpdateType type = event.getType();
         GraffNode node = event.getNode();
 
         switch (type) {
-            case ADD_CHILD -> {
+            case CHILD_ADDED -> {
                 node.addSubscriber(this);
             }
-            case REMOVE_CHILD -> {
+            case CHILD_REMOVED -> {
                 node.removeSubscriber(this);
             }
-            case RENAME, OPEN_PROJECT -> { }
+            case RENAMED, PROJECT_OPENED, PROPERTY_UPDATED -> { }
         }
 
         repaint();
