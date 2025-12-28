@@ -41,6 +41,10 @@ public class EditorContext {
             Command command = history.pop();
             command.undo();
             redoStack.push(command);
+
+            if (currentSlideView != null) {
+                currentSlideView.repaint();
+            }
         } else {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nema akcija za Undo", MessageType.ERROR);
         }
@@ -51,6 +55,10 @@ public class EditorContext {
             Command command = redoStack.pop();
             command.execute();
             history.push(command);
+
+            if (currentSlideView != null) {
+                currentSlideView.repaint();
+            }
         } else {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Nema akcija za Redo", MessageType.ERROR);
         }
