@@ -1,24 +1,19 @@
 package raf.graffito.dsw.controller.state;
 
+import raf.graffito.dsw.controller.commands.RotateCommand;
 import raf.graffito.dsw.model.composite.SlideElement;
 
 import java.awt.event.MouseEvent;
 
 public class RotateState extends State {
     @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    public void onEnter() {
         if (context.getSelectedElements().isEmpty()) return;
+        if (context.getCurrentSlideView() == null) return;
 
-        for (SlideElement element : context.getSelectedElements()) {
-            element.rotateLeft();
-        }
+        RotateCommand command = new RotateCommand(context.getCurrentSlideView().getSlide(), context.getSelectedElements(), -90);
+        context.execute(command);
 
-        if (context.getCurrentSlideView() != null) {
-            context.getCurrentSlideView().repaint();
-        }
+        context.getCurrentSlideView().repaint();
     }
 }

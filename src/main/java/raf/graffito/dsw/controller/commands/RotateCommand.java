@@ -3,16 +3,16 @@ package raf.graffito.dsw.controller.commands;
 import raf.graffito.dsw.model.composite.Slide;
 import raf.graffito.dsw.model.composite.SlideElement;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class RotateCommand extends Command {
-    private List<SlideElement> elements;
+    private Set<SlideElement> elements;
     private double deltaAngle;
 
-    public RotateCommand(Slide slide, List<SlideElement> elements, double deltaAngle) {
+    public RotateCommand(Slide slide, Set<SlideElement> elements, double deltaAngle) {
         super(slide);
-        this.elements = new ArrayList<>(elements);
+        this.elements = new HashSet<>(elements);
         this.deltaAngle = deltaAngle;
     }
 
