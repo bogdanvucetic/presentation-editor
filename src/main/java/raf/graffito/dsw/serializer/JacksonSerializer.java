@@ -10,6 +10,7 @@ import raf.graffito.dsw.observer.message.MessageType;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class JacksonSerializer implements Serializer {
     private final ObjectMapper mapper;
@@ -25,6 +26,7 @@ public class JacksonSerializer implements Serializer {
         try {
             Project p = mapper.readValue(file, Project.class);
             relinkParents(p);
+            subscribeProjectToChildren(p, p.getChildren());
             return p;
         } catch (IOException e) {
             ApplicationFramework.getInstance().getMessageGenerator().createMessage("Neuspešno otvaranje projekta: " + e.getMessage(), MessageType.ERROR);
@@ -48,6 +50,16 @@ public class JacksonSerializer implements Serializer {
                 child.setParent(node);
                 relinkParents(child);
             }
+        }
+    }
+
+    private void subscribeProjectToChildren(Project project, List<GraffNode> children) {
+        for (GraffNode child : children) {
+            if (child instanceof GraffNodeComposite composite) {
+                subscribeProjectToChildren(project, composite.getChildren());
+            }
+
+            child.addSubscriber(project);
         }
     }
 }

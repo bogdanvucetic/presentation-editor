@@ -44,7 +44,6 @@ public class Label extends SlideElement {
     public void setText(String text) {
         this.text = text;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 
     public String getFontName() {
@@ -54,7 +53,6 @@ public class Label extends SlideElement {
     public void setFontName(String fontName) {
         this.fontName = fontName;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 
     public int getFontStyle() {
@@ -64,7 +62,6 @@ public class Label extends SlideElement {
     public void setFontStyle(int fontStyle) {
         this.fontStyle = fontStyle;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 
     public int getFontSize() {
@@ -74,7 +71,6 @@ public class Label extends SlideElement {
     public void setFontSize(int fontSize) {
         this.fontSize = Math.max(8, fontSize);
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 
     public int getColorRGB() {
@@ -84,6 +80,5 @@ public class Label extends SlideElement {
     public void setColorRGB(int colorRGB) {
         this.colorRGB = colorRGB;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 }

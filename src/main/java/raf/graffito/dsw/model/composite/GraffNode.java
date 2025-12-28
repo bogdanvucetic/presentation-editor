@@ -80,18 +80,6 @@ public abstract class GraffNode implements UpdatePublisher {
 
         this.name = name;
         notifySubscribers(new ModelUpdate(UpdateType.RENAMED, this));
-        markProjectAsChanged();
-    }
-
-    protected void markProjectAsChanged() {
-        GraffNode current = this;
-        while (current != null && !(current instanceof Project)) {
-            current = current.getParent();
-        }
-
-        if (current instanceof Project proj) {
-            proj.markAsChanged();
-        }
     }
 
     public GraffNode getParent() {

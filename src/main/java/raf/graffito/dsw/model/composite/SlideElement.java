@@ -68,7 +68,6 @@ public abstract class SlideElement extends GraffNode {
 
     public void setXCoordinate(int xCoordinate) {
         this.xCoordinate = xCoordinate;
-        markProjectAsChanged();
     }
 
     public int getYCoordinate() {
@@ -77,7 +76,6 @@ public abstract class SlideElement extends GraffNode {
 
     public void setYCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
-        markProjectAsChanged();
     }
 
     public int getWidth() {
@@ -87,7 +85,6 @@ public abstract class SlideElement extends GraffNode {
     public void setWidth(int width) {
         this.width = width;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 
     public int getHeight() {
@@ -97,7 +94,6 @@ public abstract class SlideElement extends GraffNode {
     public void setHeight(int height) {
         this.height = height;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 
     public double getRotationAngle() {
@@ -108,19 +104,16 @@ public abstract class SlideElement extends GraffNode {
         this.xCoordinate += dx;
         this.yCoordinate += dy;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 
     public void rotateLeft() {
         rotationAngle -= 90;
         rotationAngle = (rotationAngle % 360 + 360) % 360;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 
     public void setRotationAngle(double rotationAngle) {
         this.rotationAngle = rotationAngle;
         notifySubscribers(new ModelUpdate(UpdateType.PROPERTY_UPDATED, this));
-        markProjectAsChanged();
     }
 }

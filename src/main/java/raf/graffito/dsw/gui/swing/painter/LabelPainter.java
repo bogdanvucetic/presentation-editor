@@ -22,9 +22,6 @@ public class LabelPainter {
         int textWidth = fm.stringWidth(label.getText());
         int textHeight = fm.getHeight();
 
-        label.setWidth(textWidth);
-        label.setHeight(textHeight);
-
         int baselineY = yTop + fm.getAscent();
         //  ROTACIJA OKO CENTRA TEKSTA
         double angle = Math.toRadians(label.getRotationAngle());

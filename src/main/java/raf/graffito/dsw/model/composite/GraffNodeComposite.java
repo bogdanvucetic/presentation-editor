@@ -42,14 +42,12 @@ public abstract class GraffNodeComposite extends GraffNode {
         children.add(child);
         child.setParent(this);
         notifySubscribers(new ModelUpdate(UpdateType.CHILD_ADDED, child));
-        markProjectAsChanged();
     }
 
     public void removeChild(GraffNode child) {
         children.remove(child);
         child.setParent(null);
         notifySubscribers(new ModelUpdate(UpdateType.CHILD_REMOVED, child));
-        markProjectAsChanged();
     }
 
     public boolean isChildNameTaken(String name) {
