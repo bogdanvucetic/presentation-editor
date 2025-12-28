@@ -3,15 +3,15 @@ package raf.graffito.dsw.controller.commands;
 import raf.graffito.dsw.model.composite.Slide;
 import raf.graffito.dsw.model.composite.SlideElement;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DeleteCommand extends Command {
-    private List<SlideElement> elements;
+    private Set<SlideElement> elements;
 
-    public DeleteCommand(Slide slide, List<SlideElement> elements) {
+    public DeleteCommand(Slide slide, Set<SlideElement> elements) {
         super(slide);
-        this.elements = new ArrayList<>(elements);
+        this.elements = new HashSet<>(elements);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package raf.graffito.dsw.controller.state;
 
+import raf.graffito.dsw.controller.commands.DeleteCommand;
 import raf.graffito.dsw.gui.swing.view.MainFrame;
 import raf.graffito.dsw.model.composite.Slide;
 import raf.graffito.dsw.model.composite.SlideElement;
@@ -14,11 +15,14 @@ public class DeleteState extends State {
         }
 
         Set<SlideElement> selectedElements = context.getSelectedElements();
-        Slide slide = context.getCurrentSlideView().getSlide();
 
-        for (SlideElement element : selectedElements) {
-            slide.removeChild(element);
+        if (selectedElements.isEmpty()) {
+            context.changeState(MainFrame.getInstance().getActionManager().getSelectSlideElementsAction().getState());
+            return;
         }
+
+        DeleteCommand command = new DeleteCommand(context.getCurrentSlideView().getSlide(), selectedElements);
+        context.execute(command);
 
         context.clearSelectedElements();
         context.changeState(MainFrame.getInstance().getActionManager().getSelectSlideElementsAction().getState());
